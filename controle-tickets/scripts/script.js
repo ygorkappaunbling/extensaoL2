@@ -70,7 +70,9 @@ ControleTickets.prototype = {
 						'causa': $('#causa').val(),
 						'obs': $('#obs').val(),
 						'atendente': $('#nome_atendente').val(),
-						'classificacao_certa': ($('#classificacao_certa').is(':checked') ? 'Sim' : 'Não')
+						'classificacao_certa': ($('#classificacao_certa').is(':checked') ? 'Sim' : 'Não'),
+						'ticket_raiz': $('#ticket_raiz').val(),
+						'erro': $('#erro').val()
 					};
 
 					that.writeData(that.SHEET_ID, that.SHEET_NAME, data).done(function() {
@@ -274,7 +276,7 @@ ControleTickets.prototype = {
 	},
 
 	'clear': function() {
-		$.each(['nro_ticket', 'funcionalidade', 'data_abertura', 'causa', 'conclusao', 'nome_atendente'], function() {
+		$.each(['nro_ticket', 'funcionalidade', 'data_abertura', 'causa', 'conclusao', 'nome_atendente', 'ticket_raiz', 'erro'], function() {
 			$('#' + this).val('').parents('.group-item-form').removeClass('group-item-form-error');
 		});
 
