@@ -1,0 +1,42 @@
+{
+	"name": "Controle de tickets",
+	"version": "1.0",
+	"manifest_version": 3,
+	"description": "Extensão para registro detalhado de tickets",
+	"action": {
+		"default_popup": "index.html",
+		"default_title": "Controle de tickets"
+	},
+	"icons": {
+		"16": "icons/icon16.png",
+		"48": "icons/icon48.png",
+		"128": "icons/icon128.png"
+	},
+	"permissions": [
+		"tabs", "identity", "identity.email", "storage", "scripting"
+	],
+	"host_permissions": ["https://*.bling.com.br/suporte.php*"],
+	"background": {
+		"service_worker": "scripts/background.js"
+	},
+"key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuMU0EJOGy1mfKETEOkyIIb7Z+Gm/GhaUvtyXVqUEKqW7IT3nKEdybTId6OhFiNDuV9eCVJRG6zaiV9BNk1TozqnkAmxkgt6RkxR0BXty9L2IT2NtvwJBCBbIsZsDoFpeaPEJDyPzpA8Qg4G1V+2F+Emu4oWISze1TlfLIuiSETWHoi/ni5P+v87/6i7qhSiJ9A/6AhRp2wTBF6Eh5oAqPLkGONt662xKichBAABVHGUg9YCDwTsHH4pbkeojzkoclg+m2/jC9yRJUA/WTtkMPwqJhjDQVx1Fl2c1Wcie6hH4r2lp3URLSOfV8CnPDzeOg2ruIfLRv2Zatww++n562QIDAQAB",
+"oauth2": {
+	"client_id": "791760818029-be26rb8h5v0tdl9amho71u5d61h37mlo.apps.googleusercontent.com",
+	"scopes": [
+		"https://www.googleapis.com/auth/spreadsheets"
+	]
+},
+	"content_security_policy": {
+		"extension_pages": "script-src 'self'; object-src 'self'"
+	},
+	"web_accessible_resources": [
+		{
+			"resources": [
+				"data/*.json"
+			],
+			"matches": [
+				"*://*/*"
+			]
+		}
+	]
+}

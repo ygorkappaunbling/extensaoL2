@@ -1,0 +1,3750 @@
+{
+	"clientesFornecedor": {
+		"descricao": "Clientes e fornecedor",
+		"funcionalidades": [
+			"criacao",
+			"duplicidadeCPF",
+			"edicao",
+			"exclusaoRestauracao",
+			"importacaoExportacaoPlanilha",
+			"outros"
+		]
+	},
+	"listasPrecos": {
+		"descricao": "Listas de preços",
+		"funcionalidades": [
+			"edicao",
+			"exclusao",
+			"criacao",
+			"utilizacao",
+			"outros"
+		]
+	},
+	"produto": {
+		"descricao": "Produtos",
+		"funcionalidades": [
+			"alteracaoPrecos",
+			"camposCustomizados",
+			"parametros",
+			"categorias",
+			"edicao",
+			"exclusaoRestauracao",
+			"importacaoExportacaoPlanilha",
+			"criacao",
+			"grupoProduto",
+			"linhaProduto",
+			"filtroListagem",
+			"composicao",
+			"tag",
+			"variacao",
+			"outros"
+		]
+	},
+	"vendedores": {
+		"descricao": "Vendedores",
+		"funcionalidades": [
+			"comissoes",
+			"edicao",
+			"exclusao",
+			"criacao",
+			"outros",
+			"permissoes"
+		]
+	},
+	"conferencia": {
+		"descricao": "Conferência de estoque",
+		"funcionalidades": [
+			"leituraItens",
+			"geracaoBalanco",
+			"outros"
+		]
+	},
+	"controleEstoque": {
+		"descricao": "Controle de estoue",
+		"funcionalidades": [
+			"depositos",
+			"importacaoExportacaoPlanilha",
+			"lancamentoEstoque",
+			"outros",
+			"parametros",
+			"reservaEstoque",
+			"transferenciaDepositos"
+		]
+	},
+	"ordemProducao": {
+		"descricao": "Ordem de produção",
+		"funcionalidades": [
+			"inclusao",
+			"exclusao",
+			"edicao",
+			"outros",
+			"listagem",
+			"impressao"
+		]
+	},
+	"frenteCaixa": {
+		"descricao": "Frente de caixa",
+		"funcionalidades": [
+			"balancaComercial",
+			"controleCaixa",
+			"parametros",
+			"edicao",
+			"exclusao",
+			"inclusao",
+			"outros",
+			"geracaoDevolucao"
+		]
+	},
+	"propostaComerical": {
+		"descricao": "Proposta comercial",
+		"funcionalidades": [
+			"inclusao",
+			"edicao",
+			"exclusao",
+			"geracaoOS",
+			"geracaoVenda",
+			"impressao",
+			"modeloProposta",
+			"outros"
+		]
+	},
+	"pedidoVenda": {
+		"descricao": "Pedido de venda",
+		"funcionalidades": [
+			"categoriasReceitaDespesa",
+			"edicao",
+			"exclusao",
+			"exportarPlanilha",
+			"geracaoNFe",
+			"geracaoOS",
+			"impressao",
+			"inclusao",
+			"lancamentoEstornoContas",
+			"lancamentoEstornoEstoques",
+			"filtroListagem",
+			"geracaoOP",
+			"outros",
+			"parametros",
+			"relatorios"
+		]
+	},
+	"pedidoCompra": {
+		"descricao": "Pedido de compra",
+		"funcionalidades": [
+			"criacao",
+			"edicao",
+			"exclusao",
+			"exportarPlanilha",
+			"gerarNF",
+			"imprimirEtiquetas",
+			"lancamentoEstornoContas",
+			"lancamentoEstornoEstoques",
+			"outros",
+			"relatorios"
+		]
+	},
+	"checkout": {
+		"descricao": "Checkout de pedidos de venda",
+		"funcionalidades": [
+			"leituraItens",
+			"geracao",
+			"filtroListagem",
+			"outros"
+		]
+	},
+	"usuarioSistema": {
+		"descricao": "Usuário do sistema",
+		"funcionalidades": [
+			"edicao",
+			"exclusao",
+			"criacao",
+			"permissoes",
+			"alteracaoDados",
+			"outros"
+		]
+	},
+	"usuarioAPI": {
+		"descricao": "Usuário API",
+		"funcionalidades": [
+			"edicao",
+			"exclusao",
+			"criacao",
+			"permissoes",
+			"outros"
+		]
+	},
+	"ordemServico": {
+		"descricao": "Ordem de serviço",
+		"funcionalidades": [
+			"edicao",
+			"inclusao",
+			"etiquetas",
+			"exclusao",
+			"gerarNF",
+			"impressao",
+			"outros",
+			"lancamentoEstornoContas",
+			"lancamentoEstornoEstoques",
+			"relatorios"
+		]
+	},
+	"cobranca": {
+		"descricao": "Cobrança",
+		"funcionalidades": [
+			"edicao",
+			"inclusao",
+			"exclusao",
+			"cartaCobranca",
+			"outros"
+		]
+	},
+	"contrato": {
+		"descricao": "Contratos",
+		"funcionalidades": [
+			"edicao",
+			"inclusao",
+			"exclusao",
+			"outros",
+			"cobrancaContrato",
+			"cancelamento"
+		]
+	},
+	"caixasBancos": {
+		"descricao": "Caixa e bancos",
+		"funcionalidades": [
+			"edicao",
+			"inclusao",
+			"exclusao",
+			"outros",
+			"conciliacaoBancaria",
+			"exportarExtrato",
+			"relatorios",
+			"transferenciaContas",
+			"impressao"
+		]
+	},
+	"contasPagar": {
+		"descricao": "Contas a Pagar",
+		"funcionalidades": [
+			"edicao",
+			"inclusao",
+			"exclusao",
+			"outros",
+			"baixaConta",
+			"cancelamento",
+			"impressao",
+			"relatorios",
+			"valoresIncorretos",
+			"contaRecorrente"
+		]
+	},
+	"contasReceber": {
+		"descricao": "Contas a Receber",
+		"funcionalidades": [
+			"edicao",
+			"inclusao",
+			"exclusao",
+			"outros",
+			"baixaConta",
+			"cancelamento",
+			"impressao",
+			"relatorios",
+			"valoresIncorretos",
+			"contaRecorrente",
+			"gerarRemessa",
+			"faturamento",
+			"gerarNota"
+		]
+	},
+	"fichaFinanceira": {
+		"descricao": "Ficha financeira",
+		"funcionalidades": [
+			"edicao",
+			"inclusao",
+			"exclusao",
+			"outros"
+		]
+	},
+	"formaPagamento": {
+		"descricao": "Formas de Pagamento",
+		"funcionalidades": [
+			"edicao",
+			"inclusao",
+			"exclusao",
+			"outros"
+		]
+	},
+	"remessaRetorno": {
+		"descricao": "Remessas e Retornos",
+		"funcionalidades": [
+			"edicao",
+			"inclusao",
+			"exclusao",
+			"outros",
+			"gerarRemessa",
+			"relatorios",
+			"impressao"
+		]
+	},
+	"camposCustomizados": {
+		"descricao": "Campos customizados",
+		"funcionalidades": [
+			"edicao",
+			"inclusao",
+			"exclusao",
+			"outros",
+			"vinculoCategoria",
+			"importacaoPlanilha"
+		]
+	},
+	"certificadoDigital": {
+		"descricao": "Certificado digital",
+		"funcionalidades": [
+			"exclusao",
+			"inclusao",
+			"instalacaoCSP",
+			"instalacaoJava",
+			"obtencao"
+		]
+	},
+	"00K": {
+		"descricao": "00K",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"viaMarketplace": {
+		"descricao": "Via Marketplace",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"adena": {
+		"descricao": "Adena E-Commerce",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"aliexpress": {
+		"descricao": "AliExpress",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"allNations": {
+		"descricao": "All Nations",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"amazonClassic": {
+		"descricao": "Amazon FBA Classic (Fulfillment)",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"amazonOnsite": {
+		"descricao": "Amazon FBA Onsite (Fulfillment)",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"amazon": {
+		"descricao": "Amazon Marketplace",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"api": {
+		"descricao": "API",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"b2w": {
+		"descricao": "B2W Marketplace via Skyhub",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"bis2bis": {
+		"descricao": "Bis2Bis",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"bling": {
+		"descricao": "Bling",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"blingPlanilha": {
+		"descricao": "Bis2Bis",
+		"funcionalidades": [
+			"importacaoPedido"
+		]
+	},
+	"buscape": {
+		"descricao": "Buscapé",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"c&a": {
+		"descricao": "C&A",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"carrefour": {
+		"descricao": "Carrefour",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"cassol": {
+		"descricao": "Cassol",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"centauro": {
+		"descricao": "Centauro",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"ciashop": {
+		"descricao": "Ciashop",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"cobasi": {
+		"descricao": "Cobasi",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"colombo": {
+		"descricao": "Colombo",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"coreCommerce": {
+		"descricao": "Core Commerce",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"dafiti": {
+		"descricao": "Dafiti WS",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"dooca": {
+		"descricao": "Dooca Commerce",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"dotstore": {
+		"descricao": "Dotstore",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"drogaRaia": {
+		"descricao": "Droga Raia",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"ez": {
+		"descricao": "Ez Commerce",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"facebook": {
+		"descricao": "Facebook",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"fastCommerce": {
+		"descricao": "FastCommerce",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"faturadorML": {
+		"descricao": "Faturador ML",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"fbits": {
+		"descricao": "Fbits",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"fbtsWS": {
+		"descricao": "Fbits WS",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"goCommerce": {
+		"descricao": "GoCommerce",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"googleShopping": {
+		"descricao": "Google Shopping",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"GPA": {
+		"descricao": "GPA - Grupo Pão de Açúcar",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"hibrido": {
+		"descricao": "Híbrido",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"indEcommerce": {
+		"descricao": "Ind Ecommerce",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"integracommerce": {
+		"descricao": "Integracommerce",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"interspire": {
+		"descricao": "Interspire",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"irrobaEcommerce": {
+		"descricao": "Irroba E-Commerce",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"isetWS": {
+		"descricao": "Iset WS",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"jetEcommerce": {
+		"descricao": "Jet E-Commerce",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"kabum": {
+		"descricao": "Kabum",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"kanui": {
+		"descricao": "Kanui",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"kanuiWS": {
+		"descricao": "Kanui WS",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"leroy": {
+		"descricao": "Leroy Merlin Marketplace",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"likeStore": {
+		"descricao": "LikeStore",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"lojaIntegrada": {
+		"descricao": "Loja Integrada",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"lojaMestre": {
+		"descricao": "Loja Mestre",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"lojaModular": {
+		"descricao": "Loja Modular",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"lojaQueVende": {
+		"descricao": "Loja que Vende",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"madeiraMadeira": {
+		"descricao": "Madeira Madeira",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"magento": {
+		"descricao": "Magento",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"magento2": {
+		"descricao": "Magento 2",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"maximaWeb": {
+		"descricao": "Maxima Web",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"maxstore": {
+		"descricao": "Maxistore",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"mercadoLivre": {
+		"descricao": "Mercado Livre",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"mercadoLivreFul": {
+		"descricao": "Mercado Livre Fulfillment",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"mercadoShops": {
+		"descricao": "Mercado Shops",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"mercos": {
+		"descricao": "Mercos",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"meusPedidos": {
+		"descricao": "Meus Pedidos",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"mkx": {
+		"descricao": "MKX",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"netshoes": {
+		"descricao": "Netshoes",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"nuvemshop": {
+		"descricao": "Nuvemshop",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"olist": {
+		"descricao": "Olist",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"opencart": {
+		"descricao": "OpenCart",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"otimoNegocio": {
+		"descricao": "OtimoNegocio",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"outraIntegracao": {
+		"descricao": "Outro",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"peixeUrbano": {
+		"descricao": "Peixe Urbano",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"perasLoja": {
+		"descricao": "Peras Loja",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"plataformaNeo": {
+		"descricao": "Plataforma Neo",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"prestashop": {
+		"descricao": "Prestashop",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"riHappy": {
+		"descricao": "Ri Happy",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"ricardoEletro": {
+		"descricao": "Ricardo Eletro",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"shopDelivery": {
+		"descricao": "Shop Delivery",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"shopee": {
+		"descricao": "Shopee",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"shopify": {
+		"descricao": "Shopify",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"simplo7": {
+		"descricao": "Simplo7",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"sisEcommerce": {
+		"descricao": "SisEcommerce",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"starter": {
+		"descricao": "Starter D Loja Virtual",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"toro": {
+		"descricao": "Toro Marketplace",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"tray": {
+		"descricao": "Tray Commerce",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"tricaeWS": {
+		"descricao": "Tricae WS",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"uolHost": {
+		"descricao": "Uol Host",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"vendasExternas": {
+		"descricao": "Vendas Externas",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"virtuolPro": {
+		"descricao": "Virtuol Pro",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"vivo": {
+		"descricao": "Vivo Marketplace",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"vtex": {
+		"descricao": "VTex",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"webstore": {
+		"descricao": "Webstore",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"wideCommerce": {
+		"descricao": "WideCommerce",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"wish": {
+		"descricao": "Wish",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"wix": {
+		"descricao": "Wix",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"woocommerceWebhook": {
+		"descricao": "WooCommerce Webhook",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"z3": {
+		"descricao": "Z3 E-Commerce",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"zattini": {
+		"descricao": "Zattini",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"zoom": {
+		"descricao": "Zoom",
+		"funcionalidades": [
+			"aliasPagamento",
+			"aliaslog",
+			"atualizacaoSitucaoPedido",
+			"parametros",
+			"cotacao",
+			"edicaoProdutos",
+			"exportacaoProdutos",
+			"importacaoPedido",
+			"importacaoProdutos",
+			"outros",
+			"planilhaMultiloja",
+			"sincronizacaoDadosFiscais",
+			"sincronizacaoEstoque",
+			"sincronizacaoPreco",
+			"sincronizacaoRastreio",
+			"unidadeNegocio",
+			"vinculoCategoria"
+		]
+	},
+	"ASAP": {
+		"descricao": "ASAP",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"AWR": {
+		"descricao": "AWR",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"b2wEntrega": {
+		"descricao": "B2W Entrega",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"b2wFul": {
+		"descricao": "B2W Fulfillment",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"b2wO2O": {
+		"descricao": "B2W O2O",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"correios": {
+		"descricao": "Correios",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"correiosLog": {
+		"descricao": "Correios Log",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"dafitiMilkRun": {
+		"descricao": "Dafiti Milk Run",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"dLog": {
+		"descricao": "DLog",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"envvias": {
+		"descricao": "Envvias",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"erpSyslog": {
+		"descricao": "ERP SyLog",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"estoca": {
+		"descricao": "Estoca",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"findMyPack": {
+		"descricao": "Find My Pack",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"FM": {
+		"descricao": "FM Transportes",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"frenet": {
+		"descricao": "Frenet",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"freteRapido": {
+		"descricao": "Frete Rápido",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"goFretes": {
+		"descricao": "GoFretes",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"ibex": {
+		"descricao": "Ibex Logística",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"cainiao": {
+		"descricao": "Integração Cainiao",
+		"funcionalidades": [
+			"outros"
+		]
+	},
+	"intelipost": {
+		"descricao": "Intelipost",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"jadlog": {
+		"descricao": "Jadlog",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"jamef": {
+		"descricao": "Jamef",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"kangu": {
+		"descricao": "Kangu",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"loggi": {
+		"descricao": "Loggi",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"logOlist": {
+		"descricao": "Logística Olist",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"logShopee": {
+		"descricao": "Logística Shopee",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"magalu": {
+		"descricao": "Magalu Entregas",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"mandaBem": {
+		"descricao": "Manda Bem",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"mandae": {
+		"descricao": "Mandaê",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"melhorEnvio": {
+		"descricao": "Melhor Envio",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"mercadoEnvios": {
+		"descricao": "Mercado Envios",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"mercadoEnviosFlex": {
+		"descricao": "Mercado Envios Flex",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"meusCorreios": {
+		"descricao": "Meus Correios",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"outrasLogisticas": {
+		"descricao": "Outras integrações logísticas",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"pier8": {
+		"descricao": "Pier8",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"sgpWeb": {
+		"descricao": "SGP Web",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"SHL": {
+		"descricao": "SHL",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"totalExpress": {
+		"descricao": "Total Express",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"trackCorreios": {
+		"descricao": "Track Correios",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"uxSolutions": {
+		"descricao": "UX Solutions",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"VIPP": {
+		"descricao": "VIPP - Visual Set Informática",
+		"funcionalidades": [
+			"configInicial",
+			"cotacao",
+			"envioEmail",
+			"envioRemessa",
+			"gerarEtiqueta",
+			"geracaoRemessa",
+			"impressaoEtiqueta",
+			"outros",
+			"parametros",
+			"rastreamento",
+			"relatorios"
+		]
+	},
+	"relCadastros": {
+		"descricao": "Cadastros",
+		"funcionalidades": [
+			"relatorioCustomizado",
+			"relatorioPrecoProdutos"
+		]
+	},
+	"relFiscal": {
+		"descricao": "Fiscal",
+		"funcionalidades": [
+			"relatorioCustomizado",
+			"relatorioNfOperacao",
+			"relatorioEvolucao",
+			"relatorioNfCompraProduto",
+			"relatorioEvolucaoFaturamento",
+			"relatorioDIFAL",
+			"relatorioNfCliente",
+			"relatorioNfProduto",
+			"relatorioNfFornecedor"
+		]
+	},
+	"relSuprimentos": {
+		"descricao": "Suprimentos",
+		"funcionalidades": [
+			"relatorioCustomizado",
+			"relatorioEntradaSaida",
+			"relatorioMovimentacaoProduto",
+			"relatorioPedidosCompra",
+			"relatorioAbaixoMinimo",
+			"relatorioMaiorCirculacao",
+			"relatorioSemMovimentacao",
+			"relatorioSaldos",
+			"relatorioVisaoFinanceira"
+		]
+	},
+	"relVendas": {
+		"descricao": "Vendas",
+		"funcionalidades": [
+			"relatorioCustomizado",
+			"relatorioRomaneio",
+			"relatorioSeparacao",
+			"relatorioVendas",
+			"relatorioControleCaixa"
+		]
+	},
+	"relFinancas": {
+		"descricao": "Finanças",
+		"funcionalidades": [
+			"relatorioCustomizado",
+			"relatorioBalancete",
+			"relatorioDRE",
+			"relatorioFluxoCaixa",
+			"relatorioPagamentos",
+			"relatorioRecebimentos",
+			"relatorioEntSaiCategoria"
+		]
+	},
+	"compraCertificado": {
+		"descricao": "Compra de certificado",
+		"funcionalidades": [
+			"cancelamento",
+			"dificuldades",
+			"pagamento"
+		]
+	},
+	"A1": {
+		"descricao": "A1",
+		"funcionalidades": [
+			"configuracao"
+		]
+	},
+	"A3": {
+		"descricao": "A3",
+		"funcionalidades": [
+			"instDrivers",
+			"blingNfe",
+			"java",
+			"senhas"
+		]
+	},
+	"etiquetasClientesFornecedores": {
+		"descricao": "Etiquetas Clientes e fornecedores",
+		"funcionalidades": [
+			"inclusao",
+			"edicao",
+			"exclusao",
+			"impressao"
+		]
+	},
+	"etiquetasNF": {
+		"descricao": "Etiqueta Notas Fiscais",
+		"funcionalidades": [
+			"inclusao",
+			"edicao",
+			"exclusao",
+			"impressao"
+		]
+	},
+	"etiquetasOS": {
+		"descricao": "Etiqueta Ordem de Serviço",
+		"funcionalidades": [
+			"inclusao",
+			"edicao",
+			"exclusao",
+			"impressao"
+		]
+	},
+	"etiquetasVenda": {
+		"descricao": "Etiqueta Pedido de venda",
+		"funcionalidades": [
+			"inclusao",
+			"edicao",
+			"exclusao",
+			"impressao"
+		]
+	},
+	"etiquetasProduto": {
+		"descricao": "Etiqueta Produto",
+		"funcionalidades": [
+			"inclusao",
+			"edicao",
+			"exclusao",
+			"impressao"
+		]
+	},
+	"android": {
+		"descricao": "Aplicativo Android",
+		"funcionalidades": [
+			"outros"
+		]
+	},
+	"autenticacao2F": {
+		"descricao": "Autenticação em dois fatores",
+		"funcionalidades": [
+			"outros",
+			"configuracao",
+			"codigoInvalido",
+			"liberacaoCodigoUsuarios",
+			"trocaAparelho"
+		]
+	},
+	"cadastro": {
+		"descricao": "Cadastro",
+		"funcionalidades": [
+			"dadosEmpresa",
+			"dadosSocio",
+			"cancelamento",
+			"criacao",
+			"emailConfirmacao",
+			"informacoes",
+			"outros",
+			"smsConfirmacao"
+		]
+	},
+	"boleto": {
+		"descricao": "Boleto",
+		"funcionalidades": [
+			"baixaBoleto",
+			"cancelamento",
+			"divergencia",
+			"emissao",
+			"extrato",
+			"taxaPrazo",
+			"outros"
+		]
+	},
+	"linkPagamento": {
+		"descricao": "Link de pagamento",
+		"funcionalidades": [
+			"cancelamento",
+			"baixarConta",
+			"finalizarCartao",
+			"gerarBoleto",
+			"qrCode",
+			"outros"
+		]
+	},
+	"pagamentoContas": {
+		"descricao": "Pagamento de contas",
+		"funcionalidades": [
+			"pagamento",
+			"informacoes",
+			"outros",
+			"emProcessamento",
+			"estornoPagamento"
+		]
+	},
+	"pix": {
+		"descricao": "Pix",
+		"funcionalidades": [
+			"chaves",
+			"execucaoPix",
+			"extratoDesatualizado",
+			"taxaPix",
+			"emProcessamento",
+			"outros",
+			"estornoPagamento"
+		]
+	},
+	"transferencias": {
+		"descricao": "Transferências",
+		"funcionalidades": [
+			"solicitacaoTED",
+			"taxaPrazo",
+			"emProcessamento",
+			"estornoTransferencia",
+			"outros"
+		]
+	},
+	"ailos": {
+		"descricao": "Ailos (Cecred)",
+		"funcionalidades": [
+			"configuracao",
+			"edicao",
+			"emissao",
+			"inclusao",
+			"outros",
+			"remessasRetornos"
+		]
+	},
+	"bancoDoBrasil": {
+		"descricao": "Banco do Brasil",
+		"funcionalidades": [
+			"configuracao",
+			"edicao",
+			"emissao",
+			"inclusao",
+			"outros",
+			"remessasRetornos"
+		]
+	},
+	"bancoob": {
+		"descricao": "Bancoob",
+		"funcionalidades": [
+			"configuracao",
+			"edicao",
+			"emissao",
+			"inclusao",
+			"outros",
+			"remessasRetornos"
+		]
+	},
+	"banrisul": {
+		"descricao": "Banrisul",
+		"funcionalidades": [
+			"configuracao",
+			"edicao",
+			"emissao",
+			"inclusao",
+			"outros",
+			"remessasRetornos"
+		]
+	},
+	"bradesco": {
+		"descricao": "Bradesco",
+		"funcionalidades": [
+			"configuracao",
+			"edicao",
+			"emissao",
+			"inclusao",
+			"outros",
+			"remessasRetornos"
+		]
+	},
+	"caixa": {
+		"descricao": "Caixa (SIGCB)",
+		"funcionalidades": [
+			"configuracao",
+			"edicao",
+			"emissao",
+			"inclusao",
+			"outros",
+			"remessasRetornos"
+		]
+	},
+	"itau": {
+		"descricao": "Itaú",
+		"funcionalidades": [
+			"configuracao",
+			"edicao",
+			"emissao",
+			"inclusao",
+			"outros",
+			"remessasRetornos"
+		]
+	},
+	"outros": {
+		"descricao": "Outros",
+		"funcionalidades": [
+			"configuracao",
+			"edicao",
+			"emissao",
+			"inclusao",
+			"outros",
+			"remessasRetornos"
+		]
+	},
+	"safra": {
+		"descricao": "Safra",
+		"funcionalidades": [
+			"configuracao",
+			"edicao",
+			"emissao",
+			"inclusao",
+			"outros",
+			"remessasRetornos"
+		]
+	},
+	"santander": {
+		"descricao": "Santander",
+		"funcionalidades": [
+			"configuracao",
+			"edicao",
+			"emissao",
+			"inclusao",
+			"outros",
+			"remessasRetornos"
+		]
+	},
+	"sicredi": {
+		"descricao": "Sicredi",
+		"funcionalidades": [
+			"configuracao",
+			"edicao",
+			"emissao",
+			"inclusao",
+			"outros",
+			"remessasRetornos"
+		]
+	},
+	"wirecard": {
+		"descricao": "Wirecard",
+		"funcionalidades": [
+			"configuracao",
+			"edicao",
+			"emissao",
+			"inclusao",
+			"outros",
+			"remessasRetornos"
+		]
+	},
+	"cartaCorrecao": {
+		"descricao": "Carta de correção",
+		"funcionalidades": [
+			"consultaImpressao",
+			"emissao",
+			"rejeicao"
+		]
+	},
+	"cte": {
+		"descricao": "CT-e",
+		"funcionalidades": [
+			"outros"
+		]
+	},
+	"devolucao": {
+		"descricao": "Devolução / Remessa / Transferência",
+		"funcionalidades": [
+			"calculoImposto",
+			"cancelamento",
+			"criacao",
+			"emissaoNota",
+			"envioEmail",
+			"lancamentoEstornoContas",
+			"lancamentoEstornoEstoques",
+			"outros",
+			"preenchimento",
+			"rejeicao",
+			"relatorios"
+		]
+	},
+	"cupomFiscal": {
+		"descricao": "Emissão de cupom fiscal",
+		"funcionalidades": [
+			"outros"
+		]
+	},
+	"espacoContador": {
+		"descricao": "Espaço Meu Contador",
+		"funcionalidades": [
+			"alterarConfiguracao",
+			"configInicial",
+			"gerarArquivo",
+			"outros",
+			"envioEmail"
+		]
+	},
+	"gnre": {
+		"descricao": "GNRE",
+		"funcionalidades": [
+			"impressao",
+			"criacao",
+			"emissao",
+			"rejeicao"
+		]
+	},
+	"nfe": {
+		"descricao": "NF-e",
+		"funcionalidades": [
+			"ambienteNfe",
+			"api",
+			"calculoImposto",
+			"cancelamento",
+			"controleNumeracao",
+			"credenciamentoSefaz",
+			"criacao",
+			"danfe",
+			"danfeSimplificada",
+			"envioDados",
+			"envioEmail",
+			"etiquetas",
+			"exclusao",
+			"exportacaoXML",
+			"filtroListagem",
+			"importacaoXML",
+			"inutilizacao",
+			"lancamentoEstornoContas",
+			"lancamentoEstornoEstoques",
+			"notaComplementar",
+			"outros",
+			"parametros",
+			"preenchimento",
+			"rejeicao",
+			"relatorios"
+		]
+	},
+	"nfce": {
+		"descricao": "NFC-e",
+		"funcionalidades": [
+			"api",
+			"sat",
+			"calculoImposto",
+			"cancelamento",
+			"controleNumeracao",
+			"credenciamentoSefaz",
+			"criacao",
+			"danfe",
+			"danfeSimplificada",
+			"envioDados",
+			"envioEmail",
+			"etiquetas",
+			"exclusao",
+			"exportacaoXML",
+			"filtroListagem",
+			"importacaoXML",
+			"inutilizacao",
+			"lancamentoEstornoContas",
+			"lancamentoEstornoEstoques",
+			"notaComplementar",
+			"outros",
+			"parametros",
+			"preenchimento",
+			"rejeicao",
+			"relatorios"
+		]
+	},
+	"nfeS": {
+		"descricao": "NFS-e",
+		"funcionalidades": [
+			"api",
+			"calculoImposto",
+			"cancelamento",
+			"controleNumeracao",
+			"credenciamentoSefaz",
+			"criacao",
+			"danfe",
+			"danfeSimplificada",
+			"envioDados",
+			"envioEmail",
+			"etiquetas",
+			"exclusao",
+			"exportacaoXML",
+			"filtroListagem",
+			"importacaoXML",
+			"inutilizacao",
+			"lancamentoEstornoContas",
+			"lancamentoEstornoEstoques",
+			"notaComplementar",
+			"outros",
+			"parametros",
+			"preenchimento",
+			"rejeicao",
+			"relatorios"
+		]
+	},
+	"tributacaoImpostos": {
+		"descricao": "Tributação e impostos (Naturezas de Operação)",
+		"funcionalidades": [
+			"exclusao",
+			"inclusao",
+			"edicao",
+			"outros"
+		]
+	},
+	"notaEntrada": {
+		"descricao": "Nota de entrada",
+		"funcionalidades": [
+			"ambienteNfe",
+			"api",
+			"calculoImposto",
+			"cancelamento",
+			"controleNumeracao",
+			"conciliacaoItens",
+			"credenciamentoSefaz",
+			"criacao",
+			"danfe",
+			"danfeSimplificada",
+			"formacaoPreco",
+			"manifestacao",
+			"envioDados",
+			"envioEmail",
+			"etiquetas",
+			"exclusao",
+			"exportacaoXML",
+			"filtroListagem",
+			"importacaoXML",
+			"inutilizacao",
+			"lancamentoEstornoContas",
+			"lancamentoEstornoEstoques",
+			"notaComplementar",
+			"outros",
+			"parametros",
+			"preenchimento",
+			"rejeicao",
+			"relatorios"
+		]
+	},
+	"notaImportacao": {
+		"descricao": "Nota de importação",
+		"funcionalidades": [
+			"ambienteNfe",
+			"api",
+			"calculoImposto",
+			"cancelamento",
+			"controleNumeracao",
+			"conciliacaoItens",
+			"credenciamentoSefaz",
+			"criacao",
+			"danfe",
+			"danfeSimplificada",
+			"formacaoPreco",
+			"manifestacao",
+			"envioDados",
+			"envioEmail",
+			"etiquetas",
+			"exclusao",
+			"exportacaoXML",
+			"filtroListagem",
+			"importacaoXML",
+			"inutilizacao",
+			"lancamentoEstornoContas",
+			"lancamentoEstornoEstoques",
+			"notaComplementar",
+			"outros",
+			"parametros",
+			"preenchimento",
+			"rejeicao",
+			"relatorios"
+		]
+	},
+	"notaExportacao": {
+		"descricao": "Nota de exportação",
+		"funcionalidades": [
+			"calculoImposto",
+			"cancelamento",
+			"controleNumeracao",
+			"conciliacaoItens",
+			"credenciamentoSefaz",
+			"criacao",
+			"danfe",
+			"danfeSimplificada",
+			"manifestacao",
+			"envioDados",
+			"envioEmail",
+			"etiquetas",
+			"exclusao",
+			"exportacaoXML",
+			"filtroListagem",
+			"importacaoXML",
+			"inutilizacao",
+			"lancamentoEstornoContas",
+			"lancamentoEstornoEstoques",
+			"notaComplementar",
+			"outros",
+			"parametros",
+			"preenchimento",
+			"rejeicao",
+			"relatorios"
+		]
+	},
+	"sintegra": {
+		"descricao": "Sintegra",
+		"funcionalidades": [
+			"valoresIncorretos",
+			"gerarArquivo",
+			"outros"
+		]
+	},
+	"sped": {
+		"descricao": "SPED",
+		"funcionalidades": [
+			"valoresIncorretos",
+			"validacao",
+			"preenchimento"
+		]
+	},
+	"armazenamento": {
+		"descricao": "Armazenamento",
+		"funcionalidades": [
+			"adquirirEspaco",
+			"cancelarEspaco",
+			"liberarEspaco",
+			"outros"
+		]
+	},
+	"backup": {
+		"descricao": "Backup",
+		"funcionalidades": [
+			"geracaoBackup",
+			"importacaoBackup",
+			"outros"
+		]
+	},
+	"dadosEmpresa": {
+		"descricao": "Dados da empresa",
+		"funcionalidades": [
+			"alteracaoDados",
+			"controleHorarios",
+			"outros"
+		]
+	},
+	"meuPlano": {
+		"descricao": "Meu plano",
+		"funcionalidades": [
+			"alterarFormaPagamento",
+			"aplicarCupom",
+			"cancelarPlano",
+			"descontoConta",
+			"downgrade",
+			"comprovante",
+			"extratoConta",
+			"filial",
+			"liberacaoTemporaria",
+			"upgrade",
+			"outros"
+		]
+	},
+	"blingContaBU": {
+		"descricao": "Bling Conta",
+		"funcionalidades": [
+			"dadosEmpresa",
+			"dadosSocio",
+			"criacao",
+			"divergencia",
+			"criacaoLPD",
+			"outros",
+			"senhas"
+		]
+	},
+	"categoriasBU": {
+		"descricao": "Categorias",
+		"funcionalidades": [
+			"criacao",
+			"edicao",
+			"exclusao",
+			"outros"
+		]
+	},
+	"clientesBU": {
+		"descricao": "Clientes",
+		"funcionalidades": [
+			"criacao",
+			"edicao",
+			"exclusao",
+			"outros"
+		]
+	},
+	"produtosBU": {
+		"descricao": "Produtos",
+		"funcionalidades": [
+			"criacao",
+			"edicao",
+			"erroEstoque",
+			"exclusao",
+			"outros"
+		]
+	},
+	"vendasBU": {
+		"descricao": "Vendas",
+		"funcionalidades": [
+			"criacao",
+			"edicao",
+			"exclusao",
+			"outros",
+			"lancamentoEstornoContas",
+			"lancamentoEstornoEstoques"
+		]
+	}
+}

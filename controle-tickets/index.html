@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Controle de Tickets</title>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="scripts/jquery.min.js"></script>
+	<script type="text/javascript" src="scripts/jquery.mask.js"></script>
+	<script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+	<script type="text/javascript" src="scripts/script.js"></script>
+	<script type="text/javascript" src="scripts/fontawesome.js"></script>
+	<link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="styles/style.css">
+</head>
+<body>
+	<div id="controle_tickets" class="container-fluid">
+		<div class="row">
+			<div class="col">
+				<h4>Controle de Tickets L2</h4>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<p class="label label-item-form obrigatorio-item-form"><span>(*) </span>Campos obrigatórios</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col form-group group-item-form">
+				<label class="label-item-form" for="nro_ticket">Número do ticket<span> * </span></label>
+				<input type="text" id="nro_ticket" name="nro_ticket" class="item-form">
+			</div>
+
+			<div class="col form-group group-item-form">
+				<label class="label-item-form" for="classificacao">Classificação</label>
+				<select id="classificacao" name="classificacao" class="item-form">
+					<option value="D">Dúvida</option>
+					<option value="T">Problema</option>
+					<option value="S">Sugestão</option>
+				</select>
+			</div>
+
+			<div class="col-3 form-group group-item-form">
+				<div class="item-form-toggle">
+					<label class="label-item-form-toggle" for="classificacao_certa">Classificação correta</label>
+					<div class="toogle-checkbox">
+						<label>
+							<input type="checkbox" id="classificacao_certa" name="classificacao_certa" class="campo-cfg">
+							<span></span>
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-3 form-group group-item-form">
+				<div class="item-form-toggle">
+					<label class="label-item-form-toggle" for="base_conhecimento">Incluir na Base</label>
+					<div class="toogle-checkbox">
+						<label>
+							<input type="checkbox" id="base_conhecimento" name="base_conhecimento" class="campo-cfg">
+							<span></span>
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col form-group group-item-form">
+				<label class="label-item-form" for="grupo">Grupo<span> * </span></label>
+				<select id="grupo" class="item-form">
+					<optgroup label="Bling" class="opt-bling"></optgroup>
+					<optgroup label="Extensão" class="opt-ext"></optgroup>
+				</select>
+			</div>
+
+			<div class="col form-group group-item-form">
+				<label class="label-item-form" for="subgrupo">Subgrupo<span> * </span></label>
+				<select id="subgrupo" class="item-form">
+					<optgroup label="Bling" class="opt-bling"></optgroup>
+					<optgroup label="Extensão" class="opt-ext"></optgroup>
+				</select>
+			</div>
+
+			<div class="col form-group group-item-form">
+				<label class="label-item-form" for="modulo">Módulo<span> * </span></label>
+				<select id="modulo" class="item-form">
+					<optgroup label="Bling" class="opt-bling"></optgroup>
+					<optgroup label="Extensão" class="opt-ext"></optgroup>
+				</select>
+			</div>
+
+			<div class="col form-group group-item-form">
+				<label class="label-item-form" for="funcionalidade">Funcionalidade<span> * </span></label>
+				<select id="funcionalidade" class="item-form">
+					<optgroup label="Bling" class="opt-bling"></optgroup>
+					<optgroup label="Extensão" class="opt-ext"></optgroup>
+				</select>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col form-group group-item-form">
+				<label class="label-item-form" for="motivo">Motivo</label>
+				<select id="motivo" name="motivo" class="item-form">
+					<option value="FV">Dúvida</option>
+					<option value="TI">Falha Validação Dados</option>
+					<option value="PB">Problema Integrações</option>
+					<option value="BS">Problema Sistema</option>
+					<option value="FE">Sugestão</option>
+					<option value="TO">Cliente Tester</option>
+					<option value="T8">Não sei</option>
+				</select>
+			</div>
+
+			<div class="col form-group group-item-form">
+				<label class="label-item-form" for="acao">Ação</label>
+				<select id="acao" name="acao" class="item-form">
+					<option value="AN">Devolvido L1</option>
+					<option value="A3">Ajustado L3/Devolvido L1</option>
+					<option value="E4">Verificado L3/Devolvido L1</option>
+					<option value="D2">Encaminhado Sugestão</option>
+					<option value="RC">Encaminhado L3</option>
+					<option value="PAM">Pedidos Amazon</option>
+					<option value="AR">Acesso Remoto</option>
+					<option value="PS">Pedidos Skyhub</option>
+					<option value="US">User de Suporte</option>
+					<option value="CT">Aguardando Retorno Chat</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col form-group group-item-form">
+				<label class="label-item-form" for="testes">L1 Efetuou Testes?</label>
+				<select id="testes" name="testes" class="item-form">
+					<option value="S1">Sim</option>
+					<option value="N2">Não</option>
+				</select>
+			</div>
+			<div class="col form-group group-item-form">
+				<label class="label-item-form" for="finfo">Faltou Informação L1</label>
+				<select id="finfo" name="finfo" class="item-form">
+					<option value="S2">Não</option>
+					<option value="N3">Sim</option>
+				</select>
+			</div>
+
+		</div>
+
+
+		<div class="row">
+			<div class="col form-group group-item-form">
+				<label class="label-item-form" for="obs">Causa<span> * </span></label>
+				<textarea id="causa" name="causa" class="item-form textarea-item-form" col="64" rows="8"></textarea>
+			</div>
+		
+			<div class="col form-group group-item-form">
+				<label class="label-item-form" for="obs">Observações<span> * </span></label>
+				<textarea id="obs" name="obs" class="item-form textarea-item-form" col="64" rows="8"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col form-group group-item-form">
+				<label class="label-item-form" for="nome_atendente">L-</label>
+				<input type="text" id="nome_atendente" name="nome_atendente" class="item-form">
+			</div>
+
+			<div class="col form-group group-item-form">
+				<label class="label-item-form" for="data_abertura">Data de abertura<span> * </span></label>
+				<input type="text" id="data_abertura" name="data_abertura" class="item-form">
+			</div>
+
+			<div class="col form-group group-item-form">
+				<label class="label-item-form" for="finfo">Avaliação</label>
+				<select id="avaliacao" name="avaliacao" class="item-form">
+					<option value="nAplica">Não se aplica</option>
+					<option value="Positiva">Positiva</option>
+					<option value="Negativa">Negativa</option>
+				</select>
+			</div>
+		</div>
+
+		<div id="hidden_div" style="display: none;">
+			<div class="col form-group group-item-form">
+				<label class="label-item-form" for="obs">Teste<span> * </span></label>
+				<textarea id="testeCampo" name="testeCampo" class="item-form textarea-item-form" col="64" rows="8"></textarea>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-4">
+				<input type="button" id="limpar" value="Limpar" class="btn-secundary-novo">
+			</div>
+
+			<div class="col-8">
+				<input type="button" id="enviar_controle_tickets" value="Cadastrar" class="button-default-novo">
+			</div>
+		</div>
+	
+
+	<div class="modal-wait" style="display: none;"></div>
+	<div class="wait" style="display: none;">
+		<div class="loading"></div>
+		<div class="checkmark">
+			<div class="checkmark-stem"></div>
+			<div class="checkmark-kick"></div>
+		</div>
+	</div>
+</body>
+</html>
