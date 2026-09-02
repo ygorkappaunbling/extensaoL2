@@ -55,7 +55,8 @@ ControleTickets.prototype = {
 	},
 
 	'render': function() {
-		$('label[for="nome_atendente"]').html(this.nivelResponsavel + ' <span> * </span>');
+		//troca somente o texto do rótulo, preservando o asterisco e o ícone de informação
+		$('label[for="nome_atendente"]').contents().first().replaceWith(this.nivelResponsavel);
 	},
 
 	'registerEvents': function() {
@@ -80,7 +81,7 @@ ControleTickets.prototype = {
 						'acao': $('#acao option:selected').text(), //K - Ação
 						'ticket_raiz': $('#ticket_raiz').val(), //L - Ticket raiz
 						'obs_ticket': $('#obs').val(), //M - Observações ticket
-						'retorno_l3': $('#retorno_l3').val(), //N - Retorno L3
+						'retorno_l3': null, //N - Retorno L3 (coluna reservada, sem campo no formulário)
 						'data_abertura': $('#data_abertura').val(), //O - Data de abertura
 						'l1': $('#nome_atendente').val(), //P - L1
 						'classificacao_correta': ($('#classificacao_certa').is(':checked') ? 'Sim' : 'Não'), //Q - Classificação correta?
@@ -292,7 +293,7 @@ ControleTickets.prototype = {
 	},
 
 	'clear': function() {
-		$.each(['nro_ticket', 'funcionalidade', 'data_abertura', 'causa', 'conclusao', 'nome_atendente', 'ticket_raiz', 'erro', 'obs_l1', 'retorno_l3'], function() {
+		$.each(['nro_ticket', 'funcionalidade', 'data_abertura', 'causa', 'conclusao', 'nome_atendente', 'ticket_raiz', 'erro', 'obs_l1'], function() {
 			$('#' + this).val('').parents('.group-item-form').removeClass('group-item-form-error');
 		});
 

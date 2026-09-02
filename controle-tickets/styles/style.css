@@ -326,3 +326,70 @@ div.toogle-checkbox span:after {
 	padding-left: 40px;
 	color: #999;
 }
+
+/* Ícone de informação: a descrição do campo aparece ao passar o mouse */
+.label-item-form span.info-campo,
+.label-item-form-toggle span.info-campo {
+	position: relative;
+	display: inline-block;
+	margin-left: 4px;
+	color: #8A94A6;
+	vertical-align: middle;
+	cursor: help;
+}
+
+.label-item-form span.info-campo:hover,
+.label-item-form-toggle span.info-campo:hover {
+	color: #3FAF6C;
+}
+
+span.info-campo:before {
+	content: 'i';
+	display: block;
+	width: 13px;
+	height: 13px;
+	border: 1px solid currentColor;
+	border-radius: 50%;
+	font-family: Georgia, 'Times New Roman', serif;
+	font-size: 10px;
+	font-style: italic;
+	font-weight: bold;
+	line-height: 12px;
+	text-align: center;
+}
+
+span.info-campo:after {
+	content: attr(data-info);
+	position: absolute;
+	top: 21px;
+	left: -8px;
+	z-index: 10;
+	visibility: hidden;
+	opacity: 0;
+	width: 220px;
+	padding: 7px 9px;
+	font-family: arial, helvetica, sans-serif;
+	font-size: 11px;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1.35;
+	text-align: left;
+	white-space: normal;
+	color: #FFF;
+	background-color: #495769;
+	border-radius: 6px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
+	pointer-events: none;
+	transition: opacity .15s;
+}
+
+/* Abre a descrição para a esquerda nos campos junto da borda direita */
+span.info-campo.info-esq:after {
+	left: auto;
+	right: -8px;
+}
+
+span.info-campo:hover:after {
+	visibility: visible;
+	opacity: 1;
+}

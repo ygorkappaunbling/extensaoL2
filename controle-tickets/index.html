@@ -27,12 +27,12 @@
 
 		<div class="row">
 			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="nro_ticket">Número do ticket<span> * </span></label>
+				<label class="label-item-form" for="nro_ticket">Número do ticket<span> * </span><span class="info-campo" data-info="Número do ticket a ser registrado"></span></label>
 				<input type="text" id="nro_ticket" name="nro_ticket" class="item-form">
 			</div>
 
 			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="classificacao">Classificação</label>
+				<label class="label-item-form" for="classificacao">Classificação<span class="info-campo" data-info="Tipo do ticket: Dúvida, Problema ou Sugestão"></span></label>
 				<select id="classificacao" name="classificacao" class="item-form">
 					<option value="D">Dúvida</option>
 					<option value="T">Problema</option>
@@ -42,7 +42,7 @@
 
 			<div class="col-3 form-group group-item-form">
 				<div class="item-form-toggle">
-					<label class="label-item-form-toggle" for="classificacao_certa">Classificação correta</label>
+					<label class="label-item-form-toggle" for="classificacao_certa">Classificação correta<span class="info-campo info-esq" data-info="O ticket foi classificado corretamente? Ativado = Sim; Desativado = Não"></span></label>
 					<div class="toogle-checkbox">
 						<label>
 							<input type="checkbox" id="classificacao_certa" name="classificacao_certa" class="campo-cfg" checked>
@@ -54,7 +54,7 @@
 
 			<div class="col-3 form-group group-item-form">
 				<div class="item-form-toggle">
-					<label class="label-item-form-toggle" for="tipo_correto">Tipo correto</label>
+					<label class="label-item-form-toggle" for="tipo_correto">Tipo correto<span class="info-campo info-esq" data-info="O tipo do ticket (Dúvida, Problema ou Sugestão) está correto? Ativado = Sim; Desativado = Não"></span></label>
 					<div class="toogle-checkbox">
 						<label>
 							<input type="checkbox" id="tipo_correto" name="tipo_correto" class="campo-cfg" checked>
@@ -67,7 +67,7 @@
 
 		<div class="row">
 			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="grupo">Grupo<span> * </span></label>
+				<label class="label-item-form" for="grupo">Grupo<span> * </span><span class="info-campo" data-info="Grupo do ticket"></span></label>
 				<select id="grupo" class="item-form">
 					<optgroup label="Bling" class="opt-bling"></optgroup>
 					<optgroup label="Extensão" class="opt-ext"></optgroup>
@@ -75,7 +75,7 @@
 			</div>
 
 			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="subgrupo">Subgrupo<span> * </span></label>
+				<label class="label-item-form" for="subgrupo">Subgrupo<span> * </span><span class="info-campo" data-info="Subgrupo do ticket"></span></label>
 				<select id="subgrupo" class="item-form">
 					<optgroup label="Bling" class="opt-bling"></optgroup>
 					<optgroup label="Extensão" class="opt-ext"></optgroup>
@@ -83,7 +83,7 @@
 			</div>
 
 			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="modulo">Módulo<span> * </span></label>
+				<label class="label-item-form" for="modulo">Módulo<span> * </span><span class="info-campo" data-info="Módulo do ticket"></span></label>
 				<select id="modulo" class="item-form">
 					<optgroup label="Bling" class="opt-bling"></optgroup>
 					<optgroup label="Extensão" class="opt-ext"></optgroup>
@@ -91,7 +91,7 @@
 			</div>
 
 			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="funcionalidade">Funcionalidade<span> * </span></label>
+				<label class="label-item-form" for="funcionalidade">Funcionalidade<span> * </span><span class="info-campo info-esq" data-info="Funcionalidade do ticket"></span></label>
 				<select id="funcionalidade" class="item-form">
 					<optgroup label="Bling" class="opt-bling"></optgroup>
 					<optgroup label="Extensão" class="opt-ext"></optgroup>
@@ -101,7 +101,7 @@
 
 		<div class="row">
 			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="acao">Ação</label>
+				<label class="label-item-form" for="acao">Ação<span class="info-campo" data-info="Informe o que vai ser feito com esse ticket. Ex.: Encaminhado para o L3"></span></label>
 				<select id="acao" name="acao" class="item-form">
 					<option value="AN">Devolvido L1</option>
 					<option value="A2">Ajustado L2 / Devolvido L1</option>
@@ -114,7 +114,7 @@
 			</div>
 
 			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="obs_l1">Observação L1</label>
+				<label class="label-item-form" for="obs_l1">Observação L1<span class="info-campo info-esq" data-info="Observação sobre o atendente L1"></span></label>
 				<input type="text" id="obs_l1" name="obs_l1" class="item-form">
 			</div>
 		</div>
@@ -122,7 +122,7 @@
 		<div class="row">
 			<div class="col-4 form-group group-item-form">
 				<div class="item-form-toggle">
-					<label class="label-item-form-toggle" for="testes">L1 Efetuou Testes?</label>
+					<label class="label-item-form-toggle" for="testes">L1 Efetuou Testes?<span class="info-campo" data-info="O L1 efetuou testes? Ativado = Sim; Desativado = Não"></span></label>
 					<div class="toogle-checkbox">
 						<label>
 							<input type="checkbox" id="testes" name="testes" class="campo-cfg" checked>
@@ -134,7 +134,7 @@
 
 			<div class="col-4 form-group group-item-form">
 				<div class="item-form-toggle">
-					<label class="label-item-form-toggle" for="finfo">Encaminhamento completo L1</label>
+					<label class="label-item-form-toggle" for="finfo">Encaminhamento completo L1<span class="info-campo" data-info="As informações passadas no ticket estão completas? Ativado = Sim; Desativado = Não"></span></label>
 					<div class="toogle-checkbox">
 						<label>
 							<input type="checkbox" id="finfo" name="finfo" class="campo-cfg" checked>
@@ -146,7 +146,7 @@
 
 			<div class="col-4 form-group group-item-form">
 				<div class="item-form-toggle">
-					<label class="label-item-form-toggle" for="base_conhecimento">Incluir na Base</label>
+					<label class="label-item-form-toggle" for="base_conhecimento">Incluir na Base<span class="info-campo info-esq" data-info="Ativado = o registro também é enviado para a planilha da Base de Conhecimento"></span></label>
 					<div class="toogle-checkbox">
 						<label>
 							<input type="checkbox" id="base_conhecimento" name="base_conhecimento" class="campo-cfg">
@@ -159,39 +159,35 @@
 
 		<div class="row">
 			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="ticket_raiz">Ticket raiz</label>
+				<label class="label-item-form" for="ticket_raiz">Ticket raiz<span class="info-campo" data-info="Informe aqui o ticket original, ou seja, o primeiro ticket que registrou esse erro"></span></label>
 				<input type="text" id="ticket_raiz" name="ticket_raiz" class="item-form">
 			</div>
 			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="erro">Erro</label>
+				<label class="label-item-form" for="erro">Erro<span class="info-campo" data-info="Cole aqui somente a mensagem de erro do ticket. Se não tiver, deixe uma breve explicação da situação"></span></label>
 				<input type="text" id="erro" name="erro" class="item-form">
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="obs">Causa<span> * </span></label>
+				<label class="label-item-form" for="obs">Causa<span> * </span><span class="info-campo" data-info="Descreva a situação que está ocorrendo neste ticket"></span></label>
 				<textarea id="causa" name="causa" class="item-form textarea-item-form" col="64" rows="8"></textarea>
 			</div>
 		
 			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="obs">Observações ticket<span> * </span></label>
+				<label class="label-item-form" for="obs">Observações ticket<span> * </span><span class="info-campo info-esq" data-info="Informe observações sobre o ticket"></span></label>
 				<textarea id="obs" name="obs" class="item-form textarea-item-form" col="64" rows="8"></textarea>
 			</div>
 
-			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="retorno_l3">Retorno L3</label>
-				<textarea id="retorno_l3" name="retorno_l3" class="item-form textarea-item-form" col="64" rows="8"></textarea>
-			</div>
 		</div>
 		<div class="row">
 			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="nome_atendente">L-</label>
+				<label class="label-item-form" for="nome_atendente">L-<span> * </span><span class="info-campo" data-info="Nome do atendente L1"></span></label>
 				<input type="text" id="nome_atendente" name="nome_atendente" class="item-form">
 			</div>
 
 			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="data_abertura">Data de abertura<span> * </span></label>
+				<label class="label-item-form" for="data_abertura">Data de abertura<span> * </span><span class="info-campo info-esq" data-info="Data em que o ticket foi aberto"></span></label>
 				<input type="text" id="data_abertura" name="data_abertura" class="item-form">
 			</div>
 		</div>
