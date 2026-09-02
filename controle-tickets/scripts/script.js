@@ -3,14 +3,20 @@ const NIVEL_RESPONSAVEL = {
 	'L2': 'L2'
 }
 
+//valor padrão das configurações de planilha, indica que ainda não foram preenchidas
+const CONFIG_PENDENTE = 'Link da planilha aqui';
+
 $(function() {
 	var controleTickets = new ControleTickets(NIVEL_RESPONSAVEL.L1);
 });
 
 var ControleTickets = function(nivelResponsavel) {
-	this.SHEET_ID = 'Link da planilha aqui';
-	this.SHEET_KNOWLEDGE_ID = 'Link da planilha aqui'; //ID da planilha compartilhada
+	//obrigatórios: sem eles não é possível cadastrar
+	this.SHEET_ID = 'Link da planilha aqui'; //ID da planilha própria
 	this.SHEET_NAME = 'Tickets'; //nome da aba na planilha própria
+
+	//opcionais: usados somente pelo "Incluir na Base"
+	this.SHEET_KNOWLEDGE_ID = 'Link da planilha aqui'; //ID da planilha compartilhada
 	this.SHEET_KNOWLEDGE_NAME = 'Fiscal'; //nome da aba na planilha compartilhada
 
 	this.requiredInputs = ['nro_ticket', 'grupo', 'subgrupo', 'modulo', 'funcionalidade', 'classificacao', 'causa', 'conclusao', 'data_abertura'];
@@ -39,6 +45,21 @@ var ControleTickets = function(nivelResponsavel) {
 }
 
 ControleTickets.prototype = {
+	//uma configuração só vale como preenchida se não está vazia nem com o valor padrão
+	'isConfigurada': function(valor) {
+		valor = $.trim(valor || '');
+
+		return valor !== '' && valor != CONFIG_PENDENTE;
+	},
+
+	'hasPlanilhaPropria': function() {
+		return this.isConfigurada(this.SHEET_ID) && this.isConfigurada(this.SHEET_NAME);
+	},
+
+	'hasPlanilhaBase': function() {
+		return this.isConfigurada(this.SHEET_KNOWLEDGE_ID) && this.isConfigurada(this.SHEET_KNOWLEDGE_NAME);
+	},
+
 	'loadFiles': function() {
 		var deferredObj = $.Deferred();
 
@@ -62,7 +83,24 @@ ControleTickets.prototype = {
 	'registerEvents': function() {
 		var that = this;
 
+		//impede ligar o "Incluir na Base" sem a planilha compartilhada configurada.
+		//registrado antes do evento que salva os campos, para que o estado gravado
+		//seja o já corrigido
+		$('#base_conhecimento').on('change', function() {
+			if ($(this).is(':checked') && !that.hasPlanilhaBase()) {
+				$(this).prop('checked', false);
+
+				alert('Para usar o "Incluir na Base", primeiro preencha os dados da planilha compartilhada (SHEET_KNOWLEDGE_ID e SHEET_KNOWLEDGE_NAME) no arquivo scripts/script.js.');
+			}
+		});
+
 		$('#controle_tickets').on('click', '#enviar_controle_tickets', function() {
+			if (!that.hasPlanilhaPropria()) {
+				alert('Antes de cadastrar, preencha os dados da planilha própria (SHEET_ID e SHEET_NAME) no arquivo scripts/script.js.');
+
+				return;
+			}
+
 			that.displayWait('loading');
 
 			that.validate().done(function(isValid) {
@@ -92,7 +130,7 @@ ControleTickets.prototype = {
 					};
 
 					that.writeData(that.SHEET_ID, that.SHEET_NAME, data).done(function() {
-						if ($('#base_conhecimento').is(':checked')) {
+						if ($('#base_conhecimento').is(':checked') && that.hasPlanilhaBase()) {
 							that.writeData(that.SHEET_KNOWLEDGE_ID, that.SHEET_KNOWLEDGE_NAME, data).done(function() {
 								that.closeWaitSuccess();
 							});
@@ -335,6 +373,12 @@ ControleTickets.prototype = {
 					field.val(value);
 				}
 			});
+
+			//a planilha compartilhada pode ter sido removida da configuração
+			//depois de o "Incluir na Base" ter sido salvo como ativo
+			if (!that.hasPlanilhaBase()) {
+				$('#base_conhecimento').prop('checked', false);
+			}
 		});
 	},
 
