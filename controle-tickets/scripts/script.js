@@ -156,7 +156,7 @@ ControleTickets.prototype = {
 						'acao': $('#acao option:selected').text(), //K - Ação
 						'ticket_raiz': $('#ticket_raiz').val(), //L - Ticket raiz
 						'obs_ticket': $('#obs').val(), //M - Observações ticket
-						'retorno_l3': null, //N - Retorno L3 (coluna reservada, sem campo no formulário)
+						'retorno_l3': '', //N - Retorno L3 (só preenchido no modo de retorno)
 						'data_abertura': $('#data_abertura').val(), //O - Data de abertura
 						'l1': $('#nome_atendente').val(), //P - L1
 						'classificacao_correta': ($('#classificacao_certa').is(':checked') ? 'Sim' : 'Não'), //Q - Classificação correta?
@@ -170,7 +170,7 @@ ControleTickets.prototype = {
 						//grava só as colunas que vêm preenchidas do ticket, a ação
 						//fixa e o retorno; o resto fica em branco
 						$.each(COLUNAS_FORA_DO_RETORNO_L3, function(i, coluna) {
-							data[coluna] = null;
+							data[coluna] = '';
 						});
 
 						data.retorno_l3 = $('#retorno_l3').val();
