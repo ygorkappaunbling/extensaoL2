@@ -14,6 +14,17 @@ var ControleTickets = function(nivelResponsavel) {
 	this.SHEET_KNOWLEDGE_NAME = 'Fiscal'; //nome da aba na planilha compartilhada
 
 	this.requiredInputs = ['nro_ticket', 'grupo', 'subgrupo', 'modulo', 'funcionalidade', 'classificacao', 'causa', 'conclusao', 'data_abertura'];
+
+	//campos de ativar/desativar e o estado padrão de cada um
+	this.checkboxDefaults = {
+		'classificacao_certa': true,
+		'tipo_correto': true,
+		'testes': true,
+		'finfo': true,
+		'base_conhecimento': false,
+		'sem_base': false
+	};
+
 	this.nivelResponsavel = nivelResponsavel
 
 	this.loadFiles().done(function() {
@@ -55,24 +66,29 @@ ControleTickets.prototype = {
 
 			that.validate().done(function(isValid) {
 				if (isValid) {
+					//a ordem das chaves define a coluna na planilha (a linha começa em A com data/hora e e-mail)
 					var data = {
-						'nroTicket': '#'+$('#nro_ticket').val(), 
-						'classificacao': $('#classificacao option:selected').text(),
-						'grupo': $('#grupo option:selected').text(),
-						'subgrupo': $('#subgrupo option:selected').text() || 'Nenhum',
-						'modulo': $('#modulo option:selected').text(),
-						'funcionalidade': $('#funcionalidade option:selected').text(),
-						'motivo': $('#motivo option:selected').text(),
-						'acao': $('#acao option:selected').text(),
-						'testes': $('#testes option:selected').text(),
-						'finfo': $('#finfo option:selected').text(),
-						'data_abertura': $('#data_abertura').val(),
-						'causa': $('#causa').val(),
-						'obs': $('#obs').val(),
-						'atendente': $('#nome_atendente').val(),
-						'classificacao_certa': ($('#classificacao_certa').is(':checked') ? 'Sim' : 'Não'),
-						'ticket_raiz': $('#ticket_raiz').val(),
-						'erro': $('#erro').val()
+						'nroTicket': '#'+$('#nro_ticket').val(), //C
+						'classificacao': $('#classificacao option:selected').text(), //D
+						'grupo': $('#grupo option:selected').text(), //E
+						'subgrupo': $('#subgrupo option:selected').text() || 'Nenhum', //F
+						'modulo': $('#modulo option:selected').text(), //G
+						'funcionalidade': $('#funcionalidade option:selected').text(), //H
+						'acao': $('#acao option:selected').text(), //I
+						'testes': ($('#testes').is(':checked') ? 'Sim' : 'Não'), //J
+						'finfo': ($('#finfo').is(':checked') ? 'Sim' : 'Não'), //K
+						'data_abertura': $('#data_abertura').val(), //L
+						'causa': $('#causa').val(), //M
+						'obs': $('#obs').val(), //N
+						'atendente': $('#nome_atendente').val(), //O
+						'classificacao_certa': ($('#classificacao_certa').is(':checked') ? 'Sim' : 'Não'), //P
+						'ticket_raiz': $('#ticket_raiz').val(), //Q
+						'erro': $('#erro').val(), //R
+						'reservado_s': null, //S - não utilizado pela extensão
+						'reservado_t': null, //T - não utilizado pela extensão
+						'reservado_u': null, //U - não utilizado pela extensão
+						'tipo_correto': ($('#tipo_correto').is(':checked') ? 'Sim' : 'Não'), //V
+						'obs_l1': $('#obs_l1').val() //W
 					};
 
 					that.writeData(that.SHEET_ID, that.SHEET_NAME, data).done(function() {
@@ -127,9 +143,10 @@ ControleTickets.prototype = {
 
 	'getStorageData': function() {
 		var data = {};
+		var that = this;
 
 		$.each($('#controle_tickets input:not([type="button"]), #controle_tickets textarea, #controle_tickets select'), function() {
-			if ($.inArray($(this).attr('id'), ['classificacao_certa', 'base_conhecimento', 'sem_base']) != -1) {
+			if (that.checkboxDefaults.hasOwnProperty($(this).attr('id'))) {
 				var value = $(this).is(':checked');
 			} else {
 				var value = $(this).val();
@@ -276,7 +293,7 @@ ControleTickets.prototype = {
 	},
 
 	'clear': function() {
-		$.each(['nro_ticket', 'funcionalidade', 'data_abertura', 'causa', 'conclusao', 'nome_atendente', 'ticket_raiz', 'erro'], function() {
+		$.each(['nro_ticket', 'funcionalidade', 'data_abertura', 'causa', 'conclusao', 'nome_atendente', 'ticket_raiz', 'erro', 'obs_l1'], function() {
 			$('#' + this).val('').parents('.group-item-form').removeClass('group-item-form-error');
 		});
 
@@ -287,15 +304,16 @@ ControleTickets.prototype = {
 
 		$('#classificacao').val($('#classificacao option:first').val());
 
-		$('#sem_base').prop('checked', false);
-
 		chrome.storage.sync.clear();
 
-		$('#classificacao_certa').prop('checked', true);
-		$('#base_conhecimento').prop('checked', false);
+		$.each(this.checkboxDefaults, function(element, isChecked) {
+			$('#' + element).prop('checked', isChecked);
+		});
 	},
 
 	'setStoredFields': function() {
+		var that = this;
+
 		chrome.storage.sync.get(function(data) {
 			var sequence = ['grupo', 'subgrupo', 'modulo', 'funcionalidade'];
 
@@ -307,10 +325,14 @@ ControleTickets.prototype = {
 			});
 
 			$.each(data, function(element, value) {
-				if ($.inArray(element, ['classificacao_certa', 'base_conhecimento', 'sem_base']) != -1 && value) {
-					$('#' + element).prop('checked', true);
+				var field = $('#' + element);
+
+				if (that.checkboxDefaults.hasOwnProperty(element)) {
+					field.prop('checked', !!value);
+				} else if (field.is('select') && !field.find('option[value="' + value + '"]').length) {
+					return true; //opção removida do select, mantém a seleção padrão
 				} else {
-					$('#' + element).val(value);
+					field.val(value);
 				}
 			});
 		});

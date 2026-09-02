@@ -54,10 +54,10 @@
 
 			<div class="col-3 form-group group-item-form">
 				<div class="item-form-toggle">
-					<label class="label-item-form-toggle" for="base_conhecimento">Incluir na Base</label>
+					<label class="label-item-form-toggle" for="tipo_correto">Tipo correto</label>
 					<div class="toogle-checkbox">
 						<label>
-							<input type="checkbox" id="base_conhecimento" name="base_conhecimento" class="campo-cfg">
+							<input type="checkbox" id="tipo_correto" name="tipo_correto" class="campo-cfg" checked>
 							<span></span>
 						</label>
 					</div>
@@ -101,50 +101,60 @@
 
 		<div class="row">
 			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="motivo">Motivo</label>
-				<select id="motivo" name="motivo" class="item-form">
-					<option value="FV">Dúvida</option>
-					<option value="TI">Falha Validação Dados</option>
-					<option value="PB">Problema Integrações</option>
-					<option value="BS">Problema Sistema</option>
-					<option value="FE">Sugestão</option>
-					<option value="TO">Cliente Tester</option>
-					<option value="T8">Não sei</option>
-				</select>
-			</div>
-
-			<div class="col form-group group-item-form">
 				<label class="label-item-form" for="acao">Ação</label>
 				<select id="acao" name="acao" class="item-form">
 					<option value="AN">Devolvido L1</option>
-					<option value="A3">Ajustado L3/Devolvido L1</option>
-					<option value="E4">Verificado L3/Devolvido L1</option>
-					<option value="D2">Encaminhado Sugestão</option>
+					<option value="A2">Ajustado L2 / Devolvido L1</option>
+					<option value="ATR">Aguardando ticket raiz</option>
+					<option value="AEX">Aguardando externos</option>
+					<option value="D2">Encaminhado sugestão</option>
 					<option value="RC">Encaminhado L3</option>
-					<option value="PAM">Pedidos Amazon</option>
-					<option value="AR">Acesso Remoto</option>
-					<option value="PS">Pedidos Skyhub</option>
-					<option value="US">User de Suporte</option>
-					<option value="CT">Aguardando Retorno Chat</option>
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="testes">L1 Efetuou Testes?</label>
-				<select id="testes" name="testes" class="item-form">
-					<option value="S1">Sim</option>
-					<option value="N2">Não</option>
-				</select>
-			</div>
-			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="finfo">Faltou Informação L1</label>
-				<select id="finfo" name="finfo" class="item-form">
-					<option value="S2">Não</option>
-					<option value="N3">Sim</option>
+					<option value="ACL">Aguardando cliente</option>
 				</select>
 			</div>
 
+			<div class="col form-group group-item-form">
+				<label class="label-item-form" for="obs_l1">Observação L1</label>
+				<input type="text" id="obs_l1" name="obs_l1" class="item-form">
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-4 form-group group-item-form">
+				<div class="item-form-toggle">
+					<label class="label-item-form-toggle" for="testes">L1 Efetuou Testes?</label>
+					<div class="toogle-checkbox">
+						<label>
+							<input type="checkbox" id="testes" name="testes" class="campo-cfg" checked>
+							<span></span>
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-4 form-group group-item-form">
+				<div class="item-form-toggle">
+					<label class="label-item-form-toggle" for="finfo">Encaminhamento completo L1</label>
+					<div class="toogle-checkbox">
+						<label>
+							<input type="checkbox" id="finfo" name="finfo" class="campo-cfg" checked>
+							<span></span>
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-4 form-group group-item-form">
+				<div class="item-form-toggle">
+					<label class="label-item-form-toggle" for="base_conhecimento">Incluir na Base</label>
+					<div class="toogle-checkbox">
+						<label>
+							<input type="checkbox" id="base_conhecimento" name="base_conhecimento" class="campo-cfg">
+							<span></span>
+						</label>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<div class="row">
@@ -165,7 +175,7 @@
 			</div>
 		
 			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="obs">Observações<span> * </span></label>
+				<label class="label-item-form" for="obs">Observações ticket<span> * </span></label>
 				<textarea id="obs" name="obs" class="item-form textarea-item-form" col="64" rows="8"></textarea>
 			</div>
 		</div>
@@ -178,15 +188,6 @@
 			<div class="col form-group group-item-form">
 				<label class="label-item-form" for="data_abertura">Data de abertura<span> * </span></label>
 				<input type="text" id="data_abertura" name="data_abertura" class="item-form">
-			</div>
-
-			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="finfo">Avaliação</label>
-				<select id="avaliacao" name="avaliacao" class="item-form">
-					<option value="nAplica">Não se aplica</option>
-					<option value="Positiva">Positiva</option>
-					<option value="Negativa">Negativa</option>
-				</select>
 			</div>
 		</div>
 
