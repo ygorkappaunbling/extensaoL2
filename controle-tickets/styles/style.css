@@ -1,6 +1,6 @@
 body {
 	width: 700px;
-	background-color: #F8FAFC;
+	background-color: #F4F4F4;
 }
 
 .row {
@@ -52,7 +52,7 @@ label {
 }
 
 .item-form:focus {
-	border: 1px solid #3FAF6C;
+	border: 1px solid #93F574;
 	background-color: #FFF;
 	outline: none;
 }
@@ -82,8 +82,8 @@ label {
 	height: 32px;
 	font-size: 12px;
 	font-weight: bold;
-	background-color: #34AD61;
-	color: #FFF;
+	background-color: #93F574;
+	color: #495769;
 	border-radius: 0px;
 	border: none;
 	text-transform: capitalize;
@@ -92,8 +92,8 @@ label {
 
 .button-default-novo:hover,
 .button-default-novo:focus {
-	background-color: #288F4E;
-	color: #FFF;
+	background-color: #84DC68;
+	color: #495769;
 	cursor: pointer;
 }
 
@@ -102,9 +102,9 @@ label {
 	height: 32px;
 	font-size: 12px;
 	background-color: #FFF;
-	color: #34AD61;
+	color: #495769;
 	border-radius: 8px;
-	border: 1px solid #34ad61;
+	border: 1px solid #93F574;
 	font-weight: bold;
 	text-transform: capitalize;
 	font-family: Arial !important;
@@ -112,7 +112,7 @@ label {
 
 .btn-secundary-novo:hover,
 .btn-secundary-novo:focus {
-	background-color: #DCFAE6;
+	background-color: #E0FDD8;
 	cursor: pointer;
 }
 
@@ -220,7 +220,7 @@ label {
 	position: absolute;
 	width: 5px;
 	height: 17px;
-	background-color: #3FAF6C;
+	background-color: #93F574;
 	left: 23px;
 	top: 10px;
 }
@@ -229,7 +229,7 @@ label {
 	position: absolute;
 	width: 8px;
 	height: 5px;
-	background-color: #3FAF6C;
+	background-color: #93F574;
 	left: 17px;
 	top: 22px;
 }
@@ -293,7 +293,7 @@ div.toogle-checkbox span:before {
 }
 
 div.toogle-checkbox input:checked + span {
-	background-color: #37A661;
+	background-color: #93F574;
 }
 
 div.toogle-checkbox input:disabled + span {
@@ -301,7 +301,7 @@ div.toogle-checkbox input:disabled + span {
 }
 
 div.toogle-checkbox input:focus + span {
-	box-shadow: 0 0 1px #B1C979;
+	box-shadow: 0 0 1px #93F574;
 }
 
 div.toogle-checkbox input:checked + span:before {
@@ -340,7 +340,7 @@ div.toogle-checkbox span:after {
 
 .label-item-form span.info-campo:hover,
 .label-item-form-toggle span.info-campo:hover {
-	color: #3FAF6C;
+	color: #35871D;
 }
 
 span.info-campo:before {
