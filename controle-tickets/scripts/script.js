@@ -6,6 +6,12 @@ const NIVEL_RESPONSAVEL = {
 //valor padrão das configurações de planilha, indica que ainda não foram preenchidas
 const CONFIG_PENDENTE = 'Link da planilha aqui';
 
+//ação fixa do modo "Informar retorno do L3"
+const ACAO_RETORNO_L3 = 'RL3';
+
+//colunas que não fazem parte do retorno do L3 e por isso vão em branco
+const COLUNAS_FORA_DO_RETORNO_L3 = ['causa_situacao', 'mensagem_erro', 'ticket_raiz', 'obs_ticket', 'classificacao_correta', 'tipo_correto', 'l1_testou', 'informacoes_completas', 'obs_l1'];
+
 $(function() {
 	var controleTickets = new ControleTickets(NIVEL_RESPONSAVEL.L1);
 });
@@ -19,7 +25,8 @@ var ControleTickets = function(nivelResponsavel) {
 	this.SHEET_KNOWLEDGE_ID = 'Link da planilha aqui'; //ID da planilha compartilhada
 	this.SHEET_KNOWLEDGE_NAME = 'Fiscal'; //nome da aba na planilha compartilhada
 
-	this.requiredInputs = ['nro_ticket', 'grupo', 'subgrupo', 'modulo', 'funcionalidade', 'classificacao', 'causa', 'conclusao', 'data_abertura'];
+	//só são exigidos os que estiverem visíveis, então a lista serve aos dois modos
+	this.requiredInputs = ['nro_ticket', 'grupo', 'subgrupo', 'modulo', 'funcionalidade', 'classificacao', 'causa', 'conclusao', 'data_abertura', 'retorno_l3'];
 
 	//campos de ativar/desativar e o estado padrão de cada um
 	this.checkboxDefaults = {
@@ -28,7 +35,8 @@ var ControleTickets = function(nivelResponsavel) {
 		'testes': true,
 		'finfo': true,
 		'base_conhecimento': false,
-		'sem_base': false
+		'sem_base': false,
+		'modo_retorno_l3': false
 	};
 
 	this.nivelResponsavel = nivelResponsavel
@@ -60,6 +68,31 @@ ControleTickets.prototype = {
 		return this.isConfigurada(this.SHEET_KNOWLEDGE_ID) && this.isConfigurada(this.SHEET_KNOWLEDGE_NAME);
 	},
 
+	'isModoRetornoL3': function() {
+		return $('#modo_retorno_l3').is(':checked');
+	},
+
+	//deixa na tela apenas os campos que vêm preenchidos do ticket, mais a ação
+	//fixa e o retorno do L3
+	'aplicaModoRetornoL3': function() {
+		var ativo = this.isModoRetornoL3();
+
+		$('.campo-l2').toggle(!ativo);
+		$('.campo-retorno-l3').toggle(ativo);
+		$('#informar_retorno_l3').toggle(!ativo);
+		$('#sair_retorno_l3').toggle(ativo);
+
+		//a opção só existe para o usuário dentro deste modo
+		$('#acao option.opt-retorno-l3').prop('hidden', !ativo);
+		$('#acao').prop('disabled', ativo);
+
+		if (ativo) {
+			$('#acao').val(ACAO_RETORNO_L3);
+		} else if ($('#acao').val() == ACAO_RETORNO_L3) {
+			$('#acao').val($('#acao option:first').val());
+		}
+	},
+
 	'loadFiles': function() {
 		var deferredObj = $.Deferred();
 
@@ -86,6 +119,10 @@ ControleTickets.prototype = {
 		//impede ligar o "Incluir na Base" sem a planilha compartilhada configurada.
 		//registrado antes do evento que salva os campos, para que o estado gravado
 		//seja o já corrigido
+		$('#modo_retorno_l3').on('change', function() {
+			that.aplicaModoRetornoL3();
+		});
+
 		$('#base_conhecimento').on('change', function() {
 			if ($(this).is(':checked') && !that.hasPlanilhaBase()) {
 				$(this).prop('checked', false);
@@ -129,8 +166,18 @@ ControleTickets.prototype = {
 						'obs_l1': $('#obs_l1').val() //U - Observações L1
 					};
 
+					if (that.isModoRetornoL3()) {
+						//grava só as colunas que vêm preenchidas do ticket, a ação
+						//fixa e o retorno; o resto fica em branco
+						$.each(COLUNAS_FORA_DO_RETORNO_L3, function(i, coluna) {
+							data[coluna] = null;
+						});
+
+						data.retorno_l3 = $('#retorno_l3').val();
+					}
+
 					that.writeData(that.SHEET_ID, that.SHEET_NAME, data).done(function() {
-						if ($('#base_conhecimento').is(':checked') && that.hasPlanilhaBase()) {
+						if ($('#base_conhecimento').is(':checked') && that.hasPlanilhaBase() && !that.isModoRetornoL3()) {
 							that.writeData(that.SHEET_KNOWLEDGE_ID, that.SHEET_KNOWLEDGE_NAME, data).done(function() {
 								that.closeWaitSuccess();
 							});
@@ -145,6 +192,12 @@ ControleTickets.prototype = {
 		})
 		.on('click', '#limpar', function() {
 			that.clear();
+		})
+		.on('click', '#informar_retorno_l3', function() {
+			$('#modo_retorno_l3').prop('checked', true).change();
+		})
+		.on('click', '#sair_retorno_l3', function() {
+			$('#modo_retorno_l3').prop('checked', false).change();
 		})
 		.on('change', '#modulo', function() {
 			that.updateFunctionalities();
@@ -305,7 +358,6 @@ ControleTickets.prototype = {
 
 	'validate': function() {
 		var deferredObj = $.Deferred();
-		var data = this.readData('C2:C');
 		var isValid = true;
 
 		$.each(this.requiredInputs, function() {
@@ -315,7 +367,13 @@ ControleTickets.prototype = {
 			}
 		});
 
-		data.done(function(res) {
+		//no retorno do L3 o ticket já está cadastrado, então a checagem de
+		//duplicidade não se aplica
+		if (this.isModoRetornoL3()) {
+			return deferredObj.resolve(isValid).promise();
+		}
+
+		this.readData('C2:C').done(function(res) {
 			res.values = res.values || [];
 
 			if ($.inArray($('#nro_ticket').val(), res.values.flat()) != -1) {
@@ -331,7 +389,7 @@ ControleTickets.prototype = {
 	},
 
 	'clear': function() {
-		$.each(['nro_ticket', 'funcionalidade', 'data_abertura', 'causa', 'conclusao', 'nome_atendente', 'ticket_raiz', 'erro', 'obs_l1'], function() {
+		$.each(['nro_ticket', 'funcionalidade', 'data_abertura', 'causa', 'conclusao', 'nome_atendente', 'ticket_raiz', 'erro', 'obs_l1', 'retorno_l3'], function() {
 			$('#' + this).val('').parents('.group-item-form').removeClass('group-item-form-error');
 		});
 
@@ -347,6 +405,8 @@ ControleTickets.prototype = {
 		$.each(this.checkboxDefaults, function(element, isChecked) {
 			$('#' + element).prop('checked', isChecked);
 		});
+
+		this.aplicaModoRetornoL3();
 	},
 
 	'setStoredFields': function() {
@@ -379,6 +439,8 @@ ControleTickets.prototype = {
 			if (!that.hasPlanilhaBase()) {
 				$('#base_conhecimento').prop('checked', false);
 			}
+
+			that.aplicaModoRetornoL3();
 		});
 	},
 

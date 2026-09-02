@@ -26,6 +26,17 @@
 		</div>
 
 		<div class="row">
+			<div class="col-6">
+				<input type="button" id="informar_retorno_l3" value="Informar retorno do L3" class="btn-secundary-novo">
+				<input type="button" id="sair_retorno_l3" value="Sair do retorno do L3" class="btn-secundary-novo" style="display: none;">
+			</div>
+		</div>
+
+		<!-- guarda o modo de preenchimento; é um campo do formulário para ser
+		     gravado e restaurado junto com os demais -->
+		<input type="checkbox" id="modo_retorno_l3" name="modo_retorno_l3" style="display: none;">
+
+		<div class="row">
 			<div class="col form-group group-item-form">
 				<label class="label-item-form" for="nro_ticket">Número do ticket<span> * </span><span class="info-campo" data-info="Número do ticket a ser registrado"></span></label>
 				<input type="text" id="nro_ticket" name="nro_ticket" class="item-form">
@@ -40,7 +51,7 @@
 				</select>
 			</div>
 
-			<div class="col-3 form-group group-item-form">
+			<div class="col-3 form-group group-item-form campo-l2">
 				<div class="item-form-toggle">
 					<label class="label-item-form-toggle" for="classificacao_certa">Classificação correta<span class="info-campo info-esq" data-info="O ticket foi classificado corretamente? Ativado = Sim; Desativado = Não"></span></label>
 					<div class="toogle-checkbox">
@@ -52,7 +63,7 @@
 				</div>
 			</div>
 
-			<div class="col-3 form-group group-item-form">
+			<div class="col-3 form-group group-item-form campo-l2">
 				<div class="item-form-toggle">
 					<label class="label-item-form-toggle" for="tipo_correto">Tipo correto<span class="info-campo info-esq" data-info="O tipo do ticket (Dúvida, Problema ou Sugestão) está correto? Ativado = Sim; Desativado = Não"></span></label>
 					<div class="toogle-checkbox">
@@ -110,17 +121,18 @@
 					<option value="D2">Encaminhado sugestão</option>
 					<option value="RC">Encaminhado L3</option>
 					<option value="ACL">Aguardando cliente</option>
+					<option value="RL3" class="opt-retorno-l3" hidden>Informação de retorno L3</option>
 				</select>
 			</div>
 
-			<div class="col form-group group-item-form">
+			<div class="col form-group group-item-form campo-l2">
 				<label class="label-item-form" for="obs_l1">Observação L1<span class="info-campo info-esq" data-info="Observação sobre o atendente L1"></span></label>
 				<input type="text" id="obs_l1" name="obs_l1" class="item-form">
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="col-4 form-group group-item-form">
+			<div class="col-4 form-group group-item-form campo-l2">
 				<div class="item-form-toggle">
 					<label class="label-item-form-toggle" for="testes">L1 Efetuou Testes?<span class="info-campo" data-info="O L1 efetuou testes? Ativado = Sim; Desativado = Não"></span></label>
 					<div class="toogle-checkbox">
@@ -132,7 +144,7 @@
 				</div>
 			</div>
 
-			<div class="col-4 form-group group-item-form">
+			<div class="col-4 form-group group-item-form campo-l2">
 				<div class="item-form-toggle">
 					<label class="label-item-form-toggle" for="finfo">Encaminhamento completo L1<span class="info-campo" data-info="As informações passadas no ticket estão completas? Ativado = Sim; Desativado = Não"></span></label>
 					<div class="toogle-checkbox">
@@ -144,7 +156,7 @@
 				</div>
 			</div>
 
-			<div class="col-4 form-group group-item-form">
+			<div class="col-4 form-group group-item-form campo-l2">
 				<div class="item-form-toggle">
 					<label class="label-item-form-toggle" for="base_conhecimento">Incluir na Base<span class="info-campo info-esq" data-info="Ativado = o registro também é enviado para a planilha da Base de Conhecimento"></span></label>
 					<div class="toogle-checkbox">
@@ -158,28 +170,35 @@
 		</div>
 
 		<div class="row">
-			<div class="col form-group group-item-form">
+			<div class="col form-group group-item-form campo-l2">
 				<label class="label-item-form" for="ticket_raiz">Ticket raiz<span class="info-campo" data-info="Informe aqui o ticket original, ou seja, o primeiro ticket que registrou esse erro"></span></label>
 				<input type="text" id="ticket_raiz" name="ticket_raiz" class="item-form">
 			</div>
-			<div class="col form-group group-item-form">
+			<div class="col form-group group-item-form campo-l2">
 				<label class="label-item-form" for="erro">Erro<span class="info-campo" data-info="Cole aqui somente a mensagem de erro do ticket. Se não tiver, deixe uma breve explicação da situação"></span></label>
 				<input type="text" id="erro" name="erro" class="item-form">
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="obs">Causa<span> * </span><span class="info-campo" data-info="Descreva a situação que está ocorrendo neste ticket"></span></label>
+			<div class="col form-group group-item-form campo-l2">
+				<label class="label-item-form" for="causa">Causa<span> * </span><span class="info-campo" data-info="Descreva a situação que está ocorrendo neste ticket"></span></label>
 				<textarea id="causa" name="causa" class="item-form textarea-item-form" col="64" rows="8"></textarea>
 			</div>
 		
-			<div class="col form-group group-item-form">
+			<div class="col form-group group-item-form campo-l2">
 				<label class="label-item-form" for="obs">Observações ticket<span> * </span><span class="info-campo info-esq" data-info="Informe observações sobre o ticket"></span></label>
 				<textarea id="obs" name="obs" class="item-form textarea-item-form" col="64" rows="8"></textarea>
 			</div>
 
 		</div>
+		<div class="row campo-retorno-l3" style="display: none;">
+			<div class="col form-group group-item-form">
+				<label class="label-item-form" for="retorno_l3">Retorno do L3<span> * </span><span class="info-campo" data-info="Cole ou descreva aqui o retorno que o L3 deu para este ticket"></span></label>
+				<textarea id="retorno_l3" name="retorno_l3" class="item-form textarea-item-form textarea-retorno-l3"></textarea>
+			</div>
+		</div>
+
 		<div class="row">
 			<div class="col form-group group-item-form">
 				<label class="label-item-form" for="nome_atendente">L-<span class="info-campo" data-info="Nome do atendente L1"></span></label>

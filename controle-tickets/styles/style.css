@@ -77,6 +77,18 @@ label {
 	resize: none;
 }
 
+.textarea-retorno-l3 {
+	height: 160px;
+	padding: 6px 9px;
+}
+
+/* frases inteiras, ao contrário dos botões de uma palavra que o estilo
+   padrão capitaliza */
+#informar_retorno_l3,
+#sair_retorno_l3 {
+	text-transform: none;
+}
+
 .button-default-novo {
 	width: 100%;
 	height: 32px;
