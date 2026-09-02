@@ -66,29 +66,28 @@ ControleTickets.prototype = {
 
 			that.validate().done(function(isValid) {
 				if (isValid) {
-					//a ordem das chaves define a coluna na planilha (a linha começa em A com data/hora e e-mail)
+					//a ordem das chaves define a coluna na planilha
+					//A (data/hora) e B (e-mail) são preenchidas automaticamente em writeData
 					var data = {
-						'nroTicket': '#'+$('#nro_ticket').val(), //C
-						'classificacao': $('#classificacao option:selected').text(), //D
-						'grupo': $('#grupo option:selected').text(), //E
-						'subgrupo': $('#subgrupo option:selected').text() || 'Nenhum', //F
-						'modulo': $('#modulo option:selected').text(), //G
-						'funcionalidade': $('#funcionalidade option:selected').text(), //H
-						'acao': $('#acao option:selected').text(), //I
-						'testes': ($('#testes').is(':checked') ? 'Sim' : 'Não'), //J
-						'finfo': ($('#finfo').is(':checked') ? 'Sim' : 'Não'), //K
-						'data_abertura': $('#data_abertura').val(), //L
-						'causa': $('#causa').val(), //M
-						'obs': $('#obs').val(), //N
-						'atendente': $('#nome_atendente').val(), //O
-						'classificacao_certa': ($('#classificacao_certa').is(':checked') ? 'Sim' : 'Não'), //P
-						'ticket_raiz': $('#ticket_raiz').val(), //Q
-						'erro': $('#erro').val(), //R
-						'reservado_s': null, //S - não utilizado pela extensão
-						'reservado_t': null, //T - não utilizado pela extensão
-						'reservado_u': null, //U - não utilizado pela extensão
-						'tipo_correto': ($('#tipo_correto').is(':checked') ? 'Sim' : 'Não'), //V
-						'obs_l1': $('#obs_l1').val() //W
+						'nroTicket': '#'+$('#nro_ticket').val(), //C - Número do Ticket
+						'classificacao': $('#classificacao option:selected').text(), //D - Classificação
+						'grupo': $('#grupo option:selected').text(), //E - Grupo
+						'subgrupo': $('#subgrupo option:selected').text() || 'Nenhum', //F - Subgrupo
+						'modulo': $('#modulo option:selected').text(), //G - Módulo
+						'funcionalidade': $('#funcionalidade option:selected').text(), //H - Funcionalidade
+						'causa_situacao': $('#causa').val(), //I - Causa | Situação
+						'mensagem_erro': $('#erro').val(), //J - Mensagem de erro
+						'acao': $('#acao option:selected').text(), //K - Ação
+						'ticket_raiz': $('#ticket_raiz').val(), //L - Ticket raiz
+						'obs_ticket': $('#obs').val(), //M - Observações ticket
+						'retorno_l3': $('#retorno_l3').val(), //N - Retorno L3
+						'data_abertura': $('#data_abertura').val(), //O - Data de abertura
+						'l1': $('#nome_atendente').val(), //P - L1
+						'classificacao_correta': ($('#classificacao_certa').is(':checked') ? 'Sim' : 'Não'), //Q - Classificação correta?
+						'tipo_correto': ($('#tipo_correto').is(':checked') ? 'Sim' : 'Não'), //R - Tipo correto?
+						'l1_testou': ($('#testes').is(':checked') ? 'Sim' : 'Não'), //S - L1 testou?
+						'informacoes_completas': ($('#finfo').is(':checked') ? 'Sim' : 'Não'), //T - Informações completas?
+						'obs_l1': $('#obs_l1').val() //U - Observações L1
 					};
 
 					that.writeData(that.SHEET_ID, that.SHEET_NAME, data).done(function() {
@@ -293,7 +292,7 @@ ControleTickets.prototype = {
 	},
 
 	'clear': function() {
-		$.each(['nro_ticket', 'funcionalidade', 'data_abertura', 'causa', 'conclusao', 'nome_atendente', 'ticket_raiz', 'erro', 'obs_l1'], function() {
+		$.each(['nro_ticket', 'funcionalidade', 'data_abertura', 'causa', 'conclusao', 'nome_atendente', 'ticket_raiz', 'erro', 'obs_l1', 'retorno_l3'], function() {
 			$('#' + this).val('').parents('.group-item-form').removeClass('group-item-form-error');
 		});
 
