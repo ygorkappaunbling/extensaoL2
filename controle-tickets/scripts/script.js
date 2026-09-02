@@ -326,20 +326,40 @@ ControleTickets.prototype = {
 		return deferredObj.promise();
 	},
 
+	//letra da coluna de uma posição (1 = A, 27 = AA)
+	'colunaPorPosicao': function(posicao) {
+		var letras = '';
+
+		while (posicao > 0) {
+			var resto = (posicao - 1) % 26;
+
+			letras = String.fromCharCode(65 + resto) + letras;
+			posicao = (posicao - 1 - resto) / 26;
+		}
+
+		return letras;
+	},
+
 	'writeData': function(sheetId, sheetName, data) {
 		var deferredObj = $.Deferred();
+		var that = this;
 
 		chrome.identity.getAuthToken({interactive: true}, function(token) {
 			chrome.identity.getProfileUserInfo(function(userInfo) {
+				var valores = $.merge([new Date().toLocaleString('pt-BR'), userInfo['email']], Object.values(data));
+
+				//o intervalo tem que cobrir todas as colunas gravadas: se for mais
+				//estreito que a linha, o append passa a escrever a partir da última
+				//coluna do intervalo em vez da coluna A
+				var range = sheetName + '!A1:' + that.colunaPorPosicao(valores.length) + '1';
+
 				var params = {
 					'majorDimension': 'ROWS',
-					'values': [
-						$.merge([new Date().toLocaleString('pt-BR'), userInfo['email']], Object.values(data))
-					]
+					'values': [valores]
 				};
 
 				$.post({
-					'url': 'https://sheets.googleapis.com/v4/spreadsheets/' + sheetId + '/values/' + sheetName + '!A1:O1:append?valueInputOption=RAW',
+					'url': 'https://sheets.googleapis.com/v4/spreadsheets/' + sheetId + '/values/' + range + ':append?valueInputOption=RAW',
 					'headers': {
 						'Authorization': 'Bearer ' + token,
 						'Content-Type': 'application/json'
