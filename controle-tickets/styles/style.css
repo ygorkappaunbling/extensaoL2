@@ -8,10 +8,11 @@ body {
 }
 
 .row input[type="button"] {
-	margin-top: 19px;
+	margin-top: 12px;
 }
 
 h4 {
+	margin-bottom: 4px;
 	font-size: 15pt;
 	font-weight: bold;
 	color: #495769;
@@ -23,7 +24,7 @@ label {
 }
 
 #controle_tickets {
-	padding: 20px 5px;
+	padding: 10px 5px;
 }
 
 #enviar_controle_tickets,
@@ -33,7 +34,7 @@ label {
 }
 
 .form-group {
-	margin-bottom: 8px;
+	margin-bottom: 5px;
 }
 
 .item-form {
@@ -404,4 +405,17 @@ span.info-campo.info-esq:after {
 span.info-campo:hover:after {
 	visibility: visible;
 	opacity: 1;
+}
+/* o popup do Chrome não passa de 600px de altura, então o formulário precisa
+   caber sem rolagem: esta linha junta o botão de modo e o aviso */
+.linha-topo {
+	margin-bottom: 6px;
+}
+
+.linha-topo input[type="button"] {
+	margin-top: 0;
+}
+
+.linha-topo .obrigatorio-item-form {
+	margin-bottom: 0;
 }
