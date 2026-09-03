@@ -83,6 +83,11 @@ label {
 	padding: 6px 9px;
 }
 
+/* sozinho na linha, o número do ticket ocuparia a largura toda do popup */
+.modo-retorno-l3 #nro_ticket {
+	max-width: 200px;
+}
+
 /* frases inteiras, ao contrário dos botões de uma palavra que o estilo
    padrão capitaliza */
 #informar_retorno_l3,

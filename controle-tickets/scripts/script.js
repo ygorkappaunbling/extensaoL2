@@ -6,9 +6,6 @@ const NIVEL_RESPONSAVEL = {
 //valor padrão das configurações de planilha, indica que ainda não foram preenchidas
 const CONFIG_PENDENTE = 'Link da planilha aqui';
 
-//ação fixa do modo "Informar retorno do L3"
-const ACAO_RETORNO_L3 = 'RL3';
-
 //chaves usadas para descobrir a coluna correspondente na planilha
 const CAMPO_NRO_TICKET = 'nroTicket';
 const CAMPO_RETORNO_L3 = 'retorno_l3';
@@ -79,24 +76,22 @@ ControleTickets.prototype = {
 		return $('#modo_retorno_l3').is(':checked');
 	},
 
-	//deixa na tela apenas os campos que vêm preenchidos do ticket, mais a ação
-	//fixa e o retorno do L3
+	//o retorno do L3 grava só a coluna do retorno na linha que já existe, então a
+	//tela fica com o número do ticket, que localiza a linha, o campo do retorno e
+	//o botão de voltar
 	'aplicaModoRetornoL3': function() {
 		var ativo = this.isModoRetornoL3();
 
+		$('#controle_tickets').toggleClass('modo-retorno-l3', ativo);
 		$('.campo-l2').toggle(!ativo);
 		$('.campo-retorno-l3').toggle(ativo);
 		$('#informar_retorno_l3').toggle(!ativo);
 		$('#sair_retorno_l3').toggle(ativo);
 
-		//a opção só existe para o usuário dentro deste modo
-		$('#acao option.opt-retorno-l3').prop('hidden', !ativo);
-		$('#acao').prop('disabled', ativo);
-
-		if (ativo) {
-			$('#acao').val(ACAO_RETORNO_L3);
-		} else if ($('#acao').val() == ACAO_RETORNO_L3) {
-			$('#acao').val($('#acao option:first').val());
+		//o subgrupo aparece ou não conforme o grupo escolhido, e essa regra tem
+		//que voltar a valer ao sair do modo
+		if (!ativo) {
+			this.updateSubgroups();
 		}
 	},
 
