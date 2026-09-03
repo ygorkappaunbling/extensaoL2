@@ -9,8 +9,12 @@ const CONFIG_PENDENTE = 'Link da planilha aqui';
 //ação fixa do modo "Informar retorno do L3"
 const ACAO_RETORNO_L3 = 'RL3';
 
-//colunas que não fazem parte do retorno do L3 e por isso vão em branco
-const COLUNAS_FORA_DO_RETORNO_L3 = ['causa_situacao', 'mensagem_erro', 'ticket_raiz', 'obs_ticket', 'classificacao_correta', 'tipo_correto', 'l1_testou', 'informacoes_completas', 'obs_l1'];
+//chaves usadas para descobrir a coluna correspondente na planilha
+const CAMPO_NRO_TICKET = 'nroTicket';
+const CAMPO_RETORNO_L3 = 'retorno_l3';
+
+//data/hora e e-mail ocupam A e B, então a primeira chave dos dados cai em C
+const COLUNAS_AUTOMATICAS = 2;
 
 $(function() {
 	var controleTickets = new ControleTickets(NIVEL_RESPONSAVEL.L1);
@@ -25,8 +29,11 @@ var ControleTickets = function(nivelResponsavel) {
 	this.SHEET_KNOWLEDGE_ID = 'Link da planilha aqui'; //ID da planilha compartilhada
 	this.SHEET_KNOWLEDGE_NAME = 'Fiscal'; //nome da aba na planilha compartilhada
 
-	//só são exigidos os que estiverem visíveis, então a lista serve aos dois modos
-	this.requiredInputs = ['nro_ticket', 'grupo', 'subgrupo', 'modulo', 'funcionalidade', 'classificacao', 'causa', 'conclusao', 'data_abertura', 'retorno_l3'];
+	//só são exigidos os que estiverem visíveis
+	this.requiredInputs = ['nro_ticket', 'grupo', 'subgrupo', 'modulo', 'funcionalidade', 'classificacao', 'causa', 'conclusao', 'data_abertura'];
+
+	//no retorno do L3 só o ticket, que localiza a linha, e o próprio retorno
+	this.requiredInputsRetornoL3 = ['nro_ticket', 'retorno_l3'];
 
 	//campos de ativar/desativar e o estado padrão de cada um
 	this.checkboxDefaults = {
@@ -166,24 +173,29 @@ ControleTickets.prototype = {
 						'obs_l1': $('#obs_l1').val() //U - Observações L1
 					};
 
+					//o ticket já está cadastrado: atualiza a linha dele em vez de criar outra
 					if (that.isModoRetornoL3()) {
-						//grava só as colunas que vêm preenchidas do ticket, a ação
-						//fixa e o retorno; o resto fica em branco
-						$.each(COLUNAS_FORA_DO_RETORNO_L3, function(i, coluna) {
-							data[coluna] = '';
+						that.writeRetornoL3(data, $('#retorno_l3').val()).done(function() {
+							that.closeWaitSuccess();
+						}).fail(function() {
+							that.closeWait();
 						});
 
-						data.retorno_l3 = $('#retorno_l3').val();
+						return;
 					}
 
 					that.writeData(that.SHEET_ID, that.SHEET_NAME, data).done(function() {
-						if ($('#base_conhecimento').is(':checked') && that.hasPlanilhaBase() && !that.isModoRetornoL3()) {
+						if ($('#base_conhecimento').is(':checked') && that.hasPlanilhaBase()) {
 							that.writeData(that.SHEET_KNOWLEDGE_ID, that.SHEET_KNOWLEDGE_NAME, data).done(function() {
 								that.closeWaitSuccess();
+							}).fail(function() {
+								that.closeWait();
 							});
 						} else {
 							that.closeWaitSuccess();
 						}
+					}).fail(function() {
+						that.closeWait();
 					});
 				} else {
 					that.closeWait();
@@ -318,8 +330,10 @@ ControleTickets.prototype = {
 					'Content-Type': 'application/json'
 				},
 				'contentType': 'json'
-			}, function(res) {
+			}).done(function(res) {
 				deferredObj.resolve(res);
+			}).fail(function() {
+				deferredObj.reject();
 			});
 		});
 
@@ -338,6 +352,84 @@ ControleTickets.prototype = {
 		}
 
 		return letras;
+	},
+
+	//letra da coluna em que uma chave dos dados é gravada
+	'colunaDoCampo': function(data, campo) {
+		return this.colunaPorPosicao($.inArray(campo, Object.keys(data)) + COLUNAS_AUTOMATICAS + 1);
+	},
+
+	//no retorno do L3 o ticket já está cadastrado: localiza a linha dele e grava
+	//o retorno na coluna correspondente, sem criar uma linha nova
+	'writeRetornoL3': function(data, retorno) {
+		var deferredObj = $.Deferred();
+		var that = this;
+		var colunaTicket = this.colunaDoCampo(data, CAMPO_NRO_TICKET);
+		var colunaRetorno = this.colunaDoCampo(data, CAMPO_RETORNO_L3);
+
+		var falhaLeitura = function() {
+			alert('Não foi possível consultar a planilha. Verifique a conexão e tente novamente.');
+			deferredObj.reject();
+		};
+
+		this.readData(colunaTicket + '2:' + colunaTicket).done(function(res) {
+			var tickets = $.map(res.values || [], function(linha) {
+				return $.trim((linha || [])[0] || '');
+			});
+
+			//a última ocorrência, caso o ticket tenha sido cadastrado mais de uma vez
+			var linha = tickets.lastIndexOf($.trim(data[CAMPO_NRO_TICKET])) + 2;
+
+			if (linha < 2) {
+				alert('O ticket ' + data[CAMPO_NRO_TICKET] + ' não foi encontrado na planilha.\n\nCadastre o ticket antes de informar o retorno do L3.');
+				deferredObj.reject();
+
+				return;
+			}
+
+			that.readData(colunaRetorno + linha).done(function(res) {
+				var atual = $.trim((((res.values || [])[0] || [])[0]) || '');
+
+				if (atual && !confirm('O ticket ' + data[CAMPO_NRO_TICKET] + ' já tem um retorno do L3 gravado:\n\n' + atual + '\n\nSubstituir pelo novo retorno?')) {
+					deferredObj.reject();
+
+					return;
+				}
+
+				that.updateData(colunaRetorno + linha, retorno).done(function() {
+					deferredObj.resolve();
+				}).fail(function() {
+					alert('Não foi possível gravar o retorno na planilha. Tente novamente.');
+					deferredObj.reject();
+				});
+			}).fail(falhaLeitura);
+		}).fail(falhaLeitura);
+
+		return deferredObj.promise();
+	},
+
+	//grava um valor numa célula já existente, diferente do append que cria linha
+	'updateData': function(range, valor) {
+		var deferredObj = $.Deferred();
+		var that = this;
+
+		chrome.identity.getAuthToken({interactive: true}, function(token) {
+			$.ajax({
+				'type': 'PUT',
+				'url': 'https://sheets.googleapis.com/v4/spreadsheets/' + that.SHEET_ID + '/values/' + that.SHEET_NAME + '!' + range + '?valueInputOption=RAW',
+				'headers': {
+					'Authorization': 'Bearer ' + token,
+					'Content-Type': 'application/json'
+				},
+				'data': JSON.stringify({'majorDimension': 'ROWS', 'values': [[valor]]})
+			}).done(function() {
+				deferredObj.resolve();
+			}).fail(function() {
+				deferredObj.reject();
+			});
+		});
+
+		return deferredObj.promise();
 	},
 
 	'writeData': function(sheetId, sheetName, data) {
@@ -379,17 +471,20 @@ ControleTickets.prototype = {
 	'validate': function() {
 		var deferredObj = $.Deferred();
 		var isValid = true;
+		var retornoL3 = this.isModoRetornoL3();
 
-		$.each(this.requiredInputs, function() {
+		//no retorno do L3 os demais campos são só contexto: eles identificam o
+		//ticket na tela, mas nada além do retorno é gravado
+		$.each(retornoL3 ? this.requiredInputsRetornoL3 : this.requiredInputs, function() {
 			if (!$.trim($('#' + this).val()) && $('#' + this).is(':visible')) {
 				$('#' + this).parents('.group-item-form').addClass('group-item-form-error');
 				isValid = false;
 			}
 		});
 
-		//no retorno do L3 o ticket já está cadastrado, então a checagem de
-		//duplicidade não se aplica
-		if (this.isModoRetornoL3()) {
+		//a checagem de duplicidade não se aplica ao retorno do L3, que justamente
+		//depende de o ticket já estar cadastrado
+		if (retornoL3) {
 			return deferredObj.resolve(isValid).promise();
 		}
 
@@ -403,6 +498,9 @@ ControleTickets.prototype = {
 			}
 
 			deferredObj.resolve(isValid);
+		}).fail(function() {
+			alert('Não foi possível consultar a planilha para verificar se o ticket já existe. Verifique a conexão e tente novamente.');
+			deferredObj.resolve(false);
 		});
 
 		return deferredObj.promise();
