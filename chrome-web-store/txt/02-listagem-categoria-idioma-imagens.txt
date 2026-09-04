@@ -1,0 +1,58 @@
+﻿CAMPOS DE SELEÇÃO E UPLOAD DA ABA "LISTAGEM DA LOJA"
+Aqui não há texto para colar: são escolhas e envios de arquivo.
+
+------------------------------------------------------------
+CATEGORIA
+------------------------------------------------------------
+Escolher: Fluxo de trabalho e planejamento
+(em inglês: Workflow & Planning)
+
+Não escolher "Ferramentas para desenvolvedores": a análise compara a
+categoria com a descrição, e categoria que não combina com o texto
+costuma voltar como recusa.
+
+------------------------------------------------------------
+IDIOMA
+------------------------------------------------------------
+Marcar somente: Português (Brasil)
+
+Marcar idioma em que a extensão não está traduzida é motivo de recusa.
+
+------------------------------------------------------------
+ÍCONE DO ITEM
+------------------------------------------------------------
+Enviar o arquivo: icone-loja-128.png
+Está em chrome-web-store/assets/ (128x128 PNG)
+
+------------------------------------------------------------
+CAPTURAS DE TELA
+------------------------------------------------------------
+Enviar os 3 arquivos, nesta ordem (todos 1280x800 PNG).
+Estão em chrome-web-store/assets/
+
+1) captura-1-registro-l2.png
+2) captura-2-retorno-l3.png
+3) captura-3-configuracoes.png
+
+A primeira é a que aparece em destaque na loja.
+
+------------------------------------------------------------
+OUTROS CAMPOS DA MESMA ABA
+------------------------------------------------------------
+Nome:
+Controle de tickets
+
+Descrição breve:
+já vem do manifest.json, o painel preenche sozinho
+
+URL do site oficial:
+https://github.com/ygorkappaunbling/extensaoL2
+
+URL de suporte:
+https://github.com/ygorkappaunbling/extensaoL2/issues
+
+Visibilidade:
+Não listado (ou Privado) - é ferramenta interna do time
+
+Tile promocional / vídeo:
+opcional, deixar em branco

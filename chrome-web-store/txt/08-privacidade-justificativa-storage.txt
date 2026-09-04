@@ -1,0 +1,3 @@
+﻿A extensão guarda duas coisas com chrome.storage: a configuração — o ID da planilha do Google Sheets e o nome da aba, informados pela própria pessoa, mais a preferência de enviar também para a planilha da Base de Conhecimento — e o rascunho do formulário, para que o que já foi digitado não se perca se a janela da extensão fechar antes do envio.
+
+A configuração é gravada em chrome.storage.sync, para acompanhar a conta do Chrome e não se perder na troca de máquina ou na limpeza do cache. Nada disso sai do navegador de quem usa: não há servidor do desenvolvedor recebendo esses dados. O rascunho é apagado quando o ticket é cadastrado ou quando a pessoa clica em "Limpar".

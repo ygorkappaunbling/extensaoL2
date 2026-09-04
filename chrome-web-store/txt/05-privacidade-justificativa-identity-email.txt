@@ -1,0 +1,3 @@
+﻿Cada linha gravada na planilha precisa identificar quem fez o registro — é assim que o time sabe quem atendeu cada ticket e a quem recorrer para entender um registro. A extensão obtém o endereço de e-mail da conta Google conectada ao Chrome, via chrome.identity.getProfileUserInfo, e o escreve na coluna B da linha, ao lado da data e hora do registro.
+
+O e-mail é usado apenas para isso. Ele vai somente para a planilha do Google Sheets que a própria pessoa configurou, junto com o registro do ticket, e não é enviado ao desenvolvedor nem a terceiros. A extensão não mantém banco de dados nem servidor: não existe nenhuma outra cópia desse e-mail.

@@ -1,0 +1,26 @@
+﻿O Controle de tickets é a ferramenta de registro do time de suporte nível 2 (L2) do Bling. Ela substitui o preenchimento manual da planilha de acompanhamento: em vez de alternar entre o ticket e o Google Sheets, copiando número, data e categorização campo por campo, você preenche um formulário único e a extensão grava a linha na planilha.
+
+COMO FUNCIONA
+
+1. Configure, uma única vez, o link da sua planilha do Google Sheets e o nome da aba onde as linhas devem ser gravadas. É você quem escolhe a planilha: a extensão não tem planilha própria nem servidor.
+2. Abra a extensão com um ticket do suporte do Bling na tela. Número do ticket, data de abertura, classificação, responsáveis e categorização já vêm preenchidos a partir da página do ticket.
+3. Complete o que é análise sua — causa, erro exibido ao cliente, observações, ação tomada e as checagens sobre o atendimento do nível 1.
+4. Clique em "Cadastrar ticket" (ou use Ctrl + Enter). A extensão grava a linha na planilha, com data/hora e o seu e-mail na frente do registro, e limpa o formulário para o próximo ticket.
+
+O QUE ELA FAZ
+
+• Preenche o formulário a partir do ticket aberto, sem copiar e colar.
+• Categorização em cascata — grupo, subgrupo, módulo e funcionalidade — com as opções já padronizadas pelo time, para que a planilha não acumule variações do mesmo nome.
+• Modo "Retorno do L3": informe o número do ticket e o retorno recebido, e a extensão localiza a linha correspondente na planilha e completa só a coluna do retorno.
+• Envio opcional do mesmo registro para uma segunda planilha, a da Base de Conhecimento.
+• Indicador de campos obrigatórios, para você ver o que falta antes de enviar.
+• Rascunho preservado: o que você digitou continua lá se a janela fechar antes do envio.
+• Configuração guardada na sua conta do Chrome, então ela acompanha você em outra máquina e sobrevive à limpeza de cache.
+
+PRIVACIDADE
+
+A extensão não tem servidor. Os dados que você preenche vão apenas para a planilha do Google Sheets que você mesmo configurou, usando a API oficial do Google — nada é enviado para o desenvolvedor ou para terceiros. O acesso ao Google Sheets é feito pela sua própria conta Google, com a autorização que o Chrome pede na primeira vez, e o seu e-mail é gravado na planilha só para identificar quem fez cada registro. A política completa está em https://github.com/ygorkappaunbling/extensaoL2/blob/main/chrome-web-store/politica-de-privacidade.md
+
+PARA QUEM É
+
+Ferramenta interna de trabalho: ela só é útil para quem atende tickets no suporte do Bling e mantém uma planilha de acompanhamento desses tickets.

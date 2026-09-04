@@ -1,0 +1,69 @@
+﻿CONTROLE DE TICKETS - PREENCHIMENTO DA CHROME WEB STORE
+=======================================================
+
+Cada arquivo desta pasta corresponde a um campo do painel do
+desenvolvedor. Os arquivos numerados de 01 a 12 estão na ordem de
+preenchimento.
+
+COMO USAR
+---------
+Nos arquivos de COLAR, o conteúdo é só o texto do campo - nada de
+títulos ou explicações. Abra, Ctrl+A, Ctrl+C, e cole no painel.
+
+Nos arquivos de SELEÇÃO, o conteúdo são instruções: o que escolher ou
+marcar. Não há nada para colar.
+
+ATENÇÃO: subir o pacote .zip NÃO preenche nenhum desses campos. O .zip é
+só o código da extensão. Os 13 erros da loja são todos campos de
+formulário, e cada um tem que ser preenchido à mão.
+
+ABA "LISTAGEM DA LOJA"
+----------------------
+01-listagem-descricao-detalhada.txt ................ COLAR
+     campo "Descrição"
+     resolve: "A descrição detalhada é curta demais ou está ausente"
+
+02-listagem-categoria-idioma-imagens.txt ........... SELEÇÃO
+     categoria, idioma, ícone e capturas de tela
+     resolve: "Selecione uma categoria", "Nenhum idioma foi
+     selecionado", "Imagem do ícone ausente", "É necessário pelo menos
+     uma captura de tela ou vídeo"
+
+ABA "PRÁTICAS DE PRIVACIDADE"
+-----------------------------
+03-privacidade-unico-proposito.txt ................. COLAR
+     campo "Único propósito"
+
+04-privacidade-justificativa-identity.txt .......... COLAR
+05-privacidade-justificativa-identity-email.txt .... COLAR
+06-privacidade-justificativa-host.txt .............. COLAR
+07-privacidade-justificativa-scripting.txt ......... COLAR
+08-privacidade-justificativa-storage.txt ........... COLAR
+09-privacidade-justificativa-tabs.txt .............. COLAR
+     um campo de justificativa para cada permissão
+
+10-privacidade-codigo-remoto.txt ................... COLAR
+     Antes de colar, marcar a opção:
+     "Não, não estou usando código remoto"
+     O texto só é necessário se o painel pedir uma justificativa.
+
+11-privacidade-url-politica.txt .................... COLAR
+     campo da política de privacidade. Em muitas contas esse campo não
+     fica no item, e sim na página "Conta" do painel - a URL vale para
+     todas as suas extensões. Se a aba do item só mostrar um link
+     apontando para "Conta", é lá que a URL entra.
+
+12-privacidade-uso-de-dados.txt .................... SELEÇÃO
+     o que a extensão coleta e as três certificações
+     resolve: "o uso de dados precisa obedecer às nossas Políticas do
+     programa para desenvolvedores"
+
+DEPOIS DE PREENCHER TUDO
+------------------------
+1. Enviar o pacote .zip (com o manifest.json na RAIZ do zip, sem pasta
+   envolvendo os arquivos).
+2. Salvar rascunho.
+3. Enviar para análise.
+
+Os erros só desaparecem depois de salvar o rascunho com todos os campos
+preenchidos.

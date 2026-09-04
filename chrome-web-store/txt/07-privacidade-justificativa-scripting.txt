@@ -1,0 +1,3 @@
+﻿É a permissão que permite ler o ticket aberto na tela. Quando a extensão é aberta, ela injeta o script scripts/getPagesSource.js na aba da tela de suporte do Bling (chrome.scripting.executeScript) para ler os campos do ticket e devolvê-los ao formulário pelo chrome.runtime.sendMessage.
+
+A injeção só acontece na aba ativa e somente quando o endereço dela é a tela de suporte do Bling; em qualquer outra página nada é injetado. O script é um arquivo local do pacote, não vem da internet, apenas lê valores já visíveis na tela e não altera a página. Sem essa permissão a pessoa teria que copiar manualmente número, data, classificação e categorização de cada ticket.

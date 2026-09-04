@@ -1,0 +1,3 @@
+﻿A extensão tem um único propósito: registrar os tickets atendidos pelo suporte nível 2 do Bling em uma planilha do Google Sheets escolhida por quem a usa.
+
+Todo o restante existe para servir a esse registro. A leitura da página do ticket preenche o formulário automaticamente; a autorização com a conta Google permite gravar na planilha; o armazenamento guarda o link da planilha e o rascunho do formulário. Não há nenhuma função fora desse propósito: a extensão não altera páginas, não exibe anúncios, não coleta histórico de navegação e não envia dados para servidores do desenvolvedor — ela não tem servidor.

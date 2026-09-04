@@ -1,0 +1,3 @@
+﻿A extensão só deve ler o ticket quando ele está realmente na tela. Antes de injetar qualquer script, ela consulta a aba ativa da janela atual (chrome.tabs.query com active: true e currentWindow: true) e verifica se o endereço é a tela de suporte do Bling; se não for, nada é injetado e o formulário fica em branco, para ser preenchido à mão.
+
+Também é o que permite abrir a interface da extensão em uma aba própria (chrome.tabs.create), já que o formulário é grande e trabalhar nele em uma aba é mais confortável que na janela do popup. A extensão não lista abas, não acompanha a navegação e não registra histórico: o endereço da aba ativa é lido no momento da abertura, comparado e descartado.

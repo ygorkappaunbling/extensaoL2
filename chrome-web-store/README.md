@@ -4,6 +4,15 @@ Esta pasta reúne tudo que a Chrome Web Store pediu para liberar a publicação.
 Nada aqui vai dentro do pacote `.zip` da extensão: são os textos e as imagens
 que você cola/envia no painel do desenvolvedor.
 
+> **Atalho:** a pasta [`txt/`](txt) tem os mesmos textos em arquivos `.txt`
+> separados, um por campo do painel, numerados na ordem de preenchimento. Nos
+> arquivos de colar o conteúdo é só o texto do campo — abra, Ctrl+A, Ctrl+C.
+> Comece pelo [`txt/00-LEIA-ME.txt`](txt/00-LEIA-ME.txt).
+
+> **Subir o `.zip` não preenche nenhum desses campos.** O pacote é só o código
+> da extensão; os erros que a loja aponta são todos campos de formulário do
+> painel, preenchidos à mão.
+
 ## O que fazer, na ordem
 
 1. **Publique a política de privacidade em uma URL pública.** O arquivo é

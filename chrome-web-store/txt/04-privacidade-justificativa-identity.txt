@@ -1,0 +1,3 @@
+﻿A extensão grava os registros na planilha do Google Sheets da própria pessoa, usando a API oficial do Google Sheets. Essa API exige um token OAuth 2.0 da conta Google de quem está usando, e a permissão identity é o que permite obtê-lo pelo chrome.identity.getAuthToken, com o escopo https://www.googleapis.com/auth/spreadsheets declarado no manifest.
+
+O token é usado somente no cabeçalho Authorization das chamadas a sheets.googleapis.com, para ler e escrever na planilha configurada. Ele não é gravado em disco, não é enviado a nenhum outro destino e é revogado quando a pessoa desconecta a extensão. Sem essa permissão não haveria como gravar na planilha, que é a única função da extensão.

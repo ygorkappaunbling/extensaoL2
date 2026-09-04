@@ -1,0 +1,51 @@
+﻿DECLARAÇÕES DE USO DE DADOS - ABA "PRÁTICAS DE PRIVACIDADE"
+Aqui não há texto para colar: são caixas de marcar.
+
+Resolve o erro: "Para publicar seu item, o uso de dados precisa obedecer
+às nossas Políticas do programa para desenvolvedores."
+
+------------------------------------------------------------
+PARTE 1 - O QUE A EXTENSÃO COLETA
+------------------------------------------------------------
+MARCAR (sim):
+
+[x] Informações de identificação pessoal
+    motivo: o e-mail da conta Google, gravado na planilha para
+    identificar quem fez o registro
+
+[x] Conteúdo do site
+    motivo: os campos do ticket lidos da tela de suporte do Bling
+
+NÃO MARCAR (todo o resto):
+
+[ ] Informações de saúde
+[ ] Informações financeiras e de pagamento
+[ ] Informações de autenticação
+    (o token OAuth é do próprio Google, usado na hora e não armazenado)
+[ ] Comunicações pessoais
+[ ] Localização
+[ ] Histórico da Web
+    (a extensão lê apenas o endereço da aba ativa, para comparar, e não
+    guarda nada)
+[ ] Atividade do usuário
+    (não há cliques, movimentos de mouse nem métricas coletados)
+
+------------------------------------------------------------
+PARTE 2 - AS TRÊS CERTIFICAÇÕES
+------------------------------------------------------------
+MARCAR TODAS AS TRÊS:
+
+[x] Não estou vendendo nem transferindo dados do usuário a terceiros,
+    exceto nos casos de uso aprovados.
+    (verdade: os dados vão somente para a planilha do Google Sheets da
+    própria pessoa, pela API oficial do Google. Não há servidor do
+    desenvolvedor.)
+
+[x] Não estou usando nem transferindo dados do usuário para finalidades
+    alheias ao único propósito do item.
+    (verdade: os dados são usados apenas para gravar o registro do
+    ticket na planilha configurada.)
+
+[x] Não estou usando nem transferindo dados do usuário para determinar a
+    capacidade de pagamento nem para fins de empréstimo.
+    (verdade: não há nada disso na extensão.)
