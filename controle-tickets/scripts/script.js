@@ -100,11 +100,75 @@ ControleTickets.prototype = {
 		return $('#modo_retorno_l3').is(':checked');
 	},
 
-	//aceita tanto o link inteiro da planilha quanto só o ID, que é o que a API usa
-	'extraiIdPlanilha': function(valor) {
-		var link = $.trim(valor || '').match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
+	//o que a API usa é o ID, mas cada pessoa cola o que tem à mão: o link da barra
+	//de endereço, um link de compartilhamento do Drive, um link antigo, ou só o
+	//ID. devolve {'id': ...} quando reconhece, ou {'erro': ...} com o que dizer a
+	//quem está preenchendo — nunca grava um palpite que só falharia no cadastro
+	'interpretaPlanilha': function(valor) {
+		valor = $.trim(valor || '');
 
-		return link ? link[1] : $.trim(valor || '');
+		if (!valor) {
+			return {'id': ''};
+		}
+
+		//links copiados de e-mail ou chat às vezes vêm quebrados em várias linhas.
+		//a versão sem espaços serve para procurar o link; o valor original continua
+		//valendo para reconhecer o ID solto e para as mensagens de erro
+		var compacto = valor.replace(/\s+/g, '');
+
+		//o link de "Publicar na web" carrega um token que não é o ID da planilha e
+		//não funciona na API. sem esta checagem o padrão seguinte casaria com o
+		//trecho "/d/e/" e devolveria a letra "e" como ID
+		if (/\/spreadsheets\/d\/e\//.test(compacto)) {
+			return {'erro': 'Esse é o link de "Publicar na web", que não dá acesso à planilha. Abra a planilha e copie o link da barra de endereço.'};
+		}
+
+		var outroProduto = compacto.match(/docs\.google\.com\/(document|presentation|forms)\//);
+
+		if (outroProduto) {
+			return {'erro': 'Esse link é de ' + {'document': 'um Documento', 'presentation': 'uma Apresentação', 'forms': 'um Formulário'}[outroProduto[1]] + ', não de uma planilha.'};
+		}
+
+		//procura o ID em qualquer ponto do texto: quem copia da barra de endereço
+		//às vezes traz o título da página junto
+		var padroes = [
+			/\/spreadsheets(?:\/u\/\d+)?\/d\/([a-zA-Z0-9-_]+)/, //link atual, com ou sem /u/0 de multiconta
+			/\/d\/([a-zA-Z0-9-_]+)/,                            //link de compartilhamento do Drive
+			/[?&](?:key|id)=([a-zA-Z0-9-_]+)/                   //formatos antigos e ?id= do Drive
+		];
+
+		var id = '';
+
+		for (var i = 0; i < padroes.length && !id; i++) {
+			var achou = compacto.match(padroes[i]);
+
+			id = achou ? achou[1] : '';
+		}
+
+		//não casou com nenhum link, então só pode ser o ID colado sozinho. aqui a
+		//comparação é com o valor original: uma frase com espaços não é um ID, e
+		//seria aceita se olhasse a versão compactada
+		if (!id && /^[a-zA-Z0-9-_]+$/.test(valor)) {
+			id = valor;
+		}
+
+		if (!id) {
+			return {'erro': 'Não reconheci esse link. Abra a planilha, copie o link da barra de endereço e cole aqui.'};
+		}
+
+		//o tamanho mínimo separa um ID de verdade de um texto colado no campo
+		//errado, como o nome da aba, que seria aceito e só falharia no cadastro
+		if (id.length < 20) {
+			return {'erro': '"' + id + '" é curto demais para ser o ID de uma planilha. Cole o link da planilha ou o ID completo.'};
+		}
+
+		return {'id': id};
+	},
+
+	//nome da aba em notação A1. as aspas simples são o que permite aba com espaço
+	//ou acento, e uma aspa dentro do nome é escrita dobrada
+	'referenciaAba': function(nome, intervalo) {
+		return encodeURIComponent("'" + String(nome).replace(/'/g, "''") + "'!" + intervalo);
 	},
 
 	//lê a configuração das duas áreas e, se uma delas estiver sem os dados, repõe
@@ -222,10 +286,20 @@ ControleTickets.prototype = {
 	//informada; a da Base de Conhecimento é opcional, mas se vier tem que vir
 	//completa, senão o envio não teria destino
 	'salvaConfiguracao': function() {
-		var planilhaId = this.extraiIdPlanilha($('#config_planilha_link').val());
+		var planilha = this.interpretaPlanilha($('#config_planilha_link').val());
 		var planilhaAba = $.trim($('#config_planilha_aba').val());
-		var baseId = this.extraiIdPlanilha($('#config_base_link').val());
+		var base = this.interpretaPlanilha($('#config_base_link').val());
 		var baseAba = $.trim($('#config_base_aba').val());
+
+		//o link não foi reconhecido: a mensagem já diz o que fazer
+		if (planilha.erro || base.erro) {
+			this.mostraRecadoConfiguracao(planilha.erro || base.erro, 'is-erro');
+
+			return;
+		}
+
+		var planilhaId = planilha.id;
+		var baseId = base.id;
 
 		if (!this.isConfigurada(planilhaId) || !this.isConfigurada(planilhaAba)) {
 			this.mostraRecadoConfiguracao('Informe o link e o nome da aba da planilha de tickets.', 'is-erro');
@@ -632,7 +706,7 @@ ControleTickets.prototype = {
 
 		chrome.identity.getAuthToken({interactive: true}, function(token) {
 			$.get({
-				'url': 'https://sheets.googleapis.com/v4/spreadsheets/' + that.SHEET_ID + '/values/' + that.SHEET_NAME + '!' + range,
+				'url': 'https://sheets.googleapis.com/v4/spreadsheets/' + that.SHEET_ID + '/values/' + that.referenciaAba(that.SHEET_NAME, range),
 				'headers': {
 					'Authorization': 'Bearer ' + token,
 					'Content-Type': 'application/json'
@@ -724,7 +798,7 @@ ControleTickets.prototype = {
 		chrome.identity.getAuthToken({interactive: true}, function(token) {
 			$.ajax({
 				'type': 'PUT',
-				'url': 'https://sheets.googleapis.com/v4/spreadsheets/' + that.SHEET_ID + '/values/' + that.SHEET_NAME + '!' + range + '?valueInputOption=RAW',
+				'url': 'https://sheets.googleapis.com/v4/spreadsheets/' + that.SHEET_ID + '/values/' + that.referenciaAba(that.SHEET_NAME, range) + '?valueInputOption=RAW',
 				'headers': {
 					'Authorization': 'Bearer ' + token,
 					'Content-Type': 'application/json'
@@ -751,7 +825,7 @@ ControleTickets.prototype = {
 				//o intervalo tem que cobrir todas as colunas gravadas: se for mais
 				//estreito que a linha, o append passa a escrever a partir da última
 				//coluna do intervalo em vez da coluna A
-				var range = sheetName + '!A1:' + that.colunaPorPosicao(valores.length) + '1';
+				var range = that.referenciaAba(sheetName, 'A1:' + that.colunaPorPosicao(valores.length) + '1');
 
 				var params = {
 					'majorDimension': 'ROWS',
