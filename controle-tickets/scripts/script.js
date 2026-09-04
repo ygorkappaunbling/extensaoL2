@@ -43,6 +43,10 @@ var ControleTickets = function(nivelResponsavel) {
 		'modo_retorno_l3': false
 	};
 
+	//preferência de quem usa, não dado do ticket: fica como a pessoa deixou e
+	//não volta ao padrão no "Limpar" nem depois de cadastrar um ticket
+	this.preferencias = ['base_conhecimento'];
+
 	this.nivelResponsavel = nivelResponsavel
 
 	this.loadFiles().done(function() {
@@ -52,6 +56,7 @@ var ControleTickets = function(nivelResponsavel) {
 		this.registerEvents();
 		this.render();
 		this.atualizaContador();
+		this.aplicaDisponibilidadeBase();
 	}.bind(this));
 
 	chrome.identity.getAuthToken({'interactive': true});
@@ -75,6 +80,27 @@ ControleTickets.prototype = {
 
 	'isModoRetornoL3': function() {
 		return $('#modo_retorno_l3').is(':checked');
+	},
+
+	//sem a planilha compartilhada configurada o envio para a Base de Conhecimento
+	//não tem destino. em vez de aceitar o clique e desligar o botão logo em
+	//seguida, ele fica desabilitado e a dica explica o porquê
+	'aplicaDisponibilidadeBase': function() {
+		var disponivel = this.hasPlanilhaBase();
+		var campo = $('#base_conhecimento');
+
+		campo.prop('disabled', !disponivel);
+		campo.closest('.pilula').toggleClass('pilula-indisponivel', !disponivel);
+
+		campo.closest('.pilula').find('.info-campo').data('info', disponivel
+			? 'Ativado = o registro também é enviado para a planilha da Base de Conhecimento. Fica como você deixar, inclusive depois de cadastrar o ticket'
+			: 'Indisponível: falta configurar a planilha compartilhada (SHEET_KNOWLEDGE_ID e SHEET_KNOWLEDGE_NAME) em scripts/script.js');
+
+		//uma preferência gravada antes de a planilha sair da configuração não pode
+		//continuar prometendo um envio que não vai acontecer
+		if (!disponivel) {
+			campo.prop('checked', false);
+		}
 	},
 
 	//o retorno do L3 grava só a coluna do retorno na linha que já existe, então a
@@ -191,19 +217,8 @@ ControleTickets.prototype = {
 	'registerEvents': function() {
 		var that = this;
 
-		//impede ligar o "Incluir na Base" sem a planilha compartilhada configurada.
-		//registrado antes do evento que salva os campos, para que o estado gravado
-		//seja o já corrigido
 		$('#modo_retorno_l3').on('change', function() {
 			that.aplicaModoRetornoL3();
-		});
-
-		$('#base_conhecimento').on('change', function() {
-			if ($(this).is(':checked') && !that.hasPlanilhaBase()) {
-				$(this).prop('checked', false);
-
-				alert('Para usar o "Incluir na Base", primeiro preencha os dados da planilha compartilhada (SHEET_KNOWLEDGE_ID e SHEET_KNOWLEDGE_NAME) no arquivo scripts/script.js.');
-			}
 		});
 
 		$('#controle_tickets').on('click', '#enviar_controle_tickets', function() {
@@ -593,6 +608,8 @@ ControleTickets.prototype = {
 	},
 
 	'clear': function() {
+		var that = this;
+
 		$.each(['nro_ticket', 'funcionalidade', 'data_abertura', 'causa', 'conclusao', 'nome_atendente', 'ticket_raiz', 'erro', 'obs_l1', 'retorno_l3'], function() {
 			$('#' + this).val('').parents('.group-item-form').removeClass('group-item-form-error');
 		});
@@ -604,12 +621,19 @@ ControleTickets.prototype = {
 
 		$('#classificacao').val($('#classificacao option:first').val());
 
-		chrome.storage.sync.clear();
+		//apaga da gravação só o que é do ticket: as preferências continuam valendo
+		//para o próximo registro
+		chrome.storage.sync.remove($.grep(Object.keys(this.getStorageData()), function(chave) {
+			return $.inArray(chave, that.preferencias) == -1;
+		}));
 
 		$.each(this.checkboxDefaults, function(element, isChecked) {
-			$('#' + element).prop('checked', isChecked);
+			if ($.inArray(element, that.preferencias) == -1) {
+				$('#' + element).prop('checked', isChecked);
+			}
 		});
 
+		this.aplicaDisponibilidadeBase();
 		this.aplicaModoRetornoL3();
 	},
 
@@ -639,10 +663,8 @@ ControleTickets.prototype = {
 			});
 
 			//a planilha compartilhada pode ter sido removida da configuração
-			//depois de o "Incluir na Base" ter sido salvo como ativo
-			if (!that.hasPlanilhaBase()) {
-				$('#base_conhecimento').prop('checked', false);
-			}
+			//depois de a Base de Conhecimento ter sido salva como ativa
+			that.aplicaDisponibilidadeBase();
 
 			that.aplicaModoRetornoL3();
 		});
