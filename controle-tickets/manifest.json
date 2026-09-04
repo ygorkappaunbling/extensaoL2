@@ -2,7 +2,7 @@
 	"name": "Controle de tickets",
 	"version": "1.1",
 	"manifest_version": 3,
-	"description": "Extensão para registro detalhado de tickets",
+	"description": "Registra tickets do suporte do Bling na sua própria planilha do Google Sheets, sem sair do atendimento.",
 	"action": {
 		"default_popup": "index.html",
 		"default_title": "Controle de tickets",
@@ -34,15 +34,5 @@
 },
 	"content_security_policy": {
 		"extension_pages": "script-src 'self'; object-src 'self'"
-	},
-	"web_accessible_resources": [
-		{
-			"resources": [
-				"data/*.json"
-			],
-			"matches": [
-				"*://*/*"
-			]
-		}
-	]
+	}
 }
