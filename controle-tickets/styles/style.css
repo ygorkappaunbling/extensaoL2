@@ -386,19 +386,6 @@ textarea.textarea-retorno-l3 {
 	border-color: var(--purple-300);
 }
 
-/* sem a planilha compartilhada configurada não há para onde enviar o registro,
-   então a pílula fica visivelmente indisponível em vez de aceitar o clique e
-   voltar sozinha para desligada */
-.pilula-indisponivel {
-	background: var(--mist-100);
-	border-color: var(--mist-200);
-	opacity: .55;
-}
-
-.pilula-indisponivel .switch-trilho {
-	cursor: not-allowed;
-}
-
 .pilula-rotulo {
 	display: flex;
 	align-items: center;
