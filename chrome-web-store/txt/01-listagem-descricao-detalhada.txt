@@ -19,7 +19,7 @@ O QUE ELA FAZ
 
 PRIVACIDADE
 
-A extensão não tem servidor. Os dados que você preenche vão apenas para a planilha do Google Sheets que você mesmo configurou, usando a API oficial do Google — nada é enviado para o desenvolvedor ou para terceiros. O acesso ao Google Sheets é feito pela sua própria conta Google, com a autorização que o Chrome pede na primeira vez, e o seu e-mail é gravado na planilha só para identificar quem fez cada registro. A política completa está em https://github.com/ygorkappaunbling/extensaoL2/blob/main/chrome-web-store/politica-de-privacidade.md
+A extensão não tem servidor. Os dados que você preenche vão apenas para a planilha do Google Sheets que você mesmo configurou, usando a API oficial do Google — nada é enviado para o desenvolvedor ou para terceiros. O acesso ao Google Sheets é feito pela sua própria conta Google, com a autorização que o Chrome pede na primeira vez, e o seu e-mail é gravado na planilha só para identificar quem fez cada registro. A política completa está em https://ygorkappaunbling.github.io/extensaoL2/
 
 PARA QUEM É
 

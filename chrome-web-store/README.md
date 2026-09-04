@@ -15,11 +15,16 @@ que você cola/envia no painel do desenvolvedor.
 
 ## O que fazer, na ordem
 
-1. **Publique a política de privacidade em uma URL pública.** O arquivo é
-   [`politica-de-privacidade.md`](politica-de-privacidade.md). O caminho mais
-   rápido é usar o próprio GitHub: depois do push, a página fica em
-   `https://github.com/ygorkappaunbling/extensaoL2/blob/main/chrome-web-store/politica-de-privacidade.md`.
-   Copie essa URL — ela é obrigatória na aba **Práticas de privacidade**.
+1. **Ligue o GitHub Pages para publicar a política de privacidade.** A política
+   é a página [`docs/index.html`](../docs/index.html). Em **Settings → Pages**
+   do repositório, escolha *Deploy from a branch*, branch `main`, pasta
+   `/docs`, e salve. Em cerca de um minuto ela fica no ar em
+   `https://ygorkappaunbling.github.io/extensaoL2/` — é essa URL que vai na aba
+   **Práticas de privacidade**.
+
+   Não informe a URL do arquivo no GitHub (`github.com/.../blob/....md`): é a
+   interface do GitHub exibindo um arquivo, não uma página publicada, e o
+   validador da loja recusa com "o link não é válido".
 2. **Aba "Listagem da loja":** cole os textos de
    [`listagem.md`](listagem.md), envie as imagens de [`assets/`](assets) e
    marque idioma e categoria.

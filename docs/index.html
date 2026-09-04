@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de Privacidade — Controle de tickets</title>
+<meta name="description" content="Política de privacidade da extensão Controle de tickets, do time de suporte do Bling.">
+<style>
+	:root {
+		--fundo: #ffffff;
+		--fundo-suave: #f6f8f7;
+		--texto: #16211c;
+		--texto-suave: #566b60;
+		--borda: #dfe6e2;
+		--destaque: #12694a;
+		--largura: 780px;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--fundo: #0d1512;
+			--fundo-suave: #131f1a;
+			--texto: #e7f0ea;
+			--texto-suave: #9fb5aa;
+			--borda: #24352d;
+			--destaque: #7ddba4;
+		}
+	}
+
+	* { box-sizing: border-box; }
+
+	body {
+		margin: 0;
+		padding: 0 20px 80px;
+		background: var(--fundo);
+		color: var(--texto);
+		font: 16px/1.65 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+		-webkit-text-size-adjust: 100%;
+	}
+
+	.pagina {
+		max-width: var(--largura);
+		margin: 0 auto;
+	}
+
+	header {
+		padding: 56px 0 28px;
+		border-bottom: 1px solid var(--borda);
+		margin-bottom: 36px;
+	}
+
+	h1 {
+		margin: 0 0 10px;
+		font-size: 30px;
+		line-height: 1.25;
+		letter-spacing: -0.5px;
+	}
+
+	.subtitulo {
+		margin: 0;
+		color: var(--texto-suave);
+		font-size: 15px;
+	}
+
+	h2 {
+		margin: 42px 0 14px;
+		font-size: 21px;
+		line-height: 1.3;
+		letter-spacing: -0.3px;
+	}
+
+	h2:first-of-type { margin-top: 0; }
+
+	p, li { margin: 0 0 14px; }
+
+	ul { padding-left: 22px; }
+
+	a {
+		color: var(--destaque);
+		text-decoration: underline;
+		text-underline-offset: 2px;
+		overflow-wrap: anywhere;
+	}
+
+	code {
+		background: var(--fundo-suave);
+		border: 1px solid var(--borda);
+		border-radius: 4px;
+		padding: 1px 5px;
+		font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+		font-size: 0.88em;
+		overflow-wrap: anywhere;
+	}
+
+	.resumo {
+		background: var(--fundo-suave);
+		border: 1px solid var(--borda);
+		border-left: 3px solid var(--destaque);
+		border-radius: 6px;
+		padding: 18px 20px 4px;
+		margin-bottom: 8px;
+	}
+
+	.tabela-rolagem {
+		overflow-x: auto;
+		margin: 0 0 20px;
+		border: 1px solid var(--borda);
+		border-radius: 6px;
+	}
+
+	table {
+		border-collapse: collapse;
+		width: 100%;
+		min-width: 540px;
+		font-size: 14.5px;
+	}
+
+	th, td {
+		text-align: left;
+		vertical-align: top;
+		padding: 11px 14px;
+		border-bottom: 1px solid var(--borda);
+	}
+
+	th {
+		background: var(--fundo-suave);
+		font-weight: 600;
+		white-space: nowrap;
+	}
+
+	tr:last-child td { border-bottom: 0; }
+
+	footer {
+		margin-top: 52px;
+		padding-top: 22px;
+		border-top: 1px solid var(--borda);
+		color: var(--texto-suave);
+		font-size: 14px;
+	}
+</style>
+</head>
+<body>
+<div class="pagina">
+
+<header>
+	<h1>Política de Privacidade — Controle de tickets</h1>
+	<p class="subtitulo">
+		Extensão para o navegador Chrome, distribuída pela Chrome Web Store.<br>
+		Última atualização: 4 de setembro de 2026.
+	</p>
+</header>
+
+<h2>Resumo</h2>
+
+<div class="resumo">
+	<p>
+		A extensão <strong>Controle de tickets</strong> não tem servidor e não coleta
+		dados para o desenvolvedor. As informações que você preenche vão apenas para a
+		planilha do Google Sheets que você mesmo configurou, gravadas pela API oficial
+		do Google com a autorização da sua própria conta Google.
+	</p>
+</div>
+
+<h2>Quem é o responsável</h2>
+
+<p>
+	A extensão é mantida pelo time de suporte do Bling
+	(<a href="mailto:ygor.kappaun@bling.com.br">ygor.kappaun@bling.com.br</a>) e
+	distribuída como ferramenta interna de trabalho.
+</p>
+
+<h2>Que dados a extensão trata</h2>
+
+<div class="tabela-rolagem">
+<table>
+	<thead>
+		<tr>
+			<th>Dado</th>
+			<th>De onde vem</th>
+			<th>Para onde vai</th>
+			<th>Por quê</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Dados do ticket: número, data de abertura, classificação, categorização (grupo, subgrupo, módulo, funcionalidade), nomes dos responsáveis L1 e L2</td>
+			<td>lidos da tela de suporte do Bling (<code>https://*.bling.com.br/suporte.php*</code>) quando você abre a extensão</td>
+			<td>para a planilha do Google Sheets que você configurou</td>
+			<td>preencher o formulário automaticamente, em vez de exigir cópia manual</td>
+		</tr>
+		<tr>
+			<td>O que você digita: causa, mensagem de erro, observações, ação tomada, retorno do L3 e as checagens sobre o atendimento</td>
+			<td>digitado por você no formulário</td>
+			<td>para a planilha do Google Sheets que você configurou</td>
+			<td>é o registro do ticket em si</td>
+		</tr>
+		<tr>
+			<td>Seu endereço de e-mail</td>
+			<td>conta Google conectada ao Chrome (<code>chrome.identity.getProfileUserInfo</code>)</td>
+			<td>gravado na coluna B da linha, na planilha que você configurou</td>
+			<td>identificar quem fez cada registro</td>
+		</tr>
+		<tr>
+			<td>Data e hora do registro</td>
+			<td>gerada no seu navegador no momento do envio</td>
+			<td>gravada na coluna A da linha</td>
+			<td>ordenar e localizar os registros</td>
+		</tr>
+		<tr>
+			<td>Link da planilha e nome da aba, e a preferência de enviar para a Base de Conhecimento</td>
+			<td>informados por você nas configurações</td>
+			<td><code>chrome.storage.sync</code> / <code>chrome.storage.local</code>, no seu navegador</td>
+			<td>não pedir a configuração de novo a cada uso</td>
+		</tr>
+		<tr>
+			<td>Rascunho do formulário</td>
+			<td>o que você já digitou</td>
+			<td><code>chrome.storage.sync</code>, no seu navegador</td>
+			<td>não perder o preenchimento se a janela fechar antes do envio</td>
+		</tr>
+		<tr>
+			<td>Token de acesso OAuth 2.0</td>
+			<td>Google, via <code>chrome.identity.getAuthToken</code></td>
+			<td>usado no cabeçalho <code>Authorization</code> das chamadas ao Google Sheets</td>
+			<td>autorizar a leitura e a gravação na sua planilha</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+<h2>Para onde os dados são enviados</h2>
+
+<p>A extensão faz requisições de rede para dois endereços, e apenas para eles:</p>
+
+<ul>
+	<li><strong><code>https://sheets.googleapis.com</code></strong> — API oficial do Google Sheets, para ler e gravar na planilha que você configurou.</li>
+	<li><strong><code>https://accounts.google.com/o/oauth2/revoke</code></strong> — para revogar o token de acesso quando você desconecta a extensão.</li>
+</ul>
+
+<p>
+	Não existe servidor do desenvolvedor. Nenhum dado é enviado para o desenvolvedor,
+	para o Bling ou para qualquer terceiro por meio da extensão. Os dados que você
+	grava ficam sob as regras de compartilhamento da própria planilha: quem tem acesso
+	a ela vê os registros, e isso é definido por você e pelo seu time no Google Drive,
+	não pela extensão.
+</p>
+
+<h2>O que a extensão não faz</h2>
+
+<ul>
+	<li>Não vende nem transfere seus dados a terceiros.</li>
+	<li>Não usa seus dados para nenhuma finalidade fora do registro de tickets na planilha que você configurou.</li>
+	<li>Não usa seus dados para avaliação de crédito ou concessão de empréstimo.</li>
+	<li>Não coleta histórico de navegação. Ela consulta o endereço da aba ativa apenas para verificar se é a tela de suporte do Bling, compara e descarta.</li>
+	<li>Não exibe anúncios, não faz rastreamento, não usa ferramentas de analytics.</li>
+	<li>Não modifica as páginas que você visita.</li>
+	<li>Não executa código baixado da internet: todo o JavaScript está no pacote da extensão.</li>
+</ul>
+
+<h2>Onde os dados ficam guardados</h2>
+
+<ul>
+	<li><strong>Na sua planilha do Google Sheets:</strong> os registros de tickets. Ficam lá pelo tempo que você e seu time decidirem — apagar uma linha ou a planilha remove o registro, e a extensão não guarda cópia.</li>
+	<li><strong>No seu navegador:</strong> a configuração e o rascunho do formulário, em <code>chrome.storage</code>. A configuração fica na área <code>sync</code>, que acompanha a sua conta do Chrome. O rascunho é apagado quando o ticket é cadastrado ou quando você clica em "Limpar".</li>
+</ul>
+
+<h2>Como remover os dados</h2>
+
+<ul>
+	<li><strong>Configuração e rascunho:</strong> desinstale a extensão, ou use o botão "Limpar" para o rascunho. Desinstalar apaga tudo que a extensão guardou no navegador.</li>
+	<li><strong>Autorização de acesso ao Google Sheets:</strong> revogue em <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>. A extensão também revoga o token ao ser desconectada.</li>
+	<li><strong>Registros já gravados:</strong> apague as linhas ou a planilha no Google Sheets. Só você e quem tem acesso à planilha podem fazer isso; o desenvolvedor não tem acesso a ela.</li>
+</ul>
+
+<h2>Permissões e por que cada uma é necessária</h2>
+
+<div class="tabela-rolagem">
+<table>
+	<thead>
+		<tr>
+			<th>Permissão</th>
+			<th>Para que serve</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><code>identity</code></td>
+			<td>obter o token OAuth da sua conta Google, exigido pela API do Google Sheets</td>
+		</tr>
+		<tr>
+			<td><code>identity.email</code></td>
+			<td>ler o e-mail da sua conta, gravado na planilha para identificar quem registrou</td>
+		</tr>
+		<tr>
+			<td><code>storage</code></td>
+			<td>guardar a configuração da planilha e o rascunho do formulário no seu navegador</td>
+		</tr>
+		<tr>
+			<td><code>scripting</code></td>
+			<td>injetar o script que lê os campos do ticket, apenas na tela de suporte do Bling</td>
+		</tr>
+		<tr>
+			<td><code>tabs</code></td>
+			<td>verificar se a aba ativa é a tela de suporte antes de ler qualquer coisa, e abrir a interface em uma aba própria</td>
+		</tr>
+		<tr>
+			<td><code>host_permissions</code><br><code>https://*.bling.com.br/suporte.php*</code></td>
+			<td>ler os dados do ticket na tela de atendimento — nenhum outro endereço</td>
+		</tr>
+		<tr>
+			<td>Escopo OAuth<br><code>https://www.googleapis.com/auth/spreadsheets</code></td>
+			<td>ler e gravar na planilha que você configurou</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+<h2>Uso limitado dos dados do Google</h2>
+
+<p>
+	O uso e a transferência das informações obtidas pelas APIs do Google seguem a
+	<a href="https://developers.google.com/terms/api-services-user-data-policy">Política de dados do usuário dos serviços de API do Google</a>,
+	inclusive os requisitos de <strong>uso limitado</strong> (<em>Limited Use</em>). Em
+	resumo: os dados obtidos pelas APIs do Google são usados exclusivamente para gravar
+	e ler os registros de tickets na planilha que você configurou, não são transferidos
+	a terceiros, não são usados para publicidade e não são lidos por pessoas — apenas
+	pelo código da extensão, no seu navegador.
+</p>
+
+<h2>Crianças</h2>
+
+<p>
+	A extensão é uma ferramenta de trabalho, não é direcionada a menores de 13 anos e
+	não coleta dados de crianças de forma consciente.
+</p>
+
+<h2>Mudanças nesta política</h2>
+
+<p>
+	Alterações nesta política são publicadas nesta mesma página, com a data de
+	atualização revisada no topo. Mudanças que ampliem o tratamento de dados serão
+	acompanhadas de uma nova versão da extensão e da autorização correspondente.
+</p>
+
+<h2>Contato</h2>
+
+<p>
+	Dúvidas sobre esta política ou sobre o tratamento de dados:
+	<a href="mailto:ygor.kappaun@bling.com.br">ygor.kappaun@bling.com.br</a>.
+</p>
+
+<footer>
+	Controle de tickets — ferramenta interna do time de suporte do Bling.
+	Código em <a href="https://github.com/ygorkappaunbling/extensaoL2">github.com/ygorkappaunbling/extensaoL2</a>.
+</footer>
+
+</div>
+</body>
+</html>

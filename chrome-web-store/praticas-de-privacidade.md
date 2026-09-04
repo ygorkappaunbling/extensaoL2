@@ -13,13 +13,18 @@ Campo **Política de privacidade** (obrigatório porque a extensão usa
 pessoal).
 
 ```
-https://github.com/ygorkappaunbling/extensaoL2/blob/main/chrome-web-store/politica-de-privacidade.md
+https://ygorkappaunbling.github.io/extensaoL2/
 ```
 
-Essa URL só funciona depois do push desta branch para o `main`. Se preferir uma
-página em vez de um arquivo do GitHub, publique o conteúdo de
-[`politica-de-privacidade.md`](politica-de-privacidade.md) onde quiser e use a
-URL de lá — o que a loja exige é uma página pública, sem login.
+Essa é a página publicada pelo GitHub Pages a partir de
+[`docs/index.html`](../docs/index.html). Ela precisa estar no ar antes de você
+informar a URL: em **Settings → Pages** do repositório, escolha *Deploy from a
+branch*, branch `main`, pasta `/docs`, e salve.
+
+**Não use a URL do arquivo no GitHub** (`github.com/.../blob/....md`). Aquilo é
+a interface do GitHub exibindo um arquivo, não uma página publicada, e o
+validador da loja recusa com "o link não é válido". O que a loja aceita é uma
+página HTML pública, servida sem login — que é o que o Pages entrega.
 
 ---
 
