@@ -28,6 +28,8 @@
 					<button type="button" class="segmentado-item is-ativo" id="informar_registro_l2">Registro L2</button>
 					<button type="button" class="segmentado-item" id="informar_retorno_l3">Retorno do L3</button>
 				</div>
+
+				<button type="button" class="botao-engrenagem" id="abrir_config" title="Configurações" aria-label="Configurações"></button>
 			</div>
 		</div>
 
@@ -269,6 +271,70 @@
 			</div>
 
 			<button type="button" id="enviar_controle_tickets" class="botao botao-primario">Cadastrar ticket</button>
+		</div>
+	</div>
+
+	<!-- os campos da configuração ficam fora de #controle_tickets de propósito: é
+	     o que garante que o "Limpar" e o cadastro de um ticket, que só mexem nos
+	     campos de dentro do formulário, nunca apaguem essa configuração -->
+	<div class="config" id="config" hidden>
+		<div class="config-painel" role="dialog" aria-modal="true" aria-labelledby="config_titulo">
+			<div class="config-topo">
+				<span class="config-titulo" id="config_titulo">Configurações</span>
+				<button type="button" class="config-fechar" id="fechar_config" aria-label="Fechar">&times;</button>
+			</div>
+
+			<div class="config-corpo">
+				<p class="config-nota">
+					Cole o link da planilha (ou só o ID) e informe o nome da aba. Fica gravado
+					na sua conta do Chrome: não se perde ao limpar o cache, ao cadastrar tickets
+					nem ao clicar em Limpar.
+				</p>
+
+				<div class="config-bloco">
+					<span class="config-bloco-titulo">
+						Planilha de tickets
+						<span class="obrigatorio">*</span>
+					</span>
+
+					<div class="linha linha-2-1">
+						<div class="campo">
+							<span class="campo-rotulo">Link da planilha</span>
+							<input type="text" id="config_planilha_link" class="item-form" placeholder="https://docs.google.com/spreadsheets/d/..." spellcheck="false">
+						</div>
+
+						<div class="campo">
+							<span class="campo-rotulo">Nome da aba</span>
+							<input type="text" id="config_planilha_aba" class="item-form" placeholder="Tickets" spellcheck="false">
+						</div>
+					</div>
+				</div>
+
+				<div class="config-bloco">
+					<span class="config-bloco-titulo">
+						Planilha da Base de Conhecimento
+						<span class="config-opcional">opcional</span>
+					</span>
+
+					<div class="linha linha-2-1">
+						<div class="campo">
+							<span class="campo-rotulo">Link da planilha</span>
+							<input type="text" id="config_base_link" class="item-form" placeholder="https://docs.google.com/spreadsheets/d/..." spellcheck="false">
+						</div>
+
+						<div class="campo">
+							<span class="campo-rotulo">Nome da aba</span>
+							<input type="text" id="config_base_aba" class="item-form" placeholder="Fiscal" spellcheck="false">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="config-rodape">
+				<span class="config-recado" id="config_recado"></span>
+				<button type="button" class="botao botao-fantasma" id="cancelar_config">Cancelar</button>
+				<button type="button" class="botao botao-primario" id="salvar_config">Salvar</button>
+			</div>
 		</div>
 	</div>
 

@@ -6,6 +6,16 @@ const NIVEL_RESPONSAVEL = {
 //valor padrão das configurações de planilha, indica que ainda não foram preenchidas
 const CONFIG_PENDENTE = 'Link da planilha aqui';
 
+//chave em que a configuração das planilhas é gravada. fica fora do conjunto de
+//chaves do formulário de propósito: assim o "Limpar" e o cadastro de um ticket,
+//que só apagam as chaves dos campos, nunca alcançam a configuração
+const CHAVE_CONFIG = 'configuracao';
+
+//a configuração é gravada nas duas áreas: a sync acompanha a conta do Google e
+//volta sozinha ao reinstalar a extensão ou trocar de máquina; a local fica no
+//computador e cobre o caso de o sync estar desligado ou ter estourado a cota
+const AREAS_CONFIG = ['sync', 'local'];
+
 //chaves usadas para descobrir a coluna correspondente na planilha
 const CAMPO_NRO_TICKET = 'nroTicket';
 const CAMPO_RETORNO_L3 = 'retorno_l3';
@@ -18,11 +28,15 @@ $(function() {
 });
 
 var ControleTickets = function(nivelResponsavel) {
+	//valores iniciais: são o ponto de partida de quem nunca abriu as
+	//configurações. o normal é informar as planilhas pela engrenagem no topo da
+	//extensão, e o que for gravado por lá substitui o que está aqui
+
 	//obrigatórios: sem eles não é possível cadastrar
 	this.SHEET_ID = 'Link da planilha aqui'; //ID da planilha própria
 	this.SHEET_NAME = 'Tickets'; //nome da aba na planilha própria
 
-	//opcionais: usados somente pelo "Incluir na Base"
+	//opcionais: usados somente pela Base de Conhecimento
 	this.SHEET_KNOWLEDGE_ID = 'Link da planilha aqui'; //ID da planilha compartilhada
 	this.SHEET_KNOWLEDGE_NAME = 'Fiscal'; //nome da aba na planilha compartilhada
 
@@ -51,13 +65,16 @@ var ControleTickets = function(nivelResponsavel) {
 
 	this.nivelResponsavel = nivelResponsavel
 
-	this.loadFiles().done(function() {
+	//a configuração precisa estar carregada antes de qualquer coisa consultar as
+	//planilhas, por isso ela entra junto com os arquivos de categorização
+	$.when(this.loadFiles(), this.carregaConfiguracao()).done(function() {
 		this.initSelects();
 		this.setStoredFields();
 		this.getTicketData();
 		this.registerEvents();
 		this.render();
 		this.atualizaContador();
+		this.aplicaEstadoConfiguracao();
 	}.bind(this));
 
 	chrome.identity.getAuthToken({'interactive': true});
@@ -81,6 +98,160 @@ ControleTickets.prototype = {
 
 	'isModoRetornoL3': function() {
 		return $('#modo_retorno_l3').is(':checked');
+	},
+
+	//aceita tanto o link inteiro da planilha quanto só o ID, que é o que a API usa
+	'extraiIdPlanilha': function(valor) {
+		var link = $.trim(valor || '').match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
+
+		return link ? link[1] : $.trim(valor || '');
+	},
+
+	//lê a configuração das duas áreas e, se uma delas estiver sem os dados, repõe
+	//a partir da outra. é isso que faz a configuração se recuperar sozinha depois
+	//de uma reinstalação ou de o sync ficar indisponível
+	'carregaConfiguracao': function() {
+		var deferredObj = $.Deferred();
+		var that = this;
+
+		chrome.storage.sync.get(CHAVE_CONFIG, function(doSync) {
+			chrome.storage.local.get(CHAVE_CONFIG, function(doLocal) {
+				var config = doSync[CHAVE_CONFIG] || doLocal[CHAVE_CONFIG];
+
+				if (config) {
+					that.aplicaConfiguracao(config);
+
+					//repõe na área que estiver sem os dados
+					$.each(AREAS_CONFIG, function(indice, area) {
+						var lido = (area == 'sync' ? doSync : doLocal)[CHAVE_CONFIG];
+
+						if (!lido) {
+							chrome.storage[area].set(that.dadosConfiguracao(config));
+						}
+					});
+				}
+
+				deferredObj.resolve();
+			});
+		});
+
+		return deferredObj.promise();
+	},
+
+	'dadosConfiguracao': function(config) {
+		var dados = {};
+
+		dados[CHAVE_CONFIG] = config;
+
+		return dados;
+	},
+
+	'configuracaoAtual': function() {
+		return {
+			'sheetId': this.SHEET_ID,
+			'sheetName': this.SHEET_NAME,
+			'knowledgeId': this.SHEET_KNOWLEDGE_ID,
+			'knowledgeName': this.SHEET_KNOWLEDGE_NAME
+		};
+	},
+
+	//só sobrescreve o que veio preenchido: uma gravação incompleta nunca apaga o
+	//que já estava valendo
+	'aplicaConfiguracao': function(config) {
+		config = config || {};
+
+		if (this.isConfigurada(config.sheetId)) {
+			this.SHEET_ID = config.sheetId;
+		}
+
+		if (this.isConfigurada(config.sheetName)) {
+			this.SHEET_NAME = config.sheetName;
+		}
+
+		if (this.isConfigurada(config.knowledgeId)) {
+			this.SHEET_KNOWLEDGE_ID = config.knowledgeId;
+		}
+
+		if (this.isConfigurada(config.knowledgeName)) {
+			this.SHEET_KNOWLEDGE_NAME = config.knowledgeName;
+		}
+	},
+
+	//substitui a configuração inteira: só é chamado com o que a tela de
+	//configurações já validou
+	'gravaConfiguracao': function(config) {
+		var that = this;
+
+		this.SHEET_ID = config.sheetId;
+		this.SHEET_NAME = config.sheetName;
+		this.SHEET_KNOWLEDGE_ID = config.knowledgeId;
+		this.SHEET_KNOWLEDGE_NAME = config.knowledgeName;
+
+		$.each(AREAS_CONFIG, function(indice, area) {
+			chrome.storage[area].set(that.dadosConfiguracao(that.configuracaoAtual()));
+		});
+	},
+
+	//enquanto a planilha de tickets não for informada, a engrenagem fica em
+	//destaque para quem abrir a extensão saber por onde começar
+	'aplicaEstadoConfiguracao': function() {
+		$('#abrir_config').toggleClass('is-pendente', !this.hasPlanilhaPropria());
+	},
+
+	'abreConfiguracao': function(recado) {
+		$('#config_planilha_link').val(this.hasPlanilhaPropria() ? this.SHEET_ID : '');
+		$('#config_planilha_aba').val(this.hasPlanilhaPropria() ? this.SHEET_NAME : '');
+		$('#config_base_link').val(this.hasPlanilhaBase() ? this.SHEET_KNOWLEDGE_ID : '');
+		$('#config_base_aba').val(this.hasPlanilhaBase() ? this.SHEET_KNOWLEDGE_NAME : '');
+
+		this.mostraRecadoConfiguracao(recado || '', recado ? 'is-erro' : '');
+
+		$('#config').prop('hidden', false);
+		$('#config_planilha_link').focus();
+	},
+
+	'fechaConfiguracao': function() {
+		$('#config').prop('hidden', true);
+	},
+
+	'mostraRecadoConfiguracao': function(texto, classe) {
+		$('#config_recado').text(texto).removeClass('is-erro is-ok').addClass(classe || '');
+	},
+
+	//a planilha de tickets é obrigatória e não pode ser esvaziada depois de
+	//informada; a da Base de Conhecimento é opcional, mas se vier tem que vir
+	//completa, senão o envio não teria destino
+	'salvaConfiguracao': function() {
+		var planilhaId = this.extraiIdPlanilha($('#config_planilha_link').val());
+		var planilhaAba = $.trim($('#config_planilha_aba').val());
+		var baseId = this.extraiIdPlanilha($('#config_base_link').val());
+		var baseAba = $.trim($('#config_base_aba').val());
+
+		if (!this.isConfigurada(planilhaId) || !this.isConfigurada(planilhaAba)) {
+			this.mostraRecadoConfiguracao('Informe o link e o nome da aba da planilha de tickets.', 'is-erro');
+
+			return;
+		}
+
+		if (this.isConfigurada(baseId) != this.isConfigurada(baseAba)) {
+			this.mostraRecadoConfiguracao('Na Base de Conhecimento, preencha o link e o nome da aba, ou deixe os dois em branco.', 'is-erro');
+
+			return;
+		}
+
+		this.gravaConfiguracao({
+			'sheetId': planilhaId,
+			'sheetName': planilhaAba,
+			//deixar a Base de Conhecimento em branco é uma escolha válida de quem
+			//usa, diferente da planilha de tickets, que não pode ser esvaziada
+			'knowledgeId': baseId || CONFIG_PENDENTE,
+			'knowledgeName': baseAba || CONFIG_PENDENTE
+		});
+
+		this.aplicaEstadoConfiguracao();
+		this.mostraRecadoConfiguracao('Configuração salva.', 'is-ok');
+
+		setTimeout(this.fechaConfiguracao.bind(this), 700);
 	},
 
 	//o retorno do L3 grava só a coluna do retorno na linha que já existe, então a
@@ -207,9 +378,36 @@ ControleTickets.prototype = {
 			chrome.storage.sync.set({'base_conhecimento': $(this).is(':checked')});
 		});
 
+		$('#abrir_config').on('click', function() {
+			that.abreConfiguracao();
+		});
+
+		$('#fechar_config, #cancelar_config').on('click', function() {
+			that.fechaConfiguracao();
+		});
+
+		$('#salvar_config').on('click', function() {
+			that.salvaConfiguracao();
+		});
+
+		//clicar fora do painel fecha, mas clicar dentro não
+		$('#config').on('click', function(e) {
+			if (e.target === this) {
+				that.fechaConfiguracao();
+			}
+		});
+
+		$('#config').on('keydown', 'input', function(e) {
+			if (e.key == 'Enter') {
+				that.salvaConfiguracao();
+			}
+		});
+
 		$('#controle_tickets').on('click', '#enviar_controle_tickets', function() {
+			//sem a planilha de tickets não há onde gravar: abre a configuração já
+			//explicando o que falta, em vez de só avisar e deixar a pessoa sem saída
 			if (!that.hasPlanilhaPropria()) {
-				alert('Antes de cadastrar, preencha os dados da planilha própria (SHEET_ID e SHEET_NAME) no arquivo scripts/script.js.');
+				that.abreConfiguracao('Antes de cadastrar, informe a planilha em que os tickets serão gravados.');
 
 				return;
 			}
@@ -264,7 +462,7 @@ ControleTickets.prototype = {
 						//configurada, então avisa que só esse envio não aconteceu em
 						//vez de deixar o registro sumir em silêncio
 						if (!that.hasPlanilhaBase()) {
-							alert('O ticket foi cadastrado, mas não foi enviado para a Base de Conhecimento: falta preencher a planilha compartilhada (SHEET_KNOWLEDGE_ID e SHEET_KNOWLEDGE_NAME) no arquivo scripts/script.js.');
+							alert('O ticket foi cadastrado, mas não foi enviado para a Base de Conhecimento: a planilha da Base ainda não foi informada nas configurações (engrenagem no topo da extensão).');
 
 							that.closeWaitSuccess();
 
@@ -329,7 +527,17 @@ ControleTickets.prototype = {
 		this.registraDicas();
 
 		$(document).on('keydown', function(e) {
-			if ((e.ctrlKey || e.metaKey) && e.key == 'Enter') {
+			var configAberta = !$('#config').prop('hidden');
+
+			if (e.key == 'Escape' && configAberta) {
+				that.fechaConfiguracao();
+
+				return;
+			}
+
+			//com a configuração aberta o atalho não pode disparar o cadastro atrás
+			//do painel
+			if ((e.ctrlKey || e.metaKey) && e.key == 'Enter' && !configAberta) {
 				$('#enviar_controle_tickets').click();
 			}
 		});
@@ -650,6 +858,12 @@ ControleTickets.prototype = {
 
 			$.each(data, function(element, value) {
 				var field = $('#' + element);
+
+				//a configuração das planilhas não é campo do formulário: quem cuida
+				//dela é carregaConfiguracao
+				if (element == CHAVE_CONFIG) {
+					return true;
+				}
 
 				if (that.checkboxDefaults.hasOwnProperty(element)) {
 					field.prop('checked', !!value);
