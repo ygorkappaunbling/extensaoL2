@@ -1,426 +1,579 @@
+/* Controle de Tickets L2 — interface baseada no design system Bling.
+   Os tokens abaixo vêm do arquivo do Claude Design; alterar por aqui reflete
+   em toda a extensão. */
+
+@font-face {
+	font-family: 'Satoshi';
+	src: url('../fonts/Satoshi-Regular.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Satoshi';
+	src: url('../fonts/Satoshi-Medium.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Satoshi';
+	src: url('../fonts/Satoshi-Bold.woff2') format('woff2');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+:root {
+	--font-sans: 'Satoshi', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+	--bling-green: #93F574;
+	--bling-dark-green: #002726;
+	--bling-gray: #F4F4F4;
+	--bling-white: #FFFFFF;
+
+	--green-600: #84DD68;
+	--green-700: #589346;
+
+	--mist-100: #F8FAFA;
+	--mist-200: #EEF2F2;
+	--mist-300: #E3E9E9;
+	--mist-400: #CED9D9;
+	--mist-500: #B9C9C9;
+	--mist-700: #6F7979;
+
+	--purple-100: #EBE9FF;
+	--purple-300: #B7B0FF;
+
+	--danger: #C64B3A;
+	--danger-soft: #F5DDD8;
+
+	--surface: var(--bling-white);
+	--text-primary: #002726;
+	--text-secondary: #4D6867;
+	--text-muted: var(--mist-700);
+
+	--radius-md: 12px;
+	--radius-card: 14px;
+	--radius-pill: 999px;
+
+	--shadow-md: 0 8px 20px rgba(0, 39, 38, .10);
+
+	--ease-out: cubic-bezier(.22, .61, .36, 1);
+}
+
+* {
+	box-sizing: border-box;
+}
+
 body {
-	width: 700px;
-	background-color: #F4F4F4;
-}
-
-.row {
+	width: 796px;
 	margin: 0;
+	background: var(--bling-gray);
+	font-family: var(--font-sans);
+	font-size: 13px;
+	color: var(--text-primary);
+	-webkit-font-smoothing: antialiased;
 }
 
-.row input[type="button"] {
-	margin-top: 12px;
+/* ---------------------------------------------------------------- cabeçalho */
+
+.topo {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 12px 16px;
+	background: var(--bling-dark-green);
 }
 
-h4 {
-	margin-bottom: 4px;
-	font-size: 15pt;
-	font-weight: bold;
-	color: #495769;
-	text-align: center;
+.topo-marca {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	min-width: 0;
 }
 
-label {
-	width: 100%;
+.topo-logo {
+	display: block;
+	height: 16px;
+	width: auto;
 }
 
-#controle_tickets {
-	padding: 10px 5px;
+.topo-divisor {
+	width: 1px;
+	height: 16px;
+	background: rgba(255, 255, 255, .18);
 }
 
-#enviar_controle_tickets,
-#login,
-#logout {
-	width: 100%;
+.topo-titulo {
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--bling-white);
+	letter-spacing: -.01em;
+	white-space: nowrap;
 }
 
-.form-group {
-	margin-bottom: 5px;
+.selo {
+	padding: 3px 10px;
+	border-radius: var(--radius-pill);
+	background: var(--bling-green);
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 1.4;
+	color: var(--bling-dark-green);
 }
+
+.topo-estado {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.progresso-texto {
+	font-size: 11.5px;
+	font-weight: 500;
+	color: rgba(255, 255, 255, .7);
+	white-space: nowrap;
+}
+
+.progresso-trilho {
+	width: 76px;
+	height: 4px;
+	border-radius: var(--radius-pill);
+	background: rgba(255, 255, 255, .16);
+	overflow: hidden;
+}
+
+.progresso-preenchido {
+	height: 100%;
+	width: 0;
+	border-radius: var(--radius-pill);
+	background: var(--bling-green);
+	transition: width 360ms var(--ease-out);
+}
+
+/* alternância entre o registro do ticket e o retorno do L3 */
+.segmentado {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	margin-left: 4px;
+	padding: 3px;
+	border-radius: var(--radius-pill);
+	background: rgba(255, 255, 255, .08);
+}
+
+.segmentado-item {
+	padding: 5px 12px;
+	border: none;
+	border-radius: var(--radius-pill);
+	background: transparent;
+	font-family: inherit;
+	font-size: 12px;
+	font-weight: 500;
+	color: rgba(255, 255, 255, .72);
+	white-space: nowrap;
+	cursor: pointer;
+	transition: background 200ms var(--ease-out), color 200ms var(--ease-out);
+}
+
+.segmentado-item:hover {
+	color: var(--bling-white);
+}
+
+.segmentado-item.is-ativo {
+	background: var(--bling-green);
+	color: var(--bling-dark-green);
+}
+
+/* --------------------------------------------------------------- formulário */
+
+.corpo {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 9px 10px;
+}
+
+.cartao {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 11px 14px 12px;
+	background: var(--surface);
+	border: 1px solid var(--mist-300);
+	border-radius: var(--radius-card);
+}
+
+.linha {
+	display: grid;
+	gap: 12px;
+}
+
+.linha-4 {
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.linha-2 {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* campo curto à esquerda e campo largo à direita */
+.linha-1-2 {
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1.85fr);
+}
+
+.campo {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	min-width: 0;
+}
+
+.campo-rotulo {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 12px;
+	font-weight: 500;
+	color: var(--text-secondary);
+}
+
+.campo-rotulo .obrigatorio {
+	color: var(--danger);
+	font-size: 13px;
+	line-height: 1;
+}
+
+.campo-contador {
+	margin-left: auto;
+	font-size: 11px;
+	font-weight: 400;
+	color: var(--text-muted);
+}
+
+.trilha {
+	margin-top: -4px;
+	font-size: 11px;
+	color: var(--text-muted);
+}
+
+.trilha:empty {
+	display: none;
+}
+
+/* ------------------------------------------------------------- ícone e dica */
+
+.info-campo {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 13px;
+	height: 13px;
+	border: 1px solid var(--mist-500);
+	border-radius: var(--radius-pill);
+	font-size: 8.5px;
+	font-weight: 700;
+	font-style: normal;
+	color: var(--text-muted);
+	cursor: help;
+	transition: border-color 120ms var(--ease-out), color 120ms var(--ease-out);
+}
+
+.info-campo:before {
+	content: 'i';
+}
+
+.info-campo:hover {
+	border-color: var(--green-700);
+	color: var(--green-700);
+}
+
+/* uma dica só, posicionada por JS junto do ícone sob o mouse */
+#dica {
+	position: fixed;
+	z-index: 40;
+	max-width: 250px;
+	padding: 7px 10px;
+	border-radius: 9px;
+	background: var(--bling-dark-green);
+	color: var(--bling-white);
+	font-size: 11.5px;
+	line-height: 1.4;
+	box-shadow: var(--shadow-md);
+	pointer-events: none;
+	text-wrap: pretty;
+}
+
+/* ------------------------------------------------------------------ campos */
 
 .item-form {
 	width: 100%;
-	margin-top: 3px;
-	font-family: arial, helvetica, sans-serif !important;
-	font-size: 9pt !important;
-	color: #111829;
-	border: 1px solid #CCD5E0;
-	height: 32px;
-	padding: 0 11px;
-	background-color: #FFF;
-	background-image: none;
-	box-shadow: none;
-	border-radius: 8px;
+	height: 36px;
+	padding: 8px 12px;
+	background: var(--surface);
+	border: 1px solid var(--mist-400);
+	border-radius: var(--radius-md);
+	font-family: inherit;
+	font-size: 13px;
+	color: var(--text-primary);
+	transition: border-color 120ms var(--ease-out), box-shadow 120ms var(--ease-out);
 }
 
-.item-form:focus {
-	border: 1px solid #93F574;
-	background-color: #FFF;
-	outline: none;
+select.item-form {
+	padding-right: 32px;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5l5-5' fill='none' stroke='%234D6867' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 12px center;
+	background-size: 11px;
+	-webkit-appearance: none;
+	appearance: none;
 }
 
-.label-item-form {
-	margin: 0px 0 0 0;
-	padding: 0px 0px 0px 0;
-	float: left;
-	display: block;
-	font-size: 8pt;
-	color: #666;
-	background: none;
-}
-
-.label-item-form.obrigatorio-item-form {
-	font-weight: bold;
-}
-
-.textarea-item-form {
-	height: 46px;
-	padding: 3px 6px;
+textarea.item-form {
+	height: 74px;
+	padding: 10px 12px;
+	line-height: 1.45;
 	resize: none;
 }
 
-.textarea-retorno-l3 {
-	height: 160px;
-	padding: 6px 9px;
+textarea.textarea-retorno-l3 {
+	height: 168px;
 }
 
-/* sozinho na linha, o número do ticket ocuparia a largura toda do popup */
-.modo-retorno-l3 #nro_ticket {
-	max-width: 200px;
+.item-form::placeholder {
+	color: var(--mist-700);
 }
 
-/* frases inteiras, ao contrário dos botões de uma palavra que o estilo
-   padrão capitaliza */
-#informar_retorno_l3,
-#sair_retorno_l3 {
-	text-transform: none;
-}
-
-.button-default-novo {
-	width: 100%;
-	height: 32px;
-	font-size: 12px;
-	font-weight: bold;
-	background-color: #93F574;
-	color: #495769;
-	border-radius: 0px;
-	border: none;
-	text-transform: capitalize;
-	border-radius: 8px;
-}
-
-.button-default-novo:hover,
-.button-default-novo:focus {
-	background-color: #84DC68;
-	color: #495769;
-	cursor: pointer;
-}
-
-.btn-secundary-novo {
-	width: 100%;
-	height: 32px;
-	font-size: 12px;
-	background-color: #FFF;
-	color: #495769;
-	border-radius: 8px;
-	border: 1px solid #93F574;
-	font-weight: bold;
-	text-transform: capitalize;
-	font-family: Arial !important;
-}
-
-.btn-secundary-novo:hover,
-.btn-secundary-novo:focus {
-	background-color: #E0FDD8;
-	cursor: pointer;
-}
-
-.modal-wait {
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	background-color: #000;
-	top: 0;
-	left: 0;
-	opacity: 0.2;
-}
-
-.wait {
-	position: absolute;
-	height: 45px;
-	width: 45px;
-	background-color: #FFF;
-	border-radius: 10px;
-	top: calc(50% - 25px);
-	left: calc(50% - 25px);
-}
-
-.label-item-form {
-	margin: 0px 0 0 0;
-	padding: 0px 0px 0px 0;
-	float: left;
-	display: block;
-	font-size: 11px;
-	color: #495769;
-	background: none;
-}
-
-.label-item-form span {
-	color: #DD6F77;
-}
-
-.obrigatorio-item-form {
-	width: 100%;
-	text-align: right;
-	margin-bottom: 15px;
-}
-
-.group-item-form-error .item-form,
-.group-item-form-error .item-form:focus,
-.group-item-form-error input,
-.group-item-form-error input:focus,
-.group-item-form-error textarea {
-	border: 1px solid #DD6F77 !important;
-	border-left: 3px solid #DD6F77 !important;
+.item-form:focus {
+	border-color: var(--green-600);
+	box-shadow: 0 0 0 3px rgba(147, 245, 116, .35);
 	outline: none;
 }
 
-.group-item-form-error .label-item-form,
-.group-item-form-error .label-item-form-toggle,
-.group-item-form .label-item-form-toggle span,
-.group-item-form-error label,
-.label-item-form span {
-	color: #DD6F77;
+/* ------------------------------------------------------------------ switches */
+
+.pilulas {
+	display: flex;
+	align-items: stretch;
+	gap: 8px;
+}
+
+.pilula {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	flex: 1 1 auto;
+	min-width: 0;
+	padding: 5px 7px 5px 12px;
+	background: var(--mist-100);
+	border: 1px solid var(--mist-200);
+	border-radius: var(--radius-pill);
+}
+
+.pilula-destaque {
+	background: var(--purple-100);
+	border-color: var(--purple-300);
+}
+
+.pilula-rotulo {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 11.5px;
+	font-weight: 500;
+	line-height: 1.2;
+	color: var(--text-primary);
+	white-space: nowrap;
+}
+
+.switch {
+	position: relative;
+	flex-shrink: 0;
+	width: 40px;
+	height: 24px;
+}
+
+.switch input {
+	position: absolute;
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.switch-trilho {
+	position: absolute;
+	inset: 0;
+	border-radius: var(--radius-pill);
+	background: var(--mist-400);
+	cursor: pointer;
+	transition: background 200ms var(--ease-out);
+}
+
+.switch-trilho:before {
+	content: '';
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: var(--bling-white);
+	transition: transform 200ms var(--ease-out), background 200ms var(--ease-out);
+}
+
+.switch input:checked + .switch-trilho {
+	background: var(--bling-green);
+}
+
+.switch input:checked + .switch-trilho:before {
+	background: var(--bling-dark-green);
+	transform: translateX(16px);
+}
+
+.switch input:focus-visible + .switch-trilho {
+	box-shadow: 0 0 0 3px rgba(147, 245, 116, .45);
+}
+
+/* ------------------------------------------------------------------- rodapé */
+
+.rodape {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 10px 16px;
+	background: var(--surface);
+	border-top: 1px solid var(--mist-300);
+}
+
+.rodape-esquerda {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.rodape-dica {
+	font-size: 11px;
+	color: var(--text-muted);
+}
+
+.botao {
+	padding: 8px 16px;
+	border: 1px solid transparent;
+	border-radius: var(--radius-pill);
+	background: transparent;
+	font-family: inherit;
+	font-size: 14px;
+	font-weight: 500;
+	letter-spacing: -.01em;
+	color: var(--text-primary);
+	cursor: pointer;
+	transition: background 160ms var(--ease-out), border-color 160ms var(--ease-out);
+}
+
+.botao-fantasma:hover {
+	background: var(--mist-200);
+}
+
+.botao-primario {
+	background: var(--bling-green);
+}
+
+.botao-primario:hover {
+	background: var(--green-600);
+}
+
+/* -------------------------------------------------------- campo com erro */
+
+.group-item-form-error .item-form {
+	border-color: var(--danger);
+	box-shadow: 0 0 0 3px var(--danger-soft);
+}
+
+.group-item-form-error .campo-rotulo {
+	color: var(--danger);
+}
+
+/* --------------------------------------------------- indicador de gravação */
+
+.modal-wait {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 39, 38, .35);
+}
+
+.wait {
+	position: fixed;
+	top: calc(50% - 26px);
+	left: calc(50% - 26px);
+	width: 52px;
+	height: 52px;
+	background: var(--surface);
+	border-radius: 16px;
+	box-shadow: var(--shadow-md);
 }
 
 .loading {
-	width: 25px;
-	height: 25px;
-	border-radius: 50%;
-	background: transparent;
-	border-top: 3px solid #CCC;
-	border-right: 3px solid #CCC;
-	border-bottom: 3px solid #777;
-	border-left: 3px solid #777;
-	-webkit-animation: loading 1.2s infinite linear;
-	-moz-animation: loading 1.2s infinite linear;
-	-ms-animation: loading 1.2s infinite linear;
-	animation: loading 1.2s infinite linear;
 	position: absolute;
 	top: 50%;
 	left: 50%;
+	width: 24px;
+	height: 24px;
 	margin: -12px 0 0 -12px;
-	z-index: 2;
+	border: 3px solid var(--mist-300);
+	border-top-color: var(--green-600);
+	border-radius: 50%;
+	animation: loading 900ms infinite linear;
 }
 
-@-webkit-keyframes loading {
-  to { -webkit-transform: rotate(360deg); }
-}
-@-moz-keyframes loading {
-	to { -moz-transform: rotate(360deg); }
-}
-@-ms-keyframes loading {
-	to { -ms-transform: rotate(360deg); }
-}
 @keyframes loading {
 	to { transform: rotate(360deg); }
 }
 
 .checkmark {
-	display: inline-block;
-	width: 40px;
-	height: 40px;
-	-ms-transform: rotate(45deg);
-	-webkit-transform: rotate(45deg);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 26px;
+	height: 26px;
+	margin: -13px 0 0 -13px;
 	transform: rotate(45deg);
 }
 
 .checkmark-stem {
 	position: absolute;
-	width: 5px;
-	height: 17px;
-	background-color: #93F574;
-	left: 23px;
-	top: 10px;
+	top: 3px;
+	left: 15px;
+	width: 4px;
+	height: 18px;
+	border-radius: 2px;
+	background: var(--green-600);
 }
 
 .checkmark-kick {
 	position: absolute;
-	width: 8px;
-	height: 5px;
-	background-color: #93F574;
-	left: 17px;
-	top: 22px;
+	top: 17px;
+	left: 5px;
+	width: 10px;
+	height: 4px;
+	border-radius: 2px;
+	background: var(--green-600);
 }
 
-.item-form-toggle {
-	display: inline-block;
+/* ----------------------------------------------- modo "Retorno do L3" */
+
+/* no retorno do L3 ficam só o número do ticket, que localiza a linha na
+   planilha, e o campo do retorno */
+.modo-retorno-l3 .linha-identificacao {
+	grid-template-columns: 200px minmax(0, 1fr);
 }
 
-.label-item-form-toggle {
-	font-family: Arial;
-	display: block;
-	font-size: 8pt;
-	color: #666666;
-	margin-bottom: 8px;
-}
-
-div.toogle-checkbox span,
-div.toogle-checkbox span:before {
-	-webkit-transition: .4s;
-	-moz-transition: .4s;
-	-o-transition: .4s;
-	transition: .4s;
-}
-
-div.toogle-checkbox label {
-	position: relative;
-	display: inline-block;
-	width: 32px;
-	height: 20px;
-}
-
-div.toogle-checkbox {
-	display: inline-block;
-	width: 105px;
-}
-
-div.toogle-checkbox input {
-	display:none;
-}
-
-div.toogle-checkbox span {
-	position: absolute;
-	cursor: pointer;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: #ccc;
-	border-radius: 34px;
-}
-
-div.toogle-checkbox span:before {
-	position: absolute;
-	content: "";
-	height: 16px;
-	width: 16px;
-	left: 2px;
-	top: 2px;
-	background-color: white;
-	border-radius: 50%;
-}
-
-div.toogle-checkbox input:checked + span {
-	background-color: #93F574;
-}
-
-div.toogle-checkbox input:disabled + span {
-	background-color: #CCCCCC;
-}
-
-div.toogle-checkbox input:focus + span {
-	box-shadow: 0 0 1px #93F574;
-}
-
-div.toogle-checkbox input:checked + span:before {
-	-webkit-transform: translateX(12px);
-	-ms-transform: translateX(12px);
-	transform: translateX(12px);
-}
-
-div.toogle-checkbox input:checked + span:after {
-	content: "Ativado";
-}
-
-div.toogle-checkbox input + span:after {
-	content: "Desativado";
-}
-
-div.toogle-checkbox span:after {
-	font-size: 9pt;
-	display: inline-block;
-	top: 1px;
-	position: absolute;
-	padding-left: 40px;
-	color: #999;
-}
-
-/* Ícone de informação: a descrição do campo aparece ao passar o mouse */
-.label-item-form span.info-campo,
-.label-item-form-toggle span.info-campo {
-	position: relative;
-	display: inline-block;
-	margin-left: 4px;
-	color: #8A94A6;
-	vertical-align: middle;
-	cursor: help;
-}
-
-.label-item-form span.info-campo:hover,
-.label-item-form-toggle span.info-campo:hover {
-	color: #35871D;
-}
-
-span.info-campo:before {
-	content: 'i';
-	display: block;
-	width: 13px;
-	height: 13px;
-	border: 1px solid currentColor;
-	border-radius: 50%;
-	font-family: Georgia, 'Times New Roman', serif;
-	font-size: 10px;
-	font-style: italic;
-	font-weight: bold;
-	line-height: 12px;
-	text-align: center;
-}
-
-span.info-campo:after {
-	content: attr(data-info);
-	position: absolute;
-	top: 21px;
-	left: -8px;
-	z-index: 10;
-	visibility: hidden;
-	opacity: 0;
-	width: 220px;
-	padding: 7px 9px;
-	font-family: arial, helvetica, sans-serif;
-	font-size: 11px;
-	font-style: normal;
-	font-weight: normal;
-	line-height: 1.35;
-	text-align: left;
-	white-space: normal;
-	color: #FFF;
-	background-color: #495769;
-	border-radius: 6px;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
-	pointer-events: none;
-	transition: opacity .15s;
-}
-
-/* Abre a descrição para a esquerda nos campos junto da borda direita */
-span.info-campo.info-esq:after {
-	left: auto;
-	right: -8px;
-}
-
-span.info-campo:hover:after {
-	visibility: visible;
-	opacity: 1;
-}
-/* o popup do Chrome não passa de 600px de altura, então o formulário precisa
-   caber sem rolagem: esta linha junta o botão de modo e o aviso */
-.linha-topo {
-	margin-bottom: 6px;
-}
-
-.linha-topo input[type="button"] {
-	margin-top: 0;
-}
-
-.linha-topo .obrigatorio-item-form {
-	margin-bottom: 0;
+.modo-retorno-l3 .cartao {
+	padding: 14px 16px;
 }

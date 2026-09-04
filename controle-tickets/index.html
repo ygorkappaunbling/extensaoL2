@@ -1,230 +1,276 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
 	<title>Controle de Tickets</title>
 	<meta charset="UTF-8">
 	<script type="text/javascript" src="scripts/jquery.min.js"></script>
 	<script type="text/javascript" src="scripts/jquery.mask.js"></script>
-	<script type="text/javascript" src="scripts/bootstrap.min.js"></script>
 	<script type="text/javascript" src="scripts/script.js"></script>
-	<script type="text/javascript" src="scripts/fontawesome.js"></script>
-	<link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="styles/style.css">
 </head>
 <body>
-	<div id="controle_tickets" class="container-fluid">
-		<div class="row">
-			<div class="col">
-				<h4>Controle de Tickets L2</h4>
-			</div>
-		</div>
-
-		<div class="row align-items-center linha-topo">
-			<div class="col-6">
-				<input type="button" id="informar_retorno_l3" value="Informar retorno do L3" class="btn-secundary-novo">
-				<input type="button" id="sair_retorno_l3" value="Sair do retorno do L3" class="btn-secundary-novo" style="display: none;">
+	<div id="controle_tickets">
+		<div class="topo">
+			<div class="topo-marca">
+				<img class="topo-logo" src="icons/bling-logo.svg" alt="Bling">
+				<span class="topo-divisor"></span>
+				<span class="topo-titulo">Controle de tickets</span>
+				<span class="selo">L2</span>
 			</div>
 
-			<div class="col-6">
-				<p class="label label-item-form obrigatorio-item-form"><span>(*) </span>Campos obrigatórios</p>
+			<div class="topo-estado">
+				<span class="progresso-texto" id="progresso_texto"></span>
+				<div class="progresso-trilho">
+					<div class="progresso-preenchido" id="progresso_barra"></div>
+				</div>
+
+				<div class="segmentado">
+					<button type="button" class="segmentado-item is-ativo" id="informar_registro_l2">Registro L2</button>
+					<button type="button" class="segmentado-item" id="informar_retorno_l3">Retorno do L3</button>
+				</div>
 			</div>
 		</div>
 
 		<!-- guarda o modo de preenchimento; é um campo do formulário para ser
 		     gravado e restaurado junto com os demais -->
-		<input type="checkbox" id="modo_retorno_l3" name="modo_retorno_l3" style="display: none;">
+		<input type="checkbox" id="modo_retorno_l3" name="modo_retorno_l3" hidden>
 
-		<div class="row">
-			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="nro_ticket">Número do ticket<span> * </span><span class="info-campo" data-info="Número do ticket a ser registrado"></span></label>
-				<input type="text" id="nro_ticket" name="nro_ticket" class="item-form">
-			</div>
+		<div class="corpo">
+			<div class="cartao">
+				<div class="linha linha-4 linha-identificacao">
+					<div class="campo form-group group-item-form">
+						<span class="campo-rotulo">
+							<span id="rotulo_nro_ticket">Nº do ticket</span>
+							<span class="obrigatorio">*</span>
+							<i class="info-campo" data-info="Número do ticket a ser registrado"></i>
+						</span>
+						<input type="text" id="nro_ticket" name="nro_ticket" class="item-form" placeholder="5566756" inputmode="numeric">
+					</div>
 
-			<div class="col form-group group-item-form campo-l2">
-				<label class="label-item-form" for="classificacao">Classificação<span class="info-campo" data-info="Tipo do ticket: Dúvida, Problema ou Sugestão"></span></label>
-				<select id="classificacao" name="classificacao" class="item-form">
-					<option value="D">Dúvida</option>
-					<option value="T">Problema</option>
-					<option value="S">Sugestão</option>
-				</select>
-			</div>
+					<div class="campo form-group group-item-form campo-l2">
+						<span class="campo-rotulo">
+							Data de abertura
+							<span class="obrigatorio">*</span>
+							<i class="info-campo" data-info="Data em que o ticket foi aberto"></i>
+						</span>
+						<input type="text" id="data_abertura" name="data_abertura" class="item-form" placeholder="dd/mm/aaaa">
+					</div>
 
-			<div class="col-3 form-group group-item-form campo-l2">
-				<div class="item-form-toggle">
-					<label class="label-item-form-toggle" for="classificacao_certa">Classificação correta<span class="info-campo info-esq" data-info="O ticket foi classificado corretamente? Ativado = Sim; Desativado = Não"></span></label>
-					<div class="toogle-checkbox">
-						<label>
-							<input type="checkbox" id="classificacao_certa" name="classificacao_certa" class="campo-cfg" checked>
-							<span></span>
+					<div class="campo form-group group-item-form campo-l2">
+						<span class="campo-rotulo">
+							Classificação
+							<i class="info-campo" data-info="Tipo do ticket: Dúvida, Problema ou Sugestão"></i>
+						</span>
+						<select id="classificacao" name="classificacao" class="item-form">
+							<option value="D">Dúvida</option>
+							<option value="T">Problema</option>
+							<option value="S">Sugestão</option>
+						</select>
+					</div>
+
+					<div class="campo form-group group-item-form campo-l2">
+						<span class="campo-rotulo">
+							Ticket raiz
+							<i class="info-campo" data-info="Informe aqui o ticket original, ou seja, o primeiro ticket que registrou esse erro"></i>
+						</span>
+						<input type="text" id="ticket_raiz" name="ticket_raiz" class="item-form" placeholder="Opcional" inputmode="numeric">
+					</div>
+
+					<div class="campo form-group group-item-form campo-retorno-l3">
+						<span class="campo-rotulo">
+							Retorno do L3
+							<span class="obrigatorio">*</span>
+							<i class="info-campo" data-info="Cole ou descreva aqui o retorno que o L3 deu para este ticket"></i>
+							<span class="campo-contador" id="contador_retorno"></span>
+						</span>
+						<textarea id="retorno_l3" name="retorno_l3" class="item-form textarea-retorno-l3" placeholder="Cole o retorno do L3 na íntegra"></textarea>
+					</div>
+				</div>
+
+				<div class="linha linha-4 campo-l2">
+					<div class="campo form-group group-item-form">
+						<span class="campo-rotulo">
+							Grupo
+							<span class="obrigatorio">*</span>
+							<i class="info-campo" data-info="Grupo do ticket"></i>
+						</span>
+						<select id="grupo" class="item-form">
+							<optgroup label="Bling" class="opt-bling"></optgroup>
+							<optgroup label="Extensão" class="opt-ext"></optgroup>
+						</select>
+					</div>
+
+					<div class="campo form-group group-item-form">
+						<span class="campo-rotulo">
+							Subgrupo
+							<span class="obrigatorio">*</span>
+							<i class="info-campo" data-info="Subgrupo do ticket"></i>
+						</span>
+						<select id="subgrupo" class="item-form">
+							<optgroup label="Bling" class="opt-bling"></optgroup>
+							<optgroup label="Extensão" class="opt-ext"></optgroup>
+						</select>
+					</div>
+
+					<div class="campo form-group group-item-form">
+						<span class="campo-rotulo">
+							Módulo
+							<span class="obrigatorio">*</span>
+							<i class="info-campo" data-info="Módulo do ticket"></i>
+						</span>
+						<select id="modulo" class="item-form">
+							<optgroup label="Bling" class="opt-bling"></optgroup>
+							<optgroup label="Extensão" class="opt-ext"></optgroup>
+						</select>
+					</div>
+
+					<div class="campo form-group group-item-form">
+						<span class="campo-rotulo">
+							Funcionalidade
+							<span class="obrigatorio">*</span>
+							<i class="info-campo" data-info="Funcionalidade do ticket"></i>
+						</span>
+						<select id="funcionalidade" class="item-form">
+							<optgroup label="Bling" class="opt-bling"></optgroup>
+							<optgroup label="Extensão" class="opt-ext"></optgroup>
+						</select>
+					</div>
+				</div>
+
+				<div class="trilha campo-l2" id="trilha"></div>
+
+				<div class="linha linha-1-2 campo-l2">
+					<div class="campo form-group group-item-form">
+						<span class="campo-rotulo">
+							Ação
+							<i class="info-campo" data-info="Informe o que vai ser feito com esse ticket. Ex.: Encaminhado para o L3"></i>
+						</span>
+						<select id="acao" name="acao" class="item-form">
+							<option value="AN">Devolvido L1</option>
+							<option value="A2">Ajustado L2 / Devolvido L1</option>
+							<option value="ATR">Aguardando ticket raiz</option>
+							<option value="AEX">Aguardando externos</option>
+							<option value="D2">Encaminhado sugestão</option>
+							<option value="RC">Encaminhado L3</option>
+							<option value="ACL">Aguardando cliente</option>
+						</select>
+					</div>
+
+					<div class="campo form-group group-item-form">
+						<span class="campo-rotulo">
+							Erro
+							<i class="info-campo" data-info="Cole aqui somente a mensagem de erro do ticket. Se não tiver, deixe uma breve explicação da situação"></i>
+						</span>
+						<input type="text" id="erro" name="erro" class="item-form" placeholder="Mensagem de erro exibida ao cliente">
+					</div>
+				</div>
+
+				<div class="linha linha-2 campo-l2">
+					<div class="campo form-group group-item-form">
+						<span class="campo-rotulo">
+							Causa
+							<span class="obrigatorio">*</span>
+							<i class="info-campo" data-info="Descreva a situação que está ocorrendo neste ticket"></i>
+						</span>
+						<textarea id="causa" name="causa" class="item-form" placeholder="O que está acontecendo"></textarea>
+					</div>
+
+					<div class="campo form-group group-item-form">
+						<span class="campo-rotulo">
+							Observações do ticket
+							<span class="obrigatorio">*</span>
+							<i class="info-campo" data-info="Informe observações sobre o ticket"></i>
+						</span>
+						<textarea id="obs" name="obs" class="item-form" placeholder="Contexto, tratativas e próximos passos"></textarea>
+					</div>
+				</div>
+
+				<div class="linha linha-1-2 campo-l2">
+					<div class="campo form-group group-item-form">
+						<span class="campo-rotulo">
+							<span id="rotulo_nome_atendente">Atendente L1</span>
+							<i class="info-campo" data-info="Nome do atendente L1 que encaminhou o ticket"></i>
+						</span>
+						<input type="text" id="nome_atendente" name="nome_atendente" class="item-form" placeholder="Quem encaminhou">
+					</div>
+
+					<div class="campo form-group group-item-form">
+						<span class="campo-rotulo">
+							Observação sobre o L1
+							<i class="info-campo" data-info="Observação sobre o atendimento feito pelo L1"></i>
+						</span>
+						<input type="text" id="obs_l1" name="obs_l1" class="item-form" placeholder="Opcional">
+					</div>
+				</div>
+
+				<div class="pilulas campo-l2">
+					<div class="pilula">
+						<span class="pilula-rotulo">
+							Classificação ok
+							<i class="info-campo" data-info="O ticket foi classificado corretamente? Ativado = Sim; Desativado = Não"></i>
+						</span>
+						<label class="switch">
+							<input type="checkbox" id="classificacao_certa" name="classificacao_certa" checked>
+							<span class="switch-trilho"></span>
+						</label>
+					</div>
+
+					<div class="pilula">
+						<span class="pilula-rotulo">
+							Tipo ok
+							<i class="info-campo" data-info="O tipo do ticket (Dúvida, Problema ou Sugestão) está correto? Ativado = Sim; Desativado = Não"></i>
+						</span>
+						<label class="switch">
+							<input type="checkbox" id="tipo_correto" name="tipo_correto" checked>
+							<span class="switch-trilho"></span>
+						</label>
+					</div>
+
+					<div class="pilula">
+						<span class="pilula-rotulo">
+							Testes ok
+							<i class="info-campo" data-info="O L1 efetuou testes antes de encaminhar? Ativado = Sim; Desativado = Não"></i>
+						</span>
+						<label class="switch">
+							<input type="checkbox" id="testes" name="testes" checked>
+							<span class="switch-trilho"></span>
+						</label>
+					</div>
+
+					<div class="pilula">
+						<span class="pilula-rotulo">
+							Info completa
+							<i class="info-campo" data-info="As informações passadas no ticket estão completas? Ativado = Sim; Desativado = Não"></i>
+						</span>
+						<label class="switch">
+							<input type="checkbox" id="finfo" name="finfo" checked>
+							<span class="switch-trilho"></span>
+						</label>
+					</div>
+
+					<div class="pilula pilula-destaque">
+						<span class="pilula-rotulo">
+							Base de Conhecimento
+							<i class="info-campo" data-info="Ativado = o registro também é enviado para a planilha da Base de Conhecimento"></i>
+						</span>
+						<label class="switch">
+							<input type="checkbox" id="base_conhecimento" name="base_conhecimento">
+							<span class="switch-trilho"></span>
 						</label>
 					</div>
 				</div>
 			</div>
-
-			<div class="col-3 form-group group-item-form campo-l2">
-				<div class="item-form-toggle">
-					<label class="label-item-form-toggle" for="tipo_correto">Tipo correto<span class="info-campo info-esq" data-info="O tipo do ticket (Dúvida, Problema ou Sugestão) está correto? Ativado = Sim; Desativado = Não"></span></label>
-					<div class="toogle-checkbox">
-						<label>
-							<input type="checkbox" id="tipo_correto" name="tipo_correto" class="campo-cfg" checked>
-							<span></span>
-						</label>
-					</div>
-				</div>
-			</div>
 		</div>
 
-		<div class="row">
-			<div class="col form-group group-item-form campo-l2">
-				<label class="label-item-form" for="grupo">Grupo<span> * </span><span class="info-campo" data-info="Grupo do ticket"></span></label>
-				<select id="grupo" class="item-form">
-					<optgroup label="Bling" class="opt-bling"></optgroup>
-					<optgroup label="Extensão" class="opt-ext"></optgroup>
-				</select>
+		<div class="rodape">
+			<div class="rodape-esquerda">
+				<button type="button" id="limpar" class="botao botao-fantasma">Limpar</button>
+				<span class="rodape-dica">Ctrl + Enter pra enviar</span>
 			</div>
 
-			<div class="col form-group group-item-form campo-l2">
-				<label class="label-item-form" for="subgrupo">Subgrupo<span> * </span><span class="info-campo" data-info="Subgrupo do ticket"></span></label>
-				<select id="subgrupo" class="item-form">
-					<optgroup label="Bling" class="opt-bling"></optgroup>
-					<optgroup label="Extensão" class="opt-ext"></optgroup>
-				</select>
-			</div>
-
-			<div class="col form-group group-item-form campo-l2">
-				<label class="label-item-form" for="modulo">Módulo<span> * </span><span class="info-campo" data-info="Módulo do ticket"></span></label>
-				<select id="modulo" class="item-form">
-					<optgroup label="Bling" class="opt-bling"></optgroup>
-					<optgroup label="Extensão" class="opt-ext"></optgroup>
-				</select>
-			</div>
-
-			<div class="col form-group group-item-form campo-l2">
-				<label class="label-item-form" for="funcionalidade">Funcionalidade<span> * </span><span class="info-campo info-esq" data-info="Funcionalidade do ticket"></span></label>
-				<select id="funcionalidade" class="item-form">
-					<optgroup label="Bling" class="opt-bling"></optgroup>
-					<optgroup label="Extensão" class="opt-ext"></optgroup>
-				</select>
-			</div>
+			<button type="button" id="enviar_controle_tickets" class="botao botao-primario">Cadastrar ticket</button>
 		</div>
-
-		<div class="row">
-			<div class="col form-group group-item-form campo-l2">
-				<label class="label-item-form" for="acao">Ação<span class="info-campo" data-info="Informe o que vai ser feito com esse ticket. Ex.: Encaminhado para o L3"></span></label>
-				<select id="acao" name="acao" class="item-form">
-					<option value="AN">Devolvido L1</option>
-					<option value="A2">Ajustado L2 / Devolvido L1</option>
-					<option value="ATR">Aguardando ticket raiz</option>
-					<option value="AEX">Aguardando externos</option>
-					<option value="D2">Encaminhado sugestão</option>
-					<option value="RC">Encaminhado L3</option>
-					<option value="ACL">Aguardando cliente</option>
-				</select>
-			</div>
-
-			<div class="col form-group group-item-form campo-l2">
-				<label class="label-item-form" for="obs_l1">Observação L1<span class="info-campo info-esq" data-info="Observação sobre o atendente L1"></span></label>
-				<input type="text" id="obs_l1" name="obs_l1" class="item-form">
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-4 form-group group-item-form campo-l2">
-				<div class="item-form-toggle">
-					<label class="label-item-form-toggle" for="testes">L1 Efetuou Testes?<span class="info-campo" data-info="O L1 efetuou testes? Ativado = Sim; Desativado = Não"></span></label>
-					<div class="toogle-checkbox">
-						<label>
-							<input type="checkbox" id="testes" name="testes" class="campo-cfg" checked>
-							<span></span>
-						</label>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-4 form-group group-item-form campo-l2">
-				<div class="item-form-toggle">
-					<label class="label-item-form-toggle" for="finfo">Encaminhamento completo L1<span class="info-campo" data-info="As informações passadas no ticket estão completas? Ativado = Sim; Desativado = Não"></span></label>
-					<div class="toogle-checkbox">
-						<label>
-							<input type="checkbox" id="finfo" name="finfo" class="campo-cfg" checked>
-							<span></span>
-						</label>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-4 form-group group-item-form campo-l2">
-				<div class="item-form-toggle">
-					<label class="label-item-form-toggle" for="base_conhecimento">Incluir na Base<span class="info-campo info-esq" data-info="Ativado = o registro também é enviado para a planilha da Base de Conhecimento"></span></label>
-					<div class="toogle-checkbox">
-						<label>
-							<input type="checkbox" id="base_conhecimento" name="base_conhecimento" class="campo-cfg">
-							<span></span>
-						</label>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col form-group group-item-form campo-l2">
-				<label class="label-item-form" for="ticket_raiz">Ticket raiz<span class="info-campo" data-info="Informe aqui o ticket original, ou seja, o primeiro ticket que registrou esse erro"></span></label>
-				<input type="text" id="ticket_raiz" name="ticket_raiz" class="item-form">
-			</div>
-			<div class="col form-group group-item-form campo-l2">
-				<label class="label-item-form" for="erro">Erro<span class="info-campo" data-info="Cole aqui somente a mensagem de erro do ticket. Se não tiver, deixe uma breve explicação da situação"></span></label>
-				<input type="text" id="erro" name="erro" class="item-form">
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col form-group group-item-form campo-l2">
-				<label class="label-item-form" for="causa">Causa<span> * </span><span class="info-campo" data-info="Descreva a situação que está ocorrendo neste ticket"></span></label>
-				<textarea id="causa" name="causa" class="item-form textarea-item-form" col="64" rows="8"></textarea>
-			</div>
-		
-			<div class="col form-group group-item-form campo-l2">
-				<label class="label-item-form" for="obs">Observações ticket<span> * </span><span class="info-campo info-esq" data-info="Informe observações sobre o ticket"></span></label>
-				<textarea id="obs" name="obs" class="item-form textarea-item-form" col="64" rows="8"></textarea>
-			</div>
-
-		</div>
-		<div class="row campo-retorno-l3" style="display: none;">
-			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="retorno_l3">Retorno do L3<span> * </span><span class="info-campo" data-info="Cole ou descreva aqui o retorno que o L3 deu para este ticket"></span></label>
-				<textarea id="retorno_l3" name="retorno_l3" class="item-form textarea-item-form textarea-retorno-l3"></textarea>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col form-group group-item-form campo-l2">
-				<label class="label-item-form" for="nome_atendente">L-<span class="info-campo" data-info="Nome do atendente L1"></span></label>
-				<input type="text" id="nome_atendente" name="nome_atendente" class="item-form">
-			</div>
-
-			<div class="col form-group group-item-form campo-l2">
-				<label class="label-item-form" for="data_abertura">Data de abertura<span> * </span><span class="info-campo info-esq" data-info="Data em que o ticket foi aberto"></span></label>
-				<input type="text" id="data_abertura" name="data_abertura" class="item-form">
-			</div>
-		</div>
-
-		<div id="hidden_div" style="display: none;">
-			<div class="col form-group group-item-form">
-				<label class="label-item-form" for="obs">Teste<span> * </span></label>
-				<textarea id="testeCampo" name="testeCampo" class="item-form textarea-item-form" col="64" rows="8"></textarea>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-4">
-				<input type="button" id="limpar" value="Limpar" class="btn-secundary-novo">
-			</div>
-
-			<div class="col-8">
-				<input type="button" id="enviar_controle_tickets" value="Cadastrar" class="button-default-novo">
-			</div>
-		</div>
-	
+	</div>
 
 	<div class="modal-wait" style="display: none;"></div>
 	<div class="wait" style="display: none;">

@@ -51,6 +51,7 @@ var ControleTickets = function(nivelResponsavel) {
 		this.getTicketData();
 		this.registerEvents();
 		this.render();
+		this.atualizaContador();
 	}.bind(this));
 
 	chrome.identity.getAuthToken({'interactive': true});
@@ -85,14 +86,22 @@ ControleTickets.prototype = {
 		$('#controle_tickets').toggleClass('modo-retorno-l3', ativo);
 		$('.campo-l2').toggle(!ativo);
 		$('.campo-retorno-l3').toggle(ativo);
-		$('#informar_retorno_l3').toggle(!ativo);
-		$('#sair_retorno_l3').toggle(ativo);
+
+		$('#informar_retorno_l3').toggleClass('is-ativo', ativo);
+		$('#informar_registro_l2').toggleClass('is-ativo', !ativo);
+
+		$('#rotulo_nro_ticket').text(ativo ? 'Número do ticket' : 'Nº do ticket');
+		$('#enviar_controle_tickets').text(ativo ? 'Registrar retorno' : 'Cadastrar ticket');
 
 		//o subgrupo aparece ou não conforme o grupo escolhido, e essa regra tem
 		//que voltar a valer ao sair do modo
 		if (!ativo) {
 			this.updateSubgroups();
 		}
+
+		this.atualizaTrilha();
+		this.atualizaProgresso();
+		this.atualizaContador();
 	},
 
 	'loadFiles': function() {
@@ -111,8 +120,72 @@ ControleTickets.prototype = {
 	},
 
 	'render': function() {
-		//troca somente o texto do rótulo, preservando o asterisco e o ícone de informação
-		$('label[for="nome_atendente"]').contents().first().replaceWith(this.nivelResponsavel);
+		$('#rotulo_nome_atendente').text('Atendente ' + this.nivelResponsavel);
+	},
+
+	//quantos dos campos obrigatórios do modo atual já estão preenchidos
+	'atualizaProgresso': function() {
+		var total = 0;
+		var preenchidos = 0;
+
+		$.each(this.isModoRetornoL3() ? this.requiredInputsRetornoL3 : this.requiredInputs, function() {
+			var campo = $('#' + this);
+
+			if (!campo.length || !campo.is(':visible')) {
+				return true;
+			}
+
+			total++;
+
+			if ($.trim(campo.val())) {
+				preenchidos++;
+			}
+		});
+
+		$('#progresso_texto').text(preenchidos + '/' + total + ' obrigatórios');
+		$('#progresso_barra').css('width', (total ? Math.round(preenchidos / total * 100) : 0) + '%');
+	},
+
+	//caminho da categorização escolhida, exibido abaixo dos selects
+	'atualizaTrilha': function() {
+		var partes = [];
+
+		$.each(['grupo', 'subgrupo', 'modulo', 'funcionalidade'], function() {
+			var campo = $('#' + this);
+			var texto = $.trim(campo.find('option:selected').text());
+
+			if (texto && campo.is(':visible')) {
+				partes.push(texto);
+			}
+		});
+
+		$('#trilha').text(partes.join(' › '));
+	},
+
+	'atualizaContador': function() {
+		$('#contador_retorno').text($('#retorno_l3').val().length + ' caracteres');
+	},
+
+	//uma dica só, reposicionada junto do ícone sob o mouse
+	'registraDicas': function() {
+		var dica = $('<div>', {'id': 'dica'}).hide().appendTo('body');
+
+		$('#controle_tickets').on('mouseenter', '.info-campo', function() {
+			var icone = this.getBoundingClientRect();
+
+			dica.text($(this).data('info')).show();
+
+			//mantém a dica dentro dos limites do popup
+			var esquerda = Math.max(8, Math.min(icone.left - 8, $(window).width() - dica.outerWidth() - 8));
+			var acima = icone.bottom + 8 + dica.outerHeight() > $(window).height();
+
+			dica.css({
+				'left': esquerda + 'px',
+				'top': (acima ? icone.top - dica.outerHeight() - 8 : icone.bottom + 8) + 'px'
+			});
+		}).on('mouseleave', '.info-campo', function() {
+			dica.hide();
+		});
 	},
 
 	'registerEvents': function() {
@@ -203,7 +276,7 @@ ControleTickets.prototype = {
 		.on('click', '#informar_retorno_l3', function() {
 			$('#modo_retorno_l3').prop('checked', true).change();
 		})
-		.on('click', '#sair_retorno_l3', function() {
+		.on('click', '#informar_registro_l2', function() {
 			$('#modo_retorno_l3').prop('checked', false).change();
 		})
 		.on('change', '#modulo', function() {
@@ -230,6 +303,21 @@ ControleTickets.prototype = {
 			$(this).on('change', function() {
 				chrome.storage.sync.set(that.getStorageData());
 			});
+		});
+
+		//o cabeçalho e a trilha acompanham o preenchimento enquanto se digita
+		$('#controle_tickets').on('input change', 'input, textarea, select', function() {
+			that.atualizaProgresso();
+			that.atualizaTrilha();
+			that.atualizaContador();
+		});
+
+		this.registraDicas();
+
+		$(document).on('keydown', function(e) {
+			if ((e.ctrlKey || e.metaKey) && e.key == 'Enter') {
+				$('#enviar_controle_tickets').click();
+			}
 		});
 
 		chrome.runtime.onMessage.addListener(function(request) {
@@ -283,6 +371,9 @@ ControleTickets.prototype = {
 		}
 
 		this.setCategorization(data.categorizacao);
+
+		this.atualizaTrilha();
+		this.atualizaProgresso();
 	},
 
 	'setCategorization': function(data) {
