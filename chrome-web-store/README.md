@@ -94,8 +94,14 @@ mdgakiionpfjhpglbdpciakhlbghoaoe
 
 Antes de publicar, o manifest tinha um campo `key` que fixava o ID em
 `gkpekfbngmojdebmlbladgjhcmkfeocn` — e era esse que estava registrado no
-cliente OAuth. A loja atribuiu o ID de cima, o registro ficou apontando para o
-antigo, e a gravação passou a falhar.
+cliente OAuth antigo (projeto `791760818029`). A loja atribuiu o ID de cima, o
+registro ficou apontando para o antigo, e a gravação passou a falhar.
+
+Como o projeto antigo estava sob a conta de quem não cuida mais da extensão, a
+solução foi um cliente OAuth novo, em projeto do time, com a tela de
+consentimento **Interna** — o escopo `auth/spreadsheets` é sensível, e numa
+tela Externa exigiria verificação do Google. O cliente em uso desde a versão
+1.2 é o do projeto `219639291869`, registrado para o ID do item acima.
 
 **Se voltar a falhar a autorização,** confira o campo *ID do item* do cliente
 OAuth em [Credenciais do Google Cloud](https://console.cloud.google.com/apis/credentials):

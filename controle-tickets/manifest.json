@@ -26,12 +26,12 @@
 	"background": {
 		"service_worker": "scripts/background.js"
 	},
-"oauth2": {
-	"client_id": "791760818029-be26rb8h5v0tdl9amho71u5d61h37mlo.apps.googleusercontent.com",
-	"scopes": [
-		"https://www.googleapis.com/auth/spreadsheets"
-	]
-},
+	"oauth2": {
+		"client_id": "219639291869-bjfqik7pqfa2m54puvjr68s003vs53d0.apps.googleusercontent.com",
+		"scopes": [
+			"https://www.googleapis.com/auth/spreadsheets"
+		]
+	},
 	"content_security_policy": {
 		"extension_pages": "script-src 'self'; object-src 'self'"
 	}
