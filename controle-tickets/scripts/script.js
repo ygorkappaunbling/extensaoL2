@@ -77,7 +77,14 @@ var ControleTickets = function(nivelResponsavel) {
 		this.aplicaEstadoConfiguracao();
 	}.bind(this));
 
-	chrome.identity.getAuthToken({'interactive': true});
+	//aquece o token já na abertura, para o primeiro cadastro não esperar pelo
+	//consentimento. a falha aqui não interrompe nada: quem depende do token é
+	//quem chama a API, e é lá que ela é explicada a quem está usando
+	chrome.identity.getAuthToken({'interactive': true}, function() {
+		if (chrome.runtime.lastError) {
+			console.warn('Controle de tickets: autorização do Google indisponível —', chrome.runtime.lastError.message);
+		}
+	});
 }
 
 ControleTickets.prototype = {
@@ -700,26 +707,115 @@ ControleTickets.prototype = {
 		}
 	},
 
-	'readData': function(range) {
+	//o getAuthToken sinaliza erro no chrome.runtime.lastError, e não por exceção:
+	//sem checar isso o código seguia com o token undefined e chamava a API com
+	//"Bearer undefined", transformando um problema de autorização num 401 sem
+	//explicação. aqui a falta de token falha na hora, dizendo o motivo
+	'obtemToken': function() {
 		var deferredObj = $.Deferred();
-		var that = this;
 
-		chrome.identity.getAuthToken({interactive: true}, function(token) {
-			$.get({
-				'url': 'https://sheets.googleapis.com/v4/spreadsheets/' + that.SHEET_ID + '/values/' + that.referenciaAba(that.SHEET_NAME, range),
-				'headers': {
-					'Authorization': 'Bearer ' + token,
-					'Content-Type': 'application/json'
-				},
-				'contentType': 'json'
-			}).done(function(res) {
-				deferredObj.resolve(res);
-			}).fail(function() {
-				deferredObj.reject();
-			});
+		chrome.identity.getAuthToken({'interactive': true}, function(token) {
+			var erro = chrome.runtime.lastError;
+
+			if (erro || !token) {
+				deferredObj.reject({
+					'tipo': 'autorizacao',
+					'detalhe': (erro && erro.message) || 'o Chrome não devolveu um token de acesso'
+				});
+
+				return;
+			}
+
+			deferredObj.resolve(token);
 		});
 
 		return deferredObj.promise();
+	},
+
+	//toda chamada ao Sheets passa por aqui: obtém o token, envia a requisição e,
+	//quando falha, rejeita com o que aconteceu em vez de rejeitar vazio
+	'chamaSheets': function(opcoes) {
+		var deferredObj = $.Deferred();
+
+		this.obtemToken().done(function(token) {
+			$.ajax($.extend({}, opcoes, {
+				'headers': {
+					'Authorization': 'Bearer ' + token,
+					'Content-Type': 'application/json'
+				}
+			})).done(function(res) {
+				deferredObj.resolve(res);
+			}).fail(function(xhr) {
+				var resposta = (xhr.responseJSON && xhr.responseJSON.error) || {};
+
+				deferredObj.reject({
+					'tipo': 'api',
+					'status': xhr.status,
+					'detalhe': resposta.message || xhr.statusText || 'sem detalhes'
+				});
+			});
+		}).fail(function(falha) {
+			deferredObj.reject(falha);
+		});
+
+		return deferredObj.promise();
+	},
+
+	//traduz a falha para algo que quem está preenchendo consiga agir, em vez de
+	//mandar "verifique a conexão" para qualquer problema
+	'explicaFalha': function(falha) {
+		falha = falha || {};
+
+		if (falha.tipo === 'autorizacao') {
+			return 'A extensão não conseguiu autorização da sua conta Google.\n\n' +
+				'Detalhe técnico: ' + falha.detalhe + '\n\n' +
+				'Confira se o Chrome está conectado com a conta que tem acesso à planilha. ' +
+				'Se estiver e o erro continuar, avise o time de desenvolvimento: ' +
+				'provavelmente o cliente OAuth não está liberado para o ID desta extensão.';
+		}
+
+		if (falha.status === 400) {
+			return 'A planilha recusou o intervalo pedido.\n\n' +
+				'Detalhe técnico: ' + falha.detalhe + '\n\n' +
+				'Quase sempre é o nome da aba: abra a engrenagem e confira se ele é ' +
+				'exatamente igual ao da planilha, com as mesmas maiúsculas e acentos.';
+		}
+
+		if (falha.status === 401) {
+			return 'A conta Google recusou o acesso à planilha.\n\n' +
+				'Detalhe técnico: ' + falha.detalhe + '\n\n' +
+				'Saia e entre de novo na sua conta do Chrome. Se continuar, avise o ' +
+				'time de desenvolvimento.';
+		}
+
+		if (falha.status === 403) {
+			return 'Sua conta não tem permissão nesta planilha.\n\n' +
+				'Detalhe técnico: ' + falha.detalhe + '\n\n' +
+				'Peça acesso de edição para quem é dono dela — ou confira se o Chrome ' +
+				'está conectado com a conta certa.';
+		}
+
+		if (falha.status === 404) {
+			return 'A planilha não foi encontrada.\n\n' +
+				'Detalhe técnico: ' + falha.detalhe + '\n\n' +
+				'Abra a engrenagem e confira o link informado.';
+		}
+
+		if (falha.status === 0) {
+			return 'Não foi possível falar com o Google Sheets. Verifique sua conexão e tente novamente.';
+		}
+
+		return 'A planilha respondeu com um erro' + (falha.status ? ' (' + falha.status + ')' : '') + '.\n\n' +
+			'Detalhe técnico: ' + (falha.detalhe || 'sem detalhes') + '\n\n' +
+			'Se continuar, avise o time de desenvolvimento com esta mensagem.';
+	},
+
+	'readData': function(range) {
+		return this.chamaSheets({
+			'type': 'GET',
+			'url': 'https://sheets.googleapis.com/v4/spreadsheets/' + this.SHEET_ID + '/values/' + this.referenciaAba(this.SHEET_NAME, range),
+			'dataType': 'json'
+		});
 	},
 
 	//letra da coluna de uma posição (1 = A, 27 = AA)
@@ -749,8 +845,8 @@ ControleTickets.prototype = {
 		var colunaTicket = this.colunaDoCampo(data, CAMPO_NRO_TICKET);
 		var colunaRetorno = this.colunaDoCampo(data, CAMPO_RETORNO_L3);
 
-		var falhaLeitura = function() {
-			alert('Não foi possível consultar a planilha. Verifique a conexão e tente novamente.');
+		var falhaLeitura = function(falha) {
+			alert('Não foi possível consultar a planilha.\n\n' + that.explicaFalha(falha));
 			deferredObj.reject();
 		};
 
@@ -780,8 +876,8 @@ ControleTickets.prototype = {
 
 				that.updateData(colunaRetorno + linha, retorno).done(function() {
 					deferredObj.resolve();
-				}).fail(function() {
-					alert('Não foi possível gravar o retorno na planilha. Tente novamente.');
+				}).fail(function(falha) {
+					alert('Não foi possível gravar o retorno na planilha.\n\n' + that.explicaFalha(falha));
 					deferredObj.reject();
 				});
 			}).fail(falhaLeitura);
@@ -792,59 +888,37 @@ ControleTickets.prototype = {
 
 	//grava um valor numa célula já existente, diferente do append que cria linha
 	'updateData': function(range, valor) {
-		var deferredObj = $.Deferred();
-		var that = this;
-
-		chrome.identity.getAuthToken({interactive: true}, function(token) {
-			$.ajax({
-				'type': 'PUT',
-				'url': 'https://sheets.googleapis.com/v4/spreadsheets/' + that.SHEET_ID + '/values/' + that.referenciaAba(that.SHEET_NAME, range) + '?valueInputOption=RAW',
-				'headers': {
-					'Authorization': 'Bearer ' + token,
-					'Content-Type': 'application/json'
-				},
-				'data': JSON.stringify({'majorDimension': 'ROWS', 'values': [[valor]]})
-			}).done(function() {
-				deferredObj.resolve();
-			}).fail(function() {
-				deferredObj.reject();
-			});
+		return this.chamaSheets({
+			'type': 'PUT',
+			'url': 'https://sheets.googleapis.com/v4/spreadsheets/' + this.SHEET_ID + '/values/' + this.referenciaAba(this.SHEET_NAME, range) + '?valueInputOption=RAW',
+			'data': JSON.stringify({'majorDimension': 'ROWS', 'values': [[valor]]})
 		});
-
-		return deferredObj.promise();
 	},
 
 	'writeData': function(sheetId, sheetName, data) {
 		var deferredObj = $.Deferred();
 		var that = this;
 
-		chrome.identity.getAuthToken({interactive: true}, function(token) {
-			chrome.identity.getProfileUserInfo(function(userInfo) {
-				var valores = $.merge([new Date().toLocaleString('pt-BR'), userInfo['email']], Object.values(data));
+		chrome.identity.getProfileUserInfo(function(userInfo) {
+			var valores = $.merge([new Date().toLocaleString('pt-BR'), userInfo['email']], Object.values(data));
 
-				//o intervalo tem que cobrir todas as colunas gravadas: se for mais
-				//estreito que a linha, o append passa a escrever a partir da última
-				//coluna do intervalo em vez da coluna A
-				var range = that.referenciaAba(sheetName, 'A1:' + that.colunaPorPosicao(valores.length) + '1');
+			//o intervalo tem que cobrir todas as colunas gravadas: se for mais
+			//estreito que a linha, o append passa a escrever a partir da última
+			//coluna do intervalo em vez da coluna A
+			var range = that.referenciaAba(sheetName, 'A1:' + that.colunaPorPosicao(valores.length) + '1');
 
-				var params = {
+			that.chamaSheets({
+				'type': 'POST',
+				'url': 'https://sheets.googleapis.com/v4/spreadsheets/' + sheetId + '/values/' + range + ':append?valueInputOption=RAW',
+				'data': JSON.stringify({
 					'majorDimension': 'ROWS',
 					'values': [valores]
-				};
-
-				$.post({
-					'url': 'https://sheets.googleapis.com/v4/spreadsheets/' + sheetId + '/values/' + range + ':append?valueInputOption=RAW',
-					'headers': {
-						'Authorization': 'Bearer ' + token,
-						'Content-Type': 'application/json'
-					},
-					'data': JSON.stringify(params)
-				}).done(function() {
-					deferredObj.resolve();
-				}).fail(function() {
-					deferredObj.reject();
 				})
-			})
+			}).done(function() {
+				deferredObj.resolve();
+			}).fail(function(falha) {
+				deferredObj.reject(falha);
+			});
 		});
 
 		return deferredObj.promise();
@@ -852,6 +926,7 @@ ControleTickets.prototype = {
 
 	'validate': function() {
 		var deferredObj = $.Deferred();
+		var that = this;
 		var isValid = true;
 		var retornoL3 = this.isModoRetornoL3();
 
@@ -880,8 +955,8 @@ ControleTickets.prototype = {
 			}
 
 			deferredObj.resolve(isValid);
-		}).fail(function() {
-			alert('Não foi possível consultar a planilha para verificar se o ticket já existe. Verifique a conexão e tente novamente.');
+		}).fail(function(falha) {
+			alert('Não foi possível verificar se o ticket já existe.\n\n' + that.explicaFalha(falha));
 			deferredObj.resolve(false);
 		});
 
