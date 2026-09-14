@@ -80,6 +80,32 @@ O `.zip` tem que ter o `manifest.json` na **raiz** do arquivo — por isso o
 `cd` antes do `zip`. Se você compactar a pasta pelo Finder/Explorer, o
 manifest cai dentro de `controle-tickets/` e a loja recusa o pacote.
 
+## O ID da extensão e o cliente OAuth
+
+O `oauth2.client_id` do manifest é um cliente do tipo **Extensão do Chrome**, e
+esse tipo é amarrado a **um** ID de extensão. Se o ID não bate, o
+`chrome.identity.getAuthToken` é recusado e nada é gravado na planilha.
+
+Isso aconteceu na primeira publicação. O ID atual do item na loja é:
+
+```
+mdgakiionpfjhpglbdpciakhlbghoaoe
+```
+
+Antes de publicar, o manifest tinha um campo `key` que fixava o ID em
+`gkpekfbngmojdebmlbladgjhcmkfeocn` — e era esse que estava registrado no
+cliente OAuth. A loja atribuiu o ID de cima, o registro ficou apontando para o
+antigo, e a gravação passou a falhar.
+
+**Se voltar a falhar a autorização,** confira o campo *ID do item* do cliente
+OAuth em [Credenciais do Google Cloud](https://console.cloud.google.com/apis/credentials):
+ele tem que ser o ID do item na loja. Depois de corrigir, reinicie o Chrome — o
+token fica em cache.
+
+**Nunca crie um item novo na loja para publicar uma atualização.** Item novo
+recebe ID novo, e o OAuth quebra de novo. Atualize sempre o item existente,
+subindo o `version` do manifest.
+
 ## Observações para as próximas versões
 
 - A permissão `tabs` hoje é usada só para descobrir se a aba ativa é a tela de
@@ -87,5 +113,8 @@ manifest cai dentro de `controle-tickets/` e a loja recusa o pacote.
   de host — mas o código precisaria tratar o caso em que `tabs[0].url` vem
   vazio (é o que acontece nas abas fora do padrão de host). Fica como possível
   simplificação futura, não como pendência da publicação.
-- Cada envio novo precisa de um `version` maior no `manifest.json`. Se esta
-  publicação for recusada e você mexer no pacote, suba para `1.2`.
+- "Observações do ticket" mostra asterisco de obrigatório na tela, mas não é
+  validado: a lista em `scripts/script.js` traz `'conclusao'`, um campo que não
+  existe mais no HTML, e não traz `'obs'`. Ou passa a exigir de verdade, ou o
+  asterisco sai. Pendente de decisão.
+- Cada envio novo precisa de um `version` maior no `manifest.json`.
