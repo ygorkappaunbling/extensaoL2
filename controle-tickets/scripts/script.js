@@ -36,7 +36,9 @@ var ControleTickets = function(nivelResponsavel) {
 	this.SHEET_ID = 'Link da planilha aqui'; //ID da planilha própria
 	this.SHEET_NAME = 'Tickets'; //nome da aba na planilha própria
 
-	//opcionais: usados somente pela Base de Conhecimento
+	//opcionais: usados somente pela Planilha Compartilhada. as chaves seguem com
+	//o nome antigo (knowledge) porque são o que está gravado no storage de quem já
+	//usa a extensão: renomear apagaria a configuração dessas pessoas
 	this.SHEET_KNOWLEDGE_ID = 'Link da planilha aqui'; //ID da planilha compartilhada
 	this.SHEET_KNOWLEDGE_NAME = 'Fiscal'; //nome da aba na planilha compartilhada
 
@@ -290,7 +292,7 @@ ControleTickets.prototype = {
 	},
 
 	//a planilha de tickets é obrigatória e não pode ser esvaziada depois de
-	//informada; a da Base de Conhecimento é opcional, mas se vier tem que vir
+	//informada; a Planilha Compartilhada é opcional, mas se vier tem que vir
 	//completa, senão o envio não teria destino
 	'salvaConfiguracao': function() {
 		var planilha = this.interpretaPlanilha($('#config_planilha_link').val());
@@ -315,7 +317,7 @@ ControleTickets.prototype = {
 		}
 
 		if (this.isConfigurada(baseId) != this.isConfigurada(baseAba)) {
-			this.mostraRecadoConfiguracao('Na Base de Conhecimento, preencha o link e o nome da aba, ou deixe os dois em branco.', 'is-erro');
+			this.mostraRecadoConfiguracao('Na Planilha Compartilhada, preencha o link e o nome da aba, ou deixe os dois em branco.', 'is-erro');
 
 			return;
 		}
@@ -323,7 +325,7 @@ ControleTickets.prototype = {
 		this.gravaConfiguracao({
 			'sheetId': planilhaId,
 			'sheetName': planilhaAba,
-			//deixar a Base de Conhecimento em branco é uma escolha válida de quem
+			//deixar a Planilha Compartilhada em branco é uma escolha válida de quem
 			//usa, diferente da planilha de tickets, que não pode ser esvaziada
 			'knowledgeId': baseId || CONFIG_PENDENTE,
 			'knowledgeName': baseAba || CONFIG_PENDENTE
@@ -543,7 +545,7 @@ ControleTickets.prototype = {
 						//configurada, então avisa que só esse envio não aconteceu em
 						//vez de deixar o registro sumir em silêncio
 						if (!that.hasPlanilhaBase()) {
-							alert('O ticket foi cadastrado, mas não foi enviado para a Base de Conhecimento: a planilha da Base ainda não foi informada nas configurações (engrenagem no topo da extensão).');
+							alert('O ticket foi cadastrado, mas não foi enviado para a Planilha Compartilhada: ela ainda não foi informada nas configurações (engrenagem no topo da extensão).');
 
 							that.closeWaitSuccess();
 

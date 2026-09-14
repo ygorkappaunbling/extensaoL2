@@ -150,6 +150,7 @@
 						<select id="acao" name="acao" class="item-form">
 							<option value="AN">Devolvido L1</option>
 							<option value="A2">Ajustado L2 / Devolvido L1</option>
+							<option value="ESD">Escalonamento desnecessário</option>
 							<option value="ATR">Aguardando ticket raiz</option>
 							<option value="AEX">Aguardando externos</option>
 							<option value="D2">Encaminhado sugestão</option>
@@ -208,8 +209,8 @@
 				<div class="pilulas campo-l2">
 					<div class="pilula">
 						<span class="pilula-rotulo">
-							Classificação ok
-							<i class="info-campo" data-info="O ticket foi classificado corretamente? Ativado = Sim; Desativado = Não"></i>
+							Categorização ok
+							<i class="info-campo" data-info="A categorização (grupo, subgrupo, módulo e funcionalidade) escolhida pelo L1 está correta? Ativado = Sim; Desativado = Não"></i>
 						</span>
 						<label class="switch">
 							<input type="checkbox" id="classificacao_certa" name="classificacao_certa" checked>
@@ -252,8 +253,8 @@
 
 					<div class="pilula pilula-destaque">
 						<span class="pilula-rotulo">
-							Base de Conhecimento
-							<i class="info-campo" data-info="Ativado = o registro também é enviado para a planilha da Base de Conhecimento. Uma vez ligado, continua ligado: só desliga se você clicar de novo"></i>
+							Planilha Compartilhada
+							<i class="info-campo" data-info="Ativado = o registro também é enviado para a Planilha Compartilhada. Uma vez ligado, continua ligado: só desliga se você clicar de novo"></i>
 						</span>
 						<label class="switch">
 							<input type="checkbox" id="base_conhecimento" name="base_conhecimento">
@@ -313,7 +314,7 @@
 
 				<div class="config-bloco">
 					<span class="config-bloco-titulo">
-						Planilha da Base de Conhecimento
+						Planilha Compartilhada
 						<span class="config-opcional">opcional</span>
 					</span>
 
