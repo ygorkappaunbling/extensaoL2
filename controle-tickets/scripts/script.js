@@ -805,10 +805,10 @@ ControleTickets.prototype = {
 			'Se continuar, avise o time de desenvolvimento com esta mensagem.';
 	},
 
-	'readData': function(range) {
+	'readData': function(sheetId, sheetName, range) {
 		return this.chamaSheets({
 			'type': 'GET',
-			'url': 'https://sheets.googleapis.com/v4/spreadsheets/' + this.SHEET_ID + '/values/' + this.referenciaAba(this.SHEET_NAME, range),
+			'url': 'https://sheets.googleapis.com/v4/spreadsheets/' + sheetId + '/values/' + this.referenciaAba(sheetName, range),
 			'dataType': 'json'
 		});
 	},
@@ -833,59 +833,131 @@ ControleTickets.prototype = {
 	},
 
 	//no retorno do L3 o ticket já está cadastrado: localiza a linha dele e grava
-	//o retorno na coluna correspondente, sem criar uma linha nova
-	'writeRetornoL3': function(data, retorno) {
+	//o retorno na coluna correspondente, sem criar uma linha nova.
+	//as duas planilhas têm o mesmo layout de colunas, mas o mesmo ticket pode estar
+	//em linhas diferentes em cada uma, então a linha é procurada em cada planilha
+	'localizaTicket': function(planilha, colunaTicket, colunaRetorno, numero) {
 		var deferredObj = $.Deferred();
 		var that = this;
-		var colunaTicket = this.colunaDoCampo(data, CAMPO_NRO_TICKET);
-		var colunaRetorno = this.colunaDoCampo(data, CAMPO_RETORNO_L3);
 
-		var falhaLeitura = function(falha) {
-			alert('Não foi possível consultar a planilha.\n\n' + that.explicaFalha(falha));
-			deferredObj.reject();
-		};
-
-		this.readData(colunaTicket + '2:' + colunaTicket).done(function(res) {
+		this.readData(planilha.id, planilha.aba, colunaTicket + '2:' + colunaTicket).done(function(res) {
 			var tickets = $.map(res.values || [], function(linha) {
 				return $.trim((linha || [])[0] || '');
 			});
 
 			//a última ocorrência, caso o ticket tenha sido cadastrado mais de uma vez
-			var linha = tickets.lastIndexOf($.trim(data[CAMPO_NRO_TICKET])) + 2;
+			var linha = tickets.lastIndexOf($.trim(numero)) + 2;
 
+			//linha 0 é a forma de dizer "não está nesta planilha": quem chamou decide
+			//se isso é erro ou só um ticket antigo, de antes das duas obrigatórias
 			if (linha < 2) {
-				alert('O ticket ' + data[CAMPO_NRO_TICKET] + ' não foi encontrado na planilha.\n\nCadastre o ticket antes de informar o retorno do L3.');
+				deferredObj.resolve($.extend({'linha': 0, 'atual': ''}, planilha));
+
+				return;
+			}
+
+			that.readData(planilha.id, planilha.aba, colunaRetorno + linha).done(function(res) {
+				deferredObj.resolve($.extend({
+					'linha': linha,
+					'atual': $.trim((((res.values || [])[0] || [])[0]) || '')
+				}, planilha));
+			}).fail(function(falha) {
+				deferredObj.reject(falha);
+			});
+		}).fail(function(falha) {
+			deferredObj.reject(falha);
+		});
+
+		return deferredObj.promise();
+	},
+
+	'planilhasDeDestino': function() {
+		return [
+			{'nome': 'planilha de tickets', 'id': this.SHEET_ID, 'aba': this.SHEET_NAME},
+			{'nome': 'Planilha Compartilhada', 'id': this.SHEET_KNOWLEDGE_ID, 'aba': this.SHEET_KNOWLEDGE_NAME}
+		];
+	},
+
+	'writeRetornoL3': function(data, retorno) {
+		var deferredObj = $.Deferred();
+		var that = this;
+		var colunaTicket = this.colunaDoCampo(data, CAMPO_NRO_TICKET);
+		var colunaRetorno = this.colunaDoCampo(data, CAMPO_RETORNO_L3);
+		var numero = $.trim(data[CAMPO_NRO_TICKET]);
+
+		var nomes = function(planilhas) {
+			return $.map(planilhas, function(planilha) {
+				return planilha.nome;
+			}).join(' e na ');
+		};
+
+		//as duas buscas saem juntas: nenhuma depende da outra
+		$.when.apply($, $.map(this.planilhasDeDestino(), function(planilha) {
+			return that.localizaTicket(planilha, colunaTicket, colunaRetorno, numero);
+		})).done(function() {
+			var planilhas = $.makeArray(arguments);
+
+			var achou = $.grep(planilhas, function(planilha) {
+				return planilha.linha >= 2;
+			});
+
+			var naoAchou = $.grep(planilhas, function(planilha) {
+				return planilha.linha < 2;
+			});
+
+			if (!achou.length) {
+				alert('O ticket ' + numero + ' não foi encontrado em nenhuma das duas planilhas.\n\nCadastre o ticket antes de informar o retorno do L3.');
 				deferredObj.reject();
 
 				return;
 			}
 
-			that.readData(colunaRetorno + linha).done(function(res) {
-				var atual = $.trim((((res.values || [])[0] || [])[0]) || '');
+			//pergunta uma vez só, listando o que já está gravado em cada planilha, em
+			//vez de uma confirmação por planilha
+			var jaTemRetorno = $.grep(achou, function(planilha) {
+				return planilha.atual;
+			});
 
-				if (atual && !confirm('O ticket ' + data[CAMPO_NRO_TICKET] + ' já tem um retorno do L3 gravado:\n\n' + atual + '\n\nSubstituir pelo novo retorno?')) {
+			if (jaTemRetorno.length) {
+				var gravado = $.map(jaTemRetorno, function(planilha) {
+					return 'Na ' + planilha.nome + ':\n' + planilha.atual;
+				}).join('\n\n');
+
+				if (!confirm('O ticket ' + numero + ' já tem retorno do L3 gravado.\n\n' + gravado + '\n\nSubstituir pelo novo retorno?')) {
 					deferredObj.reject();
 
 					return;
 				}
+			}
 
-				that.updateData(colunaRetorno + linha, retorno).done(function() {
-					deferredObj.resolve();
-				}).fail(function(falha) {
-					alert('Não foi possível gravar o retorno na planilha.\n\n' + that.explicaFalha(falha));
-					deferredObj.reject();
-				});
-			}).fail(falhaLeitura);
-		}).fail(falhaLeitura);
+			$.when.apply($, $.map(achou, function(planilha) {
+				return that.updateData(planilha.id, planilha.aba, colunaRetorno + planilha.linha, retorno);
+			})).done(function() {
+				//um ticket cadastrado antes de a Compartilhada virar obrigatória só
+				//existe na planilha de tickets: o retorno é gravado onde dá, e o aviso
+				//diz o que ficou de fora em vez de deixar a pessoa achar que foi tudo
+				if (naoAchou.length) {
+					alert('O retorno foi gravado na ' + nomes(achou) + '.\n\nO ticket ' + numero + ' não existe na ' + nomes(naoAchou) + ', então lá nada foi gravado. Isso acontece com ticket cadastrado antes de as duas planilhas virarem obrigatórias.');
+				}
+
+				deferredObj.resolve();
+			}).fail(function(falha) {
+				alert('Não foi possível gravar o retorno na planilha.\n\n' + that.explicaFalha(falha));
+				deferredObj.reject();
+			});
+		}).fail(function(falha) {
+			alert('Não foi possível consultar as planilhas.\n\n' + that.explicaFalha(falha));
+			deferredObj.reject();
+		});
 
 		return deferredObj.promise();
 	},
 
 	//grava um valor numa célula já existente, diferente do append que cria linha
-	'updateData': function(range, valor) {
+	'updateData': function(sheetId, sheetName, range, valor) {
 		return this.chamaSheets({
 			'type': 'PUT',
-			'url': 'https://sheets.googleapis.com/v4/spreadsheets/' + this.SHEET_ID + '/values/' + this.referenciaAba(this.SHEET_NAME, range) + '?valueInputOption=RAW',
+			'url': 'https://sheets.googleapis.com/v4/spreadsheets/' + sheetId + '/values/' + this.referenciaAba(sheetName, range) + '?valueInputOption=RAW',
 			'data': JSON.stringify({'majorDimension': 'ROWS', 'values': [[valor]]})
 		});
 	},
@@ -940,7 +1012,7 @@ ControleTickets.prototype = {
 			return deferredObj.resolve(isValid).promise();
 		}
 
-		this.readData('C2:C').done(function(res) {
+		this.readData(this.SHEET_ID, this.SHEET_NAME, 'C2:C').done(function(res) {
 			res.values = res.values || [];
 
 			if ($.inArray($('#nro_ticket').val(), res.values.flat()) != -1) {
