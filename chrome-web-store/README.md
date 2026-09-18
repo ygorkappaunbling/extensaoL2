@@ -73,7 +73,7 @@ que você cola/envia no painel do desenvolvedor.
 Na raiz do repositório:
 
 ```sh
-cd controle-tickets && zip -r ../controle-tickets-1.1.zip . -x '.*' -x '__MACOSX/*'
+cd controle-tickets && zip -r ../controle-tickets-1.3.zip . -x '.*' -x '__MACOSX/*'
 ```
 
 O `.zip` tem que ter o `manifest.json` na **raiz** do arquivo — por isso o
@@ -121,8 +121,9 @@ subindo o `version` do manifest.
   de host — mas o código precisaria tratar o caso em que `tabs[0].url` vem
   vazio (é o que acontece nas abas fora do padrão de host). Fica como possível
   simplificação futura, não como pendência da publicação.
-- "Observações do ticket" mostra asterisco de obrigatório na tela, mas não é
-  validado: a lista em `scripts/script.js` traz `'conclusao'`, um campo que não
-  existe mais no HTML, e não traz `'obs'`. Ou passa a exigir de verdade, ou o
-  asterisco sai. Pendente de decisão.
+- Em `scripts/script.js`, mudar o campo **Classificação** desmarca a pílula
+  `classificacao_certa`, que hoje se chama **"Categorização ok"** e é sobre
+  outra coisa. Pela intenção original isso deveria desmarcar **"Tipo ok"**.
+  Não foi mexido porque altera qual coluna recebe "Não" nos relatórios.
+  Pendente de decisão.
 - Cada envio novo precisa de um `version` maior no `manifest.json`.
