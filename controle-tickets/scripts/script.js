@@ -36,14 +36,14 @@ var ControleTickets = function(nivelResponsavel) {
 	this.SHEET_ID = 'Link da planilha aqui'; //ID da planilha própria
 	this.SHEET_NAME = 'Tickets'; //nome da aba na planilha própria
 
-	//opcionais: usados somente pela Planilha Compartilhada. as chaves seguem com
-	//o nome antigo (knowledge) porque são o que está gravado no storage de quem já
-	//usa a extensão: renomear apagaria a configuração dessas pessoas
+	//a Planilha Compartilhada também é obrigatória: todo ticket é gravado nas duas.
+	//as chaves seguem com o nome antigo (knowledge) porque são o que está gravado no
+	//storage de quem já usa a extensão: renomear apagaria a configuração dessas pessoas
 	this.SHEET_KNOWLEDGE_ID = 'Link da planilha aqui'; //ID da planilha compartilhada
 	this.SHEET_KNOWLEDGE_NAME = 'Fiscal'; //nome da aba na planilha compartilhada
 
 	//só são exigidos os que estiverem visíveis
-	this.requiredInputs = ['nro_ticket', 'grupo', 'subgrupo', 'modulo', 'funcionalidade', 'classificacao', 'causa', 'conclusao', 'data_abertura'];
+	this.requiredInputs = ['nro_ticket', 'grupo', 'subgrupo', 'modulo', 'funcionalidade', 'classificacao', 'causa', 'data_abertura'];
 
 	//no retorno do L3 só o ticket, que localiza a linha, e o próprio retorno
 	this.requiredInputsRetornoL3 = ['nro_ticket', 'retorno_l3'];
@@ -54,16 +54,13 @@ var ControleTickets = function(nivelResponsavel) {
 		'tipo_correto': true,
 		'testes': true,
 		'finfo': true,
-		'base_conhecimento': false,
-		'sem_base': false,
 		'modo_retorno_l3': false
 	};
 
-	//preferência de quem usa, não dado do ticket: uma vez ligada, continua ligada.
-	//nenhum caminho do código desmarca esses campos — nem o "Limpar", nem o
-	//cadastro de um ticket, nem a falta de configuração da planilha. só quem usa
-	//desliga, clicando no botão
-	this.preferencias = ['base_conhecimento'];
+	//campos que são preferência de quem usa, e não dado do ticket: sobrevivem ao
+	//"Limpar" e ao cadastro. está vazio desde que a Planilha Compartilhada passou a
+	//ser obrigatória — o mecanismo fica aqui para a próxima preferência que houver
+	this.preferencias = [];
 
 	this.nivelResponsavel = nivelResponsavel
 
@@ -268,7 +265,7 @@ ControleTickets.prototype = {
 	//enquanto a planilha de tickets não for informada, a engrenagem fica em
 	//destaque para quem abrir a extensão saber por onde começar
 	'aplicaEstadoConfiguracao': function() {
-		$('#abrir_config').toggleClass('is-pendente', !this.hasPlanilhaPropria());
+		$('#abrir_config').toggleClass('is-pendente', !this.hasPlanilhaPropria() || !this.hasPlanilhaBase());
 	},
 
 	'abreConfiguracao': function(recado) {
@@ -287,13 +284,27 @@ ControleTickets.prototype = {
 		$('#config').prop('hidden', true);
 	},
 
+	//diz qual planilha falta, em vez de um aviso genérico: quem abre a configuração
+	//pela primeira vez e quem só esqueceu uma das duas precisam de instruções
+	//diferentes
+	'recadoPlanilhaFaltando': function() {
+		if (!this.hasPlanilhaPropria() && !this.hasPlanilhaBase()) {
+			return 'Antes de cadastrar, informe as duas planilhas: a de tickets e a Compartilhada.';
+		}
+
+		if (!this.hasPlanilhaPropria()) {
+			return 'Antes de cadastrar, informe a planilha de tickets.';
+		}
+
+		return 'Antes de cadastrar, informe a Planilha Compartilhada.';
+	},
+
 	'mostraRecadoConfiguracao': function(texto, classe) {
 		$('#config_recado').text(texto).removeClass('is-erro is-ok').addClass(classe || '');
 	},
 
-	//a planilha de tickets é obrigatória e não pode ser esvaziada depois de
-	//informada; a Planilha Compartilhada é opcional, mas se vier tem que vir
-	//completa, senão o envio não teria destino
+	//as duas planilhas são obrigatórias e nenhuma pode ser esvaziada depois de
+	//informada: todo ticket cadastrado é gravado nas duas
 	'salvaConfiguracao': function() {
 		var planilha = this.interpretaPlanilha($('#config_planilha_link').val());
 		var planilhaAba = $.trim($('#config_planilha_aba').val());
@@ -316,8 +327,8 @@ ControleTickets.prototype = {
 			return;
 		}
 
-		if (this.isConfigurada(baseId) != this.isConfigurada(baseAba)) {
-			this.mostraRecadoConfiguracao('Na Planilha Compartilhada, preencha o link e o nome da aba, ou deixe os dois em branco.', 'is-erro');
+		if (!this.isConfigurada(baseId) || !this.isConfigurada(baseAba)) {
+			this.mostraRecadoConfiguracao('Informe o link e o nome da aba da Planilha Compartilhada.', 'is-erro');
 
 			return;
 		}
@@ -325,10 +336,8 @@ ControleTickets.prototype = {
 		this.gravaConfiguracao({
 			'sheetId': planilhaId,
 			'sheetName': planilhaAba,
-			//deixar a Planilha Compartilhada em branco é uma escolha válida de quem
-			//usa, diferente da planilha de tickets, que não pode ser esvaziada
-			'knowledgeId': baseId || CONFIG_PENDENTE,
-			'knowledgeName': baseAba || CONFIG_PENDENTE
+			'knowledgeId': baseId,
+			'knowledgeName': baseAba
 		});
 
 		this.aplicaEstadoConfiguracao();
@@ -455,12 +464,6 @@ ControleTickets.prototype = {
 			that.aplicaModoRetornoL3();
 		});
 
-		//grava a preferência assim que ela muda, sem depender da gravação em lote
-		//dos demais campos: ligou, fica ligada
-		$('#base_conhecimento').on('change', function() {
-			chrome.storage.sync.set({'base_conhecimento': $(this).is(':checked')});
-		});
-
 		$('#abrir_config').on('click', function() {
 			that.abreConfiguracao();
 		});
@@ -487,10 +490,11 @@ ControleTickets.prototype = {
 		});
 
 		$('#controle_tickets').on('click', '#enviar_controle_tickets', function() {
-			//sem a planilha de tickets não há onde gravar: abre a configuração já
-			//explicando o que falta, em vez de só avisar e deixar a pessoa sem saída
-			if (!that.hasPlanilhaPropria()) {
-				that.abreConfiguracao('Antes de cadastrar, informe a planilha em que os tickets serão gravados.');
+			//todo ticket é gravado nas duas planilhas, então as duas são pré-requisito:
+			//abre a configuração já dizendo qual falta, em vez de só avisar e deixar a
+			//pessoa sem saída
+			if (!that.hasPlanilhaPropria() || !that.hasPlanilhaBase()) {
+				that.abreConfiguracao(that.recadoPlanilhaFaltando());
 
 				return;
 			}
@@ -534,30 +538,19 @@ ControleTickets.prototype = {
 						return;
 					}
 
+					//as duas gravações são sequenciais de propósito: a segunda só sai se
+					//a primeira deu certo. se a segunda falhar, o aviso diz exatamente
+					//onde o registro ficou, para a pessoa não cadastrar de novo achando
+					//que nada foi gravado
 					that.writeData(that.SHEET_ID, that.SHEET_NAME, data).done(function() {
-						if (!$('#base_conhecimento').is(':checked')) {
-							that.closeWaitSuccess();
-
-							return;
-						}
-
-						//o botão continua ligado mesmo sem a planilha compartilhada
-						//configurada, então avisa que só esse envio não aconteceu em
-						//vez de deixar o registro sumir em silêncio
-						if (!that.hasPlanilhaBase()) {
-							alert('O ticket foi cadastrado, mas não foi enviado para a Planilha Compartilhada: ela ainda não foi informada nas configurações (engrenagem no topo da extensão).');
-
-							that.closeWaitSuccess();
-
-							return;
-						}
-
 						that.writeData(that.SHEET_KNOWLEDGE_ID, that.SHEET_KNOWLEDGE_NAME, data).done(function() {
 							that.closeWaitSuccess();
-						}).fail(function() {
+						}).fail(function(falha) {
+							alert('O ticket foi gravado na planilha de tickets, mas não na Planilha Compartilhada.\n\n' + that.explicaFalha(falha) + '\n\nNão cadastre de novo: o registro já está na planilha de tickets.');
 							that.closeWait();
 						});
-					}).fail(function() {
+					}).fail(function(falha) {
+						alert('Não foi possível gravar o ticket na planilha.\n\n' + that.explicaFalha(falha));
 						that.closeWait();
 					});
 				} else {
@@ -968,7 +961,7 @@ ControleTickets.prototype = {
 	'clear': function() {
 		var that = this;
 
-		$.each(['nro_ticket', 'funcionalidade', 'data_abertura', 'causa', 'conclusao', 'nome_atendente', 'ticket_raiz', 'erro', 'obs_l1', 'retorno_l3'], function() {
+		$.each(['nro_ticket', 'funcionalidade', 'data_abertura', 'causa', 'nome_atendente', 'ticket_raiz', 'erro', 'obs_l1', 'retorno_l3'], function() {
 			$('#' + this).val('').parents('.group-item-form').removeClass('group-item-form-error');
 		});
 

@@ -181,7 +181,6 @@
 					<div class="campo form-group group-item-form">
 						<span class="campo-rotulo">
 							Observações do ticket
-							<span class="obrigatorio">*</span>
 							<i class="info-campo" data-info="Informe observações sobre o ticket"></i>
 						</span>
 						<textarea id="obs" name="obs" class="item-form" placeholder="Contexto, tratativas e próximos passos"></textarea>
@@ -251,16 +250,6 @@
 						</label>
 					</div>
 
-					<div class="pilula pilula-destaque">
-						<span class="pilula-rotulo">
-							Planilha Compartilhada
-							<i class="info-campo" data-info="Ativado = o registro também é enviado para a Planilha Compartilhada. Uma vez ligado, continua ligado: só desliga se você clicar de novo"></i>
-						</span>
-						<label class="switch">
-							<input type="checkbox" id="base_conhecimento" name="base_conhecimento">
-							<span class="switch-trilho"></span>
-						</label>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -287,7 +276,8 @@
 
 			<div class="config-corpo">
 				<p class="config-nota">
-					Cole o link da planilha do jeito que estiver — da barra de endereço, de um
+					As duas planilhas são obrigatórias: cada ticket cadastrado é gravado nas
+					duas. Cole o link do jeito que estiver — da barra de endereço, de um
 					compartilhamento do Drive ou só o ID — e informe o nome da aba. Fica gravado
 					na sua conta do Chrome: não se perde ao limpar o cache, ao cadastrar tickets
 					nem ao clicar em Limpar.
@@ -315,7 +305,7 @@
 				<div class="config-bloco">
 					<span class="config-bloco-titulo">
 						Planilha Compartilhada
-						<span class="config-opcional">opcional</span>
+						<span class="obrigatorio">*</span>
 					</span>
 
 					<div class="linha linha-2-1">
