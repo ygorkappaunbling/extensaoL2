@@ -73,7 +73,7 @@ que você cola/envia no painel do desenvolvedor.
 Na raiz do repositório:
 
 ```sh
-cd controle-tickets && zip -r ../controle-tickets-1.3.zip . -x '.*' -x '__MACOSX/*'
+cd controle-tickets && zip -r ../controle-tickets-1.3.1.zip . -x '.*' -x '__MACOSX/*'
 ```
 
 O `.zip` tem que ter o `manifest.json` na **raiz** do arquivo — por isso o
@@ -103,7 +103,13 @@ consentimento **Interna** — o escopo `auth/spreadsheets` é sensível, e numa
 tela Externa exigiria verificação do Google. O cliente em uso desde a versão
 1.2 é o do projeto `219639291869`, registrado para o ID do item acima.
 
-Histórico de versões na loja: 1.1 e 1.2 publicadas; 1.3 é a próxima.
+Histórico de versões na loja: 1.1 e 1.2 publicadas; 1.3.1 é a próxima.
+
+A numeração passou a usar três partes: o terceiro número é correção, o segundo
+é funcionalidade nova. O Chrome aceita de 1 a 4 números separados por ponto e
+não dá significado às posições — a única regra é que a versão enviada seja
+maior que a publicada, comparada número por número da esquerda para a direita.
+O resto é convenção nossa.
 
 **Se voltar a falhar a autorização,** confira o campo *ID do item* do cliente
 OAuth em [Credenciais do Google Cloud](https://console.cloud.google.com/apis/credentials):
