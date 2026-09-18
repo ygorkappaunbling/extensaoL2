@@ -103,6 +103,8 @@ consentimento **Interna** — o escopo `auth/spreadsheets` é sensível, e numa
 tela Externa exigiria verificação do Google. O cliente em uso desde a versão
 1.2 é o do projeto `219639291869`, registrado para o ID do item acima.
 
+Histórico de versões na loja: 1.1 e 1.2 publicadas; 1.3 é a próxima.
+
 **Se voltar a falhar a autorização,** confira o campo *ID do item* do cliente
 OAuth em [Credenciais do Google Cloud](https://console.cloud.google.com/apis/credentials):
 ele tem que ser o ID do item na loja. Depois de corrigir, reinicie o Chrome — o
