@@ -11,6 +11,12 @@ const CONFIG_PENDENTE = 'Link da planilha aqui';
 //que só apagam as chaves dos campos, nunca alcançam a configuração
 const CHAVE_CONFIG = 'configuracao';
 
+//o que está digitado na configuração, ainda não salvo. a extensão abre como popup,
+//e popup do Chrome fecha sozinho ao perder o foco: sem isso, ir buscar o link da
+//segunda planilha em outra aba apagava o link que já tinha sido colado. fica só na
+//área local, por ser transitório e não valer cota do sync
+const CHAVE_RASCUNHO_CONFIG = 'rascunho_configuracao';
+
 //a configuração é gravada nas duas áreas: a sync acompanha a conta do Google e
 //volta sozinha ao reinstalar a extensão ou trocar de máquina; a local fica no
 //computador e cobre o caso de o sync estar desligado ou ter estourado a cota
@@ -64,9 +70,13 @@ var ControleTickets = function(nivelResponsavel) {
 
 	this.nivelResponsavel = nivelResponsavel
 
+	//o que estava digitado na configuração quando o popup fechou, para repor nos
+	//campos na próxima abertura
+	this.rascunhoConfig = {};
+
 	//a configuração precisa estar carregada antes de qualquer coisa consultar as
 	//planilhas, por isso ela entra junto com os arquivos de categorização
-	$.when(this.loadFiles(), this.carregaConfiguracao()).done(function() {
+	$.when(this.loadFiles(), this.carregaConfiguracao(), this.carregaRascunhoConfiguracao()).done(function() {
 		this.initSelects();
 		this.setStoredFields();
 		this.getTicketData();
@@ -208,6 +218,53 @@ ControleTickets.prototype = {
 		return deferredObj.promise();
 	},
 
+	'camposConfiguracao': function() {
+		return {
+			'sheetId': $('#config_planilha_link').val(),
+			'sheetName': $('#config_planilha_aba').val(),
+			'knowledgeId': $('#config_base_link').val(),
+			'knowledgeName': $('#config_base_aba').val()
+		};
+	},
+
+	'carregaRascunhoConfiguracao': function() {
+		var deferredObj = $.Deferred();
+		var that = this;
+
+		chrome.storage.local.get(CHAVE_RASCUNHO_CONFIG, function(dados) {
+			that.rascunhoConfig = dados[CHAVE_RASCUNHO_CONFIG] || {};
+
+			deferredObj.resolve();
+		});
+
+		return deferredObj.promise();
+	},
+
+	'guardaRascunhoConfiguracao': function() {
+		var dados = {};
+
+		this.rascunhoConfig = this.camposConfiguracao();
+		dados[CHAVE_RASCUNHO_CONFIG] = this.rascunhoConfig;
+
+		chrome.storage.local.set(dados);
+	},
+
+	//depois de salvar, ou de cancelar, o rascunho perde a razão de existir: o que
+	//vale passa a ser a configuração gravada
+	'descartaRascunhoConfiguracao': function() {
+		this.rascunhoConfig = {};
+
+		chrome.storage.local.remove(CHAVE_RASCUNHO_CONFIG);
+	},
+
+	//o que estava digitado tem precedência sobre o que está salvo: é justamente o
+	//que ainda não virou configuração que se perderia
+	'valorConfiguracao': function(campo, salvo) {
+		var rascunho = this.rascunhoConfig || {};
+
+		return rascunho.hasOwnProperty(campo) ? rascunho[campo] : salvo;
+	},
+
 	'dadosConfiguracao': function(config) {
 		var dados = {};
 
@@ -269,10 +326,10 @@ ControleTickets.prototype = {
 	},
 
 	'abreConfiguracao': function(recado) {
-		$('#config_planilha_link').val(this.hasPlanilhaPropria() ? this.SHEET_ID : '');
-		$('#config_planilha_aba').val(this.hasPlanilhaPropria() ? this.SHEET_NAME : '');
-		$('#config_base_link').val(this.hasPlanilhaBase() ? this.SHEET_KNOWLEDGE_ID : '');
-		$('#config_base_aba').val(this.hasPlanilhaBase() ? this.SHEET_KNOWLEDGE_NAME : '');
+		$('#config_planilha_link').val(this.valorConfiguracao('sheetId', this.hasPlanilhaPropria() ? this.SHEET_ID : ''));
+		$('#config_planilha_aba').val(this.valorConfiguracao('sheetName', this.hasPlanilhaPropria() ? this.SHEET_NAME : ''));
+		$('#config_base_link').val(this.valorConfiguracao('knowledgeId', this.hasPlanilhaBase() ? this.SHEET_KNOWLEDGE_ID : ''));
+		$('#config_base_aba').val(this.valorConfiguracao('knowledgeName', this.hasPlanilhaBase() ? this.SHEET_KNOWLEDGE_NAME : ''));
 
 		this.mostraRecadoConfiguracao(recado || '', recado ? 'is-erro' : '');
 
@@ -303,8 +360,10 @@ ControleTickets.prototype = {
 		$('#config_recado').text(texto).removeClass('is-erro is-ok').addClass(classe || '');
 	},
 
-	//as duas planilhas são obrigatórias e nenhuma pode ser esvaziada depois de
-	//informada: todo ticket cadastrado é gravado nas duas
+	//as duas planilhas são necessárias para cadastrar, mas salvar uma de cada vez é
+	//permitido: quem vai buscar o link da segunda em outra aba faz o popup fechar, e
+	//exigir as duas de uma vez obrigava a ter os dois links em mãos antes de começar.
+	//quem barra o cadastro incompleto é o botão "Cadastrar ticket", não este
 	'salvaConfiguracao': function() {
 		var planilha = this.interpretaPlanilha($('#config_planilha_link').val());
 		var planilhaAba = $.trim($('#config_planilha_aba').val());
@@ -321,26 +380,52 @@ ControleTickets.prototype = {
 		var planilhaId = planilha.id;
 		var baseId = base.id;
 
-		if (!this.isConfigurada(planilhaId) || !this.isConfigurada(planilhaAba)) {
-			this.mostraRecadoConfiguracao('Informe o link e o nome da aba da planilha de tickets.', 'is-erro');
+		//meia planilha não serve para nada: link sem aba não tem onde gravar, e aba
+		//sem link não diz em qual planilha. cada uma vai completa ou vazia
+		if (this.isConfigurada(planilhaId) != this.isConfigurada(planilhaAba)) {
+			this.mostraRecadoConfiguracao('Na planilha de tickets, preencha o link e o nome da aba.', 'is-erro');
 
 			return;
 		}
 
-		if (!this.isConfigurada(baseId) || !this.isConfigurada(baseAba)) {
-			this.mostraRecadoConfiguracao('Informe o link e o nome da aba da Planilha Compartilhada.', 'is-erro');
+		if (this.isConfigurada(baseId) != this.isConfigurada(baseAba)) {
+			this.mostraRecadoConfiguracao('Na Planilha Compartilhada, preencha o link e o nome da aba.', 'is-erro');
+
+			return;
+		}
+
+		//salvar com tudo em branco apagaria a configuração de quem já tem as duas, e
+		//não há como desfazer
+		if (!this.isConfigurada(planilhaId) && !this.isConfigurada(baseId)) {
+			this.mostraRecadoConfiguracao('Informe ao menos uma das planilhas.', 'is-erro');
 
 			return;
 		}
 
 		this.gravaConfiguracao({
-			'sheetId': planilhaId,
-			'sheetName': planilhaAba,
-			'knowledgeId': baseId,
-			'knowledgeName': baseAba
+			'sheetId': planilhaId || CONFIG_PENDENTE,
+			'sheetName': planilhaAba || CONFIG_PENDENTE,
+			'knowledgeId': baseId || CONFIG_PENDENTE,
+			'knowledgeName': baseAba || CONFIG_PENDENTE
 		});
 
+		this.descartaRascunhoConfiguracao();
 		this.aplicaEstadoConfiguracao();
+
+		//faltando uma, o painel fica aberto dizendo qual: fechar aqui daria a
+		//impressão de que a configuração terminou
+		if (!this.hasPlanilhaPropria()) {
+			this.mostraRecadoConfiguracao('Salvo. Falta a planilha de tickets para poder cadastrar.', 'is-ok');
+
+			return;
+		}
+
+		if (!this.hasPlanilhaBase()) {
+			this.mostraRecadoConfiguracao('Salvo. Falta a Planilha Compartilhada para poder cadastrar.', 'is-ok');
+
+			return;
+		}
+
 		this.mostraRecadoConfiguracao('Configuração salva.', 'is-ok');
 
 		setTimeout(this.fechaConfiguracao.bind(this), 700);
@@ -468,7 +553,19 @@ ControleTickets.prototype = {
 			that.abreConfiguracao();
 		});
 
-		$('#fechar_config, #cancelar_config').on('click', function() {
+		//guarda a cada tecla: o popup pode fechar a qualquer momento, sem aviso
+		$('#config').on('input', 'input', function() {
+			that.guardaRascunhoConfiguracao();
+		});
+
+		//o X e o clique fora são fechamentos que podem ser sem querer, então o
+		//rascunho fica. "Cancelar" é explícito: aí sim o que foi digitado é descartado
+		$('#fechar_config').on('click', function() {
+			that.fechaConfiguracao();
+		});
+
+		$('#cancelar_config').on('click', function() {
+			that.descartaRascunhoConfiguracao();
 			that.fechaConfiguracao();
 		});
 
