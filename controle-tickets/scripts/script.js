@@ -26,6 +26,12 @@ const AREAS_CONFIG = ['sync', 'local'];
 const CAMPO_NRO_TICKET = 'nroTicket';
 const CAMPO_RETORNO_L3 = 'retorno_l3';
 
+//classificação que dispensa a Causa e a ação que já vem preenchida: sugestão não é
+//problema a investigar, só é encaminhada, então não há causa a descrever. os valores
+//são os do select #classificacao e do select #acao (index.html)
+const CLASSIFICACAO_SUGESTAO = 'S';
+const ACAO_SUGESTAO = 'D2'; //Encaminhado sugestão
+
 //data/hora e e-mail ocupam A e B, então a primeira chave dos dados cai em C
 const COLUNAS_AUTOMATICAS = 2;
 
@@ -48,7 +54,8 @@ var ControleTickets = function(nivelResponsavel) {
 	this.SHEET_KNOWLEDGE_ID = 'Link da planilha aqui'; //ID da planilha compartilhada
 	this.SHEET_KNOWLEDGE_NAME = 'Fiscal'; //nome da aba na planilha compartilhada
 
-	//só são exigidos os que estiverem visíveis
+	//só são exigidos os que estiverem visíveis. quem decide o que vale de fato no
+	//momento é camposObrigatorios, que tira a Causa quando é sugestão
 	this.requiredInputs = ['nro_ticket', 'grupo', 'subgrupo', 'modulo', 'funcionalidade', 'classificacao', 'causa', 'data_abertura'];
 
 	//no retorno do L3 só o ticket, que localiza a linha, e o próprio retorno
@@ -114,6 +121,51 @@ ControleTickets.prototype = {
 
 	'isModoRetornoL3': function() {
 		return $('#modo_retorno_l3').is(':checked');
+	},
+
+	'isSugestao': function() {
+		return $('#classificacao').val() == CLASSIFICACAO_SUGESTAO;
+	},
+
+	//os campos exigidos agora: no retorno do L3 só o ticket e o retorno; numa
+	//sugestão, todos os do registro menos a Causa
+	'camposObrigatorios': function() {
+		if (this.isModoRetornoL3()) {
+			return this.requiredInputsRetornoL3;
+		}
+
+		if (this.isSugestao()) {
+			return $.grep(this.requiredInputs, function(campo) {
+				return campo != 'causa';
+			});
+		}
+
+		return this.requiredInputs;
+	},
+
+	//aplica o que a classificação muda no formulário. preencheAcao é falso ao
+	//restaurar o que estava gravado, para não passar por cima de uma ação que a
+	//pessoa escolheu: só uma mudança de classificação mexe na ação
+	'aplicaRegraSugestao': function(preencheAcao) {
+		var sugestao = this.isSugestao();
+
+		//sem o asterisco e sem o destaque de erro que a Causa vazia pode ter deixado
+		$('#obrigatorio_causa').toggle(!sugestao);
+
+		if (sugestao) {
+			$('#causa').parents('.group-item-form').removeClass('group-item-form-error');
+		}
+
+		if (!preencheAcao) {
+			return;
+		}
+
+		if (sugestao) {
+			$('#acao').val(ACAO_SUGESTAO).change();
+		} else if ($('#acao').val() == ACAO_SUGESTAO) {
+			//saiu de Sugestão (ou limpou): a ação de sugestão não faz mais sentido
+			$('#acao').val($('#acao option:first').val()).change();
+		}
 	},
 
 	//o que a API usa é o ID, mas cada pessoa cola o que tem à mão: o link da barra
@@ -482,7 +534,7 @@ ControleTickets.prototype = {
 		var total = 0;
 		var preenchidos = 0;
 
-		$.each(this.isModoRetornoL3() ? this.requiredInputsRetornoL3 : this.requiredInputs, function() {
+		$.each(this.camposObrigatorios(), function() {
 			var campo = $('#' + this);
 
 			if (!campo.length || !campo.is(':visible')) {
@@ -663,6 +715,15 @@ ControleTickets.prototype = {
 		})
 		.on('click', '#informar_registro_l2', function() {
 			$('#modo_retorno_l3').prop('checked', false).change();
+		})
+		.on('change', '#classificacao', function() {
+			//só uma classificação diferente da anterior preenche a ação: o popup
+			//reaplica a classificação do ticket a cada abertura, e isso não pode
+			//apagar uma ação que a pessoa já tinha escolhido
+			var mudou = $(this).val() != that.classificacaoAnterior;
+
+			that.classificacaoAnterior = $(this).val();
+			that.aplicaRegraSugestao(mudou);
 		})
 		.on('change', '#modulo', function() {
 			that.updateFunctionalities();
@@ -1096,7 +1157,7 @@ ControleTickets.prototype = {
 
 		//no retorno do L3 os demais campos são só contexto: eles identificam o
 		//ticket na tela, mas nada além do retorno é gravado
-		$.each(retornoL3 ? this.requiredInputsRetornoL3 : this.requiredInputs, function() {
+		$.each(this.camposObrigatorios(), function() {
 			if (!$.trim($('#' + this).val()) && $('#' + this).is(':visible')) {
 				$('#' + this).parents('.group-item-form').addClass('group-item-form-error');
 				isValid = false;
@@ -1140,6 +1201,8 @@ ControleTickets.prototype = {
 		});
 
 		$('#classificacao').val($('#classificacao option:first').val());
+		this.classificacaoAnterior = $('#classificacao').val();
+		this.aplicaRegraSugestao(true);
 
 		//apaga da gravação só o que é do ticket: as preferências continuam valendo
 		//para o próximo registro
@@ -1187,6 +1250,10 @@ ControleTickets.prototype = {
 				}
 			});
 
+			//a classificação restaurada vira o ponto de partida: só mudar a partir
+			//dela preenche a ação
+			that.classificacaoAnterior = $('#classificacao').val();
+			that.aplicaRegraSugestao(false);
 			that.aplicaModoRetornoL3();
 		});
 	},
